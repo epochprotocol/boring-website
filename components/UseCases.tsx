@@ -36,7 +36,7 @@ export function UseCases() {
   return (
     <section id="use-cases" className="split-section border-b border-line">
       <div className="split-cols">
-        <div className="split-col bg-surface">
+        <div className="split-col on-dark">
           <div className="w-full max-w-md">
             <Reveal as="p" className="eyebrow">
               Use cases
@@ -47,7 +47,7 @@ export function UseCases() {
           </div>
         </div>
 
-        <div className="split-col on-dark">
+        <div className="split-col bg-surface">
           <div className="flex w-full max-w-md flex-col gap-4">
             {cases.map((c, i) => (
               <article

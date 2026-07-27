@@ -22,7 +22,7 @@ export function Problems() {
   return (
     <section className="split-section border-b border-line">
       <div className="split-cols">
-        <div className="split-col bg-surface">
+        <div className="split-col on-dark">
           <div className="w-full max-w-md">
             <Reveal as="p" className="eyebrow">
               Why this is hard today
@@ -33,7 +33,7 @@ export function Problems() {
           </div>
         </div>
 
-        <div className="split-col on-dark">
+        <div className="split-col bg-surface">
           <div className="w-full max-w-md space-y-4">
             {problems.map((p, i) => (
               <Reveal key={p.n} delay={i * 70} className="card p-6">

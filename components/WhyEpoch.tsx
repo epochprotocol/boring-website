@@ -28,7 +28,7 @@ export function WhyEpoch() {
   return (
     <section className="split-section border-b border-line">
       <div className="split-cols">
-        <div className="split-col bg-surface">
+        <div className="split-col on-dark">
           <div className="w-full max-w-md">
             <Reveal as="p" className="eyebrow">
               For institutions &amp; product teams
@@ -43,7 +43,7 @@ export function WhyEpoch() {
           </div>
         </div>
 
-        <div className="split-col on-dark">
+        <div className="split-col bg-surface">
           <div className="grid w-full max-w-lg gap-4 sm:grid-cols-2">
             {benefits.map((b, i) => (
               <Reveal key={b.title} delay={i * 60} className="card p-6">
