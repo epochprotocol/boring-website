@@ -34,28 +34,25 @@ const cases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="split-section border-b border-line">
-      <div className="split-cols">
-        <div className="split-col on-dark">
-          <div className="w-full max-w-md">
-            <Reveal as="p" className="eyebrow">
-              Use cases
-            </Reveal>
-            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              One integration, many financial products
-            </Reveal>
-          </div>
+    <section id="use-cases" className="on-dark section border-b border-line">
+      <div className="container-x">
+        <div className="max-w-3xl">
+          <Reveal as="p" className="eyebrow">
+            Use cases
+          </Reveal>
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
+            One integration, many financial products
+          </Reveal>
         </div>
 
-        <div className="split-col bg-surface">
-          <div className="flex w-full max-w-md flex-col gap-4">
-            {cases.map((c, i) => (
+        <div className="mt-16 grid gap-6 md:grid-cols-2">
+          {cases.map((c, i) => (
+            <Reveal key={c.tag} delay={i * 60}>
               <article
-                key={c.tag}
-                className="card-static p-6"
+                className="card-static p-8"
                 style={{ backgroundColor: `var(--card-${i})` }}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <span className="icon-tile">
                     <Icon name={c.icon} />
                   </span>
@@ -63,13 +60,13 @@ export function UseCases() {
                     {c.tag}
                   </span>
                 </div>
-                <h3 className="display mt-5 text-lg text-ink">{c.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
+                <h3 className="display mt-6 text-2xl text-ink">{c.title}</h3>
+                <p className="mt-3 text-base leading-relaxed text-ink-soft">
                   {c.body}
                 </p>
               </article>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

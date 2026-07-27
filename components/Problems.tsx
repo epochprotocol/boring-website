@@ -20,33 +20,29 @@ const problems = [
 
 export function Problems() {
   return (
-    <section className="split-section border-b border-line">
-      <div className="split-cols">
-        <div className="split-col on-dark">
-          <div className="w-full max-w-md">
-            <Reveal as="p" className="eyebrow">
-              Why this is hard today
-            </Reveal>
-            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              Building on-chain in-house is slow, costly, and rigid
-            </Reveal>
-          </div>
+    <section className="on-dark section border-b border-line">
+      <div className="container-x">
+        <div className="max-w-3xl">
+          <Reveal as="p" className="eyebrow">
+            Why this is hard today
+          </Reveal>
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
+            Building on-chain in-house is slow, costly, and rigid
+          </Reveal>
         </div>
 
-        <div className="split-col bg-surface">
-          <div className="w-full max-w-md space-y-4">
-            {problems.map((p, i) => (
-              <Reveal key={p.n} delay={i * 70} className="card p-6">
-                <span className="display inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-lg text-accent-strong">
-                  {p.n}
-                </span>
-                <h3 className="display mt-6 text-xl text-ink">{p.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-ink-soft">
-                  {p.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {problems.map((p, i) => (
+            <Reveal key={p.n} delay={i * 70} className="card p-8">
+              <span className="display inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-lg text-accent-strong">
+                {p.n}
+              </span>
+              <h3 className="display mt-6 text-xl text-ink">{p.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-ink-soft">
+                {p.body}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

@@ -26,37 +26,33 @@ const benefits = [
 
 export function WhyEpoch() {
   return (
-    <section className="split-section border-b border-line">
-      <div className="split-cols">
-        <div className="split-col on-dark">
-          <div className="w-full max-w-md">
-            <Reveal as="p" className="eyebrow">
-              For institutions &amp; product teams
-            </Reveal>
-            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              Why build on Epoch
-            </Reveal>
-            <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
-              Scale across Web3 without scaling operational or engineering
-              complexity.
-            </Reveal>
-          </div>
+    <section className="section border-b border-line bg-surface">
+      <div className="container-x">
+        <div className="max-w-3xl">
+          <Reveal as="p" className="eyebrow">
+            For institutions &amp; product teams
+          </Reveal>
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
+            Why build on Epoch
+          </Reveal>
+          <Reveal as="p" className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft">
+            Scale across Web3 without scaling operational or engineering
+            complexity.
+          </Reveal>
         </div>
 
-        <div className="split-col bg-surface">
-          <div className="grid w-full max-w-lg gap-4 sm:grid-cols-2">
-            {benefits.map((b, i) => (
-              <Reveal key={b.title} delay={i * 60} className="card p-6">
-                <div className="icon-tile">
-                  <Icon name={b.icon} />
-                </div>
-                <h3 className="display mt-4 text-lg text-ink">{b.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                  {b.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map((b, i) => (
+            <Reveal key={b.title} delay={i * 60} className="card p-7">
+              <div className="icon-tile">
+                <Icon name={b.icon} />
+              </div>
+              <h3 className="display mt-5 text-lg text-ink">{b.title}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
+                {b.body}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
