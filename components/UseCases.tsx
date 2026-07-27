@@ -68,7 +68,7 @@ export function UseCases() {
                   <h3 className="display mt-6 text-2xl md:text-3xl text-ink">
                     {c.title}
                   </h3>
-                  <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">
+                  <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
                     {c.body}
                   </p>
                 </div>

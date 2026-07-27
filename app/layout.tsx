@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem("epoch-theme");if(t==="dark"){document.documentElement.classList.add("dark");}}catch(e){}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem("epoch-theme");var c=document.documentElement.classList;if(t==="dark"){c.add("dark");}else if(t==="mix"){c.add("mix");}}catch(e){}})();`;
 
 export default function RootLayout({
   children,

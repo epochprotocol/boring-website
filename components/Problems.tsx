@@ -31,18 +31,14 @@ export function Problems() {
           </Reveal>
         </div>
 
-        <div className="relative mt-16 grid gap-10 md:grid-cols-3">
-          <div
-            className="absolute top-6 left-0 right-0 hidden h-px bg-line-strong md:block"
-            aria-hidden="true"
-          />
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
           {problems.map((p, i) => (
-            <Reveal key={p.n} delay={i * 70} className="relative">
-              <span className="display relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-line-strong bg-surface text-lg text-accent">
+            <Reveal key={p.n} delay={i * 70} className="card p-8">
+              <span className="display inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-lg text-accent-strong">
                 {p.n}
               </span>
-              <h3 className="display mt-5 text-xl text-ink">{p.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <h3 className="display mt-6 text-xl text-ink">{p.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-ink-soft">
                 {p.body}
               </p>
             </Reveal>

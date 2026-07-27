@@ -52,7 +52,7 @@ export function HowItWorks() {
               </span>
               <p className="eyebrow mt-5">{s.label}</p>
               <h3 className="display mt-3 text-xl text-ink">{s.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-3 text-base leading-relaxed text-ink-soft">
                 {s.body}
               </p>
             </Reveal>

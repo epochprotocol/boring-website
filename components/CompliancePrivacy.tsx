@@ -33,7 +33,7 @@ export function CompliancePrivacy() {
             <h3 className="display mt-6 text-2xl text-ink">
               Compliance checks at the end
             </h3>
-            <p className="mt-4 text-base leading-relaxed text-muted">
+            <p className="mt-4 text-base leading-relaxed text-ink-soft">
               Attach KYC, sanctions screening, and your own policy rules as the
               final step of any flow. Checks run before an outcome settles, so
               nothing executes outside your controls &mdash; no separate
@@ -48,7 +48,7 @@ export function CompliancePrivacy() {
             <h3 className="display mt-6 text-2xl text-ink">
               Privacy when you need it
             </h3>
-            <p className="mt-4 text-base leading-relaxed text-muted">
+            <p className="mt-4 text-base leading-relaxed text-ink-soft">
               Some flows shouldn&rsquo;t be public. Through our partnership with
               Miden, Epoch can route to zero-knowledge settlement, keeping
               sensitive transaction details confidential while remaining

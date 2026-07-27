@@ -6,14 +6,14 @@
      "moments" opt into dark via `.on-dark` regardless of the active theme.
      Layout/shape/rhythm follow link.com's design language (see radii,
      spacing and type scale below). */
-  --color-canvas: #f5f7fa;
-  --color-surface: #ffffff;
-  --color-surface-2: #eceff4;
-  --color-ink: #0e1626;
-  --color-ink-soft: #47515f;
-  --color-muted: #6c7580;
-  --color-line: rgba(14, 22, 38, 0.1);
-  --color-line-strong: rgba(14, 22, 38, 0.16);
+  --color-canvas: #e6e9f0;
+  --color-surface: #f6f8fb;
+  --color-surface-2: #dbe1eb;
+  --color-ink: #0d1420;
+  --color-ink-soft: #3f4956;
+  --color-muted: #626b78;
+  --color-line: rgba(13, 20, 32, 0.12);
+  --color-line-strong: rgba(13, 20, 32, 0.2);
   --color-accent: #2b6ef5;
   --color-accent-strong: #1c53c9;
   --color-accent-soft: rgba(43, 110, 245, 0.1);
@@ -21,7 +21,7 @@
   --color-glow: #6d5bcf;
   --color-glow-soft: rgba(109, 91, 207, 0.12);
   --color-teal: #10a597;
-  --grid-line: rgba(14, 22, 38, 0.05);
+  --grid-line: rgba(13, 20, 32, 0.06);
 
   /* Fonts wired from the `geist` package in layout.tsx */
   --font-display: var(--font-geist-sans), system-ui, sans-serif;
@@ -43,10 +43,10 @@
   --logo-2: #566070;
   --logo-3: #8b95a3;
   /* Stacking-card tiers — progressive shades so the deck reads as it piles. */
-  --card-0: #ffffff;
-  --card-1: #f1f4f9;
-  --card-2: #e8edf5;
-  --card-3: #dfe6f1;
+  --card-0: #f6f8fb;
+  --card-1: #eaeff6;
+  --card-2: #e0e6f0;
+  --card-3: #d5dde9;
 }
 
 /* Full-site dark theme (toggle) and always-dark "moment" scope share the
@@ -79,6 +79,35 @@
   --card-1: #12141c;
   --card-2: #171a24;
   --card-3: #1c202c;
+}
+
+/* MIX — a dusk-slate theme that blends light and dark: deeper than light,
+   softer than full dark. Opt-in via the `.mix` class. */
+.mix {
+  --color-canvas: #1b2130;
+  --color-surface: #232b3c;
+  --color-surface-2: #2b3446;
+  --color-ink: #eef1f7;
+  --color-ink-soft: #b7c0d0;
+  --color-muted: #8591a4;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-accent: #6fa0ff;
+  --color-accent-strong: #a6c3ff;
+  --color-accent-soft: rgba(111, 160, 255, 0.16);
+  --color-on-accent: #0d1420;
+  --color-glow: #c3b2ff;
+  --color-glow-soft: rgba(195, 178, 255, 0.16);
+  --color-teal: #46d6c8;
+  --grid-line: rgba(255, 255, 255, 0.05);
+  color-scheme: dark;
+  --logo-1: #eef1f7;
+  --logo-2: #c2c9d6;
+  --logo-3: #98a2b2;
+  --card-0: #232b3c;
+  --card-1: #293143;
+  --card-2: #2f384c;
+  --card-3: #354056;
 }
 
 /* An always-dark region within a light page picks up the dark ink/canvas. */
@@ -202,7 +231,8 @@ body {
     0 18px 40px -32px rgba(14, 22, 38, 0.28);
 }
 .on-dark .card-static,
-.dark .card-static {
+.dark .card-static,
+.mix .card-static {
   box-shadow: none;
 }
 .card {
@@ -229,15 +259,18 @@ body {
   box-shadow: 0 24px 60px -30px rgba(14, 22, 38, 0.35);
 }
 .on-dark .stack-card,
-.dark .stack-card {
+.dark .stack-card,
+.mix .stack-card {
   box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
 }
 .on-dark .card,
-.dark .card {
+.dark .card,
+.mix .card {
   box-shadow: none;
 }
 .on-dark .card:hover,
-.dark .card:hover {
+.dark .card:hover,
+.mix .card:hover {
   box-shadow: 0 0 0 1px rgba(79, 140, 255, 0.2),
     0 24px 48px -24px rgba(79, 140, 255, 0.35);
 }
@@ -303,6 +336,22 @@ body {
   }
 }
 
+/* Live "operational" pulse (1inch-style status) */
+.pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.82);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -313,6 +362,9 @@ body {
     transition: none;
   }
   .flow-line {
+    animation: none;
+  }
+  .pulse-dot {
     animation: none;
   }
 }

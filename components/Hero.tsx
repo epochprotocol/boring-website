@@ -2,12 +2,6 @@ import { CtaButtons } from "./CtaButtons";
 import { HeroVisual } from "./HeroVisual";
 import { TAGLINE } from "@/lib/site";
 
-const stats = [
-  { k: "One", v: "API for every chain and rail" },
-  { k: "One", v: "signature, start to finish" },
-  { k: "Zero", v: "in-house Web3 engineering" },
-];
-
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-line">
@@ -37,17 +31,6 @@ export function Hero() {
             <HeroVisual />
           </div>
         </div>
-
-        <dl className="mt-24 grid max-w-3xl grid-cols-1 gap-10 sm:grid-cols-3">
-          {stats.map((item) => (
-            <div key={item.v}>
-              <dt className="display text-5xl text-glow">{item.k}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-muted">
-                {item.v}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

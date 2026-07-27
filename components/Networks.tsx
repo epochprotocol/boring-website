@@ -33,12 +33,12 @@ export function Networks() {
             <Reveal
               key={n}
               delay={i * 40}
-              className="card flex items-center gap-3 px-4 py-4"
+              className="card flex items-center gap-3 px-5 py-4"
             >
-              <span className="display flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-soft text-sm text-accent-strong">
+              <span className="display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-sm text-accent-strong">
                 {n.charAt(0)}
               </span>
-              <span className="text-sm font-medium text-ink-soft">{n}</span>
+              <span className="text-sm font-semibold text-ink">{n}</span>
             </Reveal>
           ))}
         </div>
