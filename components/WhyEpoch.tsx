@@ -27,38 +27,36 @@ const benefits = [
 export function WhyEpoch() {
   return (
     <section className="split-section border-b border-line">
-      <div className="split-top bg-surface">
-        <div className="container-x max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            For institutions &amp; product teams
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            Why build on Epoch
-          </Reveal>
-          <Reveal as="p" className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft">
-            Scale across Web3 without scaling operational or engineering
-            complexity.
-          </Reveal>
+      <div className="split-cols">
+        <div className="split-col bg-surface">
+          <div className="w-full max-w-md">
+            <Reveal as="p" className="eyebrow">
+              For institutions &amp; product teams
+            </Reveal>
+            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
+              Why build on Epoch
+            </Reveal>
+            <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
+              Scale across Web3 without scaling operational or engineering
+              complexity.
+            </Reveal>
+          </div>
         </div>
-      </div>
 
-      <div className="split-bottom on-dark">
-        <div className="container-x grid gap-6 sm:grid-cols-2">
-          {benefits.map((b, i) => (
-            <Reveal key={b.title} delay={i * 60} className="card p-7">
-              <div className="flex items-start gap-4">
+        <div className="split-col on-dark">
+          <div className="grid w-full max-w-lg gap-4 sm:grid-cols-2">
+            {benefits.map((b, i) => (
+              <Reveal key={b.title} delay={i * 60} className="card p-6">
                 <div className="icon-tile">
                   <Icon name={b.icon} />
                 </div>
-                <div>
-                  <h3 className="display text-xl text-ink">{b.title}</h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-ink-soft">
-                    {b.body}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+                <h3 className="display mt-4 text-lg text-ink">{b.title}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
+                  {b.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

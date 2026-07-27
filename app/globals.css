@@ -190,21 +190,42 @@ body {
   padding-inline: 1.5rem;
 }
 
-/* Horizontal split — each section's intro sits on the light tone; its
-   content (cards/grid) drops into an always-dark full-bleed band below,
-   divided by exactly one line. Tokens inside `.split-bottom` (on-dark)
-   already flip automatically since color/surface are CSS vars. */
+/* Two-column split (link.com's hero treatment) — a section divides into a
+   left and right half, each spanning the full section height edge-to-edge
+   with its own flat tone, separated by exactly one line. Stacks to
+   top/bottom on small screens. Tokens inside an `.on-dark` half flip
+   automatically since color/surface are CSS vars. */
 .split-section {
   position: relative;
 }
-.split-top {
-  padding-top: var(--spacing-section);
-  padding-bottom: 4rem;
+.split-cols {
+  display: grid;
+  grid-template-columns: 1fr;
 }
-.split-bottom {
-  padding-top: 4rem;
-  padding-bottom: var(--spacing-section);
+@media (min-width: 1024px) {
+  .split-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.split-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .split-col {
+    padding: 5.5rem 3rem;
+  }
+}
+.split-col + .split-col {
   border-top: 1px solid var(--color-line);
+}
+@media (min-width: 1024px) {
+  .split-col + .split-col {
+    border-top: none;
+    border-left: 1px solid var(--color-line);
+  }
 }
 
 /* Subtle technical grid backdrop */
