@@ -34,7 +34,7 @@ const cases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="on-dark section border-b border-line">
+    <section id="use-cases" className="on-dark on-dark-band section border-b border-line">
       <div className="container-x">
         <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">

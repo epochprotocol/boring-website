@@ -116,6 +116,19 @@
   color: var(--color-ink);
 }
 
+/* Full-width dark bands get a touch lighter/bluer canvas than the always-
+   dark half of a split section, so two adjacent dark sections read as
+   distinct surfaces instead of one continuous black block. */
+.on-dark-band {
+  --color-canvas: #0d0f16;
+  --color-surface: #12141c;
+  --color-surface-2: #171a24;
+  --card-0: #171a24;
+  --card-1: #1c202c;
+  --card-2: #212633;
+  --card-3: #262c3b;
+}
+
 * {
   border-color: var(--color-line);
 }

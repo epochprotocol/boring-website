@@ -20,7 +20,7 @@ const problems = [
 
 export function Problems() {
   return (
-    <section className="on-dark section border-b border-line">
+    <section className="on-dark on-dark-band section border-b border-line">
       <div className="container-x">
         <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
