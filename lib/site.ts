@@ -12,9 +12,10 @@ export const SALES_EMAIL = "sales@epochprotocol.xyz";
 
 export const NAV_LINKS = [
   { label: "Product", href: "/#product" },
+  { label: "Capabilities", href: "/#capabilities" },
   { label: "How it works", href: "/#how-it-works" },
+  { label: "Compliance", href: "/#compliance" },
   { label: "Use cases", href: "/#use-cases" },
-  { label: "Networks", href: "/#networks" },
 ] as const;
 
 export const SOCIAL_LINKS = [

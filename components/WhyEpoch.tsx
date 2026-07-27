@@ -28,16 +28,20 @@ export function WhyEpoch() {
   return (
     <section className="section border-b border-line bg-surface">
       <div className="container-x">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
             For institutions &amp; product teams
           </Reveal>
-          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
             Why build on Epoch
+          </Reveal>
+          <Reveal as="p" className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft">
+            Scale across Web3 without scaling operational or engineering
+            complexity.
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {benefits.map((b, i) => (
             <Reveal key={b.title} delay={i * 60} className="card p-7">
               <div className="flex items-start gap-4">
@@ -46,7 +50,7 @@ export function WhyEpoch() {
                 </div>
                 <div>
                   <h3 className="display text-xl text-ink">{b.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                  <p className="mt-2.5 text-base leading-relaxed text-ink-soft">
                     {b.body}
                   </p>
                 </div>

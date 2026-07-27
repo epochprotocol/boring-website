@@ -61,7 +61,7 @@ export function Nav() {
           <Link
             href={SALES_CALENDAR_URL}
             {...bookProps}
-            className="inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-canvas hover:bg-accent-strong transition-colors"
+            className="inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
           >
             Book a call
           </Link>
@@ -111,7 +111,7 @@ export function Nav() {
               href={SALES_CALENDAR_URL}
               {...bookProps}
               onClick={() => setOpen(false)}
-              className="inline-flex w-full items-center justify-center rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-canvas"
+              className="inline-flex w-full items-center justify-center rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-on-accent"
             >
               Book a sales call
             </Link>

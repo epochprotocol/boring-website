@@ -104,7 +104,7 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="mt-7 inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-medium text-canvas transition-colors hover:bg-accent-strong"
+        className="mt-7 inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
       >
         Send inquiry
       </button>

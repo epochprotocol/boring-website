@@ -22,7 +22,7 @@ export function CtaButtons({ className = "", align = "start" }: CtaButtonsProps)
       <Link
         href={SALES_CALENDAR_URL}
         {...bookProps}
-        className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-medium text-canvas transition-colors hover:bg-accent-strong"
+        className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
       >
         Book a sales call
       </Link>

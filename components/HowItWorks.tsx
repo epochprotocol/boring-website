@@ -25,17 +25,17 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="on-dark band-feature relative overflow-hidden border-b border-line"
+      className="relative overflow-hidden border-b border-line bg-surface-2"
     >
       <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
       <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
 
       <div className="container-x section relative">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
             How it works
           </Reveal>
-          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
             From intent to settlement, in one integration
           </Reveal>
         </div>

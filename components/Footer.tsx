@@ -16,7 +16,7 @@ export function Footer() {
     : {};
 
   return (
-    <footer className="on-dark border-t border-line bg-surface">
+    <footer className="border-t border-line bg-surface-2">
       <div className="container-x py-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
@@ -26,7 +26,7 @@ export function Footer() {
               <Link
                 href={SALES_CALENDAR_URL}
                 {...bookProps}
-                className="inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-canvas hover:bg-accent-strong transition-colors"
+                className="inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
               >
                 Book a sales call
               </Link>
@@ -42,7 +42,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="eyebrow">Explore</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Explore</h3>
             <ul className="mt-4 space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -58,7 +58,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="eyebrow">Connect</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Connect</h3>
             <ul className="mt-4 space-y-3">
               {SOCIAL_LINKS.map((link) => (
                 <li key={link.href}>

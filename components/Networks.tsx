@@ -13,16 +13,16 @@ const networks = [
 
 export function Networks() {
   return (
-    <section id="networks" className="section border-b border-line bg-surface">
+    <section id="networks" className="section border-b border-line bg-surface-2">
       <div className="container-x">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Coverage
           </Reveal>
-          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
             Cross-chain support, out of the box
           </Reveal>
-          <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
+          <Reveal as="p" className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft">
             We support every major chain and protocol so your team doesn&rsquo;t
             have to. Build once, reach everywhere.
           </Reveal>

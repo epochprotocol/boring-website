@@ -6,6 +6,7 @@ type IconName =
   | "click"
   | "bank"
   | "plug"
+  | "lock"
   | "boxCheck";
 
 const paths: Record<IconName, React.ReactNode> = {
@@ -70,6 +71,13 @@ const paths: Record<IconName, React.ReactNode> = {
       <path d="M3 8l9-5 9 5-9 5-9-5z" />
       <path d="M3 8v9l9 5 9-5V8" />
       <path d="M9.5 12.5l2 2 4-3.5" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="9" rx="2" />
+      <path d="M8 11V8a4 4 0 018 0v3" />
+      <path d="M12 15v2" />
     </>
   ),
 };

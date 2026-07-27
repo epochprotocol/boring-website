@@ -34,18 +34,18 @@ const cases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="section border-b border-line bg-surface-2">
+    <section id="use-cases" className="section border-b border-line bg-surface">
       <div className="container-x">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Use cases
           </Reveal>
-          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
             One integration, many financial products
           </Reveal>
         </div>
 
-        <div className="mt-14 flex flex-col gap-6">
+        <div className="mt-16 flex flex-col gap-6">
           {cases.map((c, i) => (
             <div
               key={c.tag}

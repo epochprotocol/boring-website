@@ -20,18 +20,18 @@ const problems = [
 
 export function Problems() {
   return (
-    <section className="section border-b border-line bg-surface-2">
+    <section className="section border-b border-line bg-surface">
       <div className="container-x">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Why this is hard today
           </Reveal>
-          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
             Building on-chain in-house is slow, costly, and rigid
           </Reveal>
         </div>
 
-        <div className="relative mt-14 grid gap-10 md:grid-cols-3">
+        <div className="relative mt-16 grid gap-10 md:grid-cols-3">
           <div
             className="absolute top-6 left-0 right-0 hidden h-px bg-line-strong md:block"
             aria-hidden="true"
