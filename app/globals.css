@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme {
+  /* LIGHT is the primary theme — warm, calm and institutional
+     (link.com-inspired), with brand blue + lavender accents. Dark is an
+     opt-in via the `.dark` class; individual "moments" opt into dark via
+     `.on-dark` regardless of the active theme. */
+  --color-canvas: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #eceff4;
+  --color-ink: #0e1626;
+  --color-ink-soft: #47515f;
+  --color-muted: #6c7580;
+  --color-line: rgba(14, 22, 38, 0.1);
+  --color-line-strong: rgba(14, 22, 38, 0.16);
+  --color-accent: #2b6ef5;
+  --color-accent-strong: #1c53c9;
+  --color-accent-soft: rgba(43, 110, 245, 0.1);
+  --color-glow: #6d5bcf;
+  --color-glow-soft: rgba(109, 91, 207, 0.12);
+  --color-teal: #10a597;
+  --grid-line: rgba(14, 22, 38, 0.05);
+
+  /* Fonts wired from the `geist` package in layout.tsx */
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Rhythm */
+  --spacing-section: 8rem;
+}
+
+:root {
+  color-scheme: light;
+  /* Monochrome logo shades — cool dark greys for light backgrounds. */
+  --logo-1: #1a2233;
+  --logo-2: #566070;
+  --logo-3: #8b95a3;
+  /* Stacking-card tiers — progressive shades so the deck reads as it piles. */
+  --card-0: #ffffff;
+  --card-1: #f1f4f9;
+  --card-2: #e8edf5;
+  --card-3: #dfe6f1;
+}
+
+/* Full-site dark theme (toggle) and always-dark "moment" scope share the
+   same palette overrides. */
+.dark,
+.on-dark {
+  --color-canvas: #050506;
+  --color-surface: #0c0d11;
+  --color-surface-2: #111319;
+  --color-ink: #f6f7f9;
+  --color-ink-soft: #c6c9d2;
+  --color-muted: #8a8d99;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.17);
+  --color-accent: #4f8cff;
+  --color-accent-strong: #82abff;
+  --color-accent-soft: rgba(79, 140, 255, 0.14);
+  --color-glow: #b9a6ff;
+  --color-glow-soft: rgba(185, 166, 255, 0.14);
+  --color-teal: #46d6c8;
+  --grid-line: rgba(255, 255, 255, 0.055);
+  color-scheme: dark;
+  /* Monochrome logo shades — white/greys for dark backgrounds (as brand). */
+  --logo-1: #eff0f1;
+  --logo-2: #cccccc;
+  --logo-3: #aaabab;
+  /* Stacking-card tiers — progressive dark shades. */
+  --card-0: #0e0f14;
+  --card-1: #12141c;
+  --card-2: #171a24;
+  --card-3: #1c202c;
+}
+
+/* An always-dark region within a light page picks up the dark ink/canvas. */
+.on-dark {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Eyebrow / technical label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background: var(--color-accent-strong);
+  flex-shrink: 0;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+/* Gradient text — the brand's blue-to-lavender glow, used sparingly */
+.text-glow {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-accent-strong) 0%,
+    var(--color-glow) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Section shell */
+.section {
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+}
+
+.container-x {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Subtle technical grid backdrop */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.atmosphere {
+  background:
+    radial-gradient(50% 60% at 82% 0%, rgba(79, 140, 255, 0.18), transparent 60%),
+    radial-gradient(45% 55% at 10% 10%, rgba(140, 120, 230, 0.12), transparent 55%);
+}
+
+/* Signature hero gradient — a Stripe-style flow of blue, lavender and a
+   whisper of teal. Works over both light and dark canvases. */
+.hero-gradient {
+  background:
+    radial-gradient(38% 50% at 78% 2%, rgba(79, 140, 255, 0.26), transparent 62%),
+    radial-gradient(30% 42% at 95% 22%, rgba(150, 130, 235, 0.2), transparent 60%),
+    radial-gradient(42% 46% at 62% 0%, rgba(30, 190, 175, 0.12), transparent 58%),
+    radial-gradient(46% 60% at 8% 12%, rgba(79, 140, 255, 0.1), transparent 55%);
+}
+
+.atmosphere-soft {
+  background: radial-gradient(
+    60% 70% at 50% 0%,
+    rgba(79, 140, 255, 0.12),
+    transparent 65%
+  );
+}
+
+/* Elevated card used across section grids */
+.card-static {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 1.15rem;
+}
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 1.15rem;
+  box-shadow: 0 1px 2px rgba(14, 22, 38, 0.05);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent-soft),
+    0 24px 48px -24px rgba(43, 110, 245, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Stacking cards (Stripe-style) — each card sticks and piles under the next. */
+.stack-item {
+  position: sticky;
+  position: -webkit-sticky;
+}
+.stack-card {
+  box-shadow: 0 24px 60px -30px rgba(14, 22, 38, 0.35);
+}
+.on-dark .stack-card,
+.dark .stack-card {
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+}
+.on-dark .card,
+.dark .card {
+  box-shadow: none;
+}
+.on-dark .card:hover,
+.dark .card:hover {
+  box-shadow: 0 0 0 1px rgba(79, 140, 255, 0.2),
+    0 24px 48px -24px rgba(79, 140, 255, 0.35);
+}
+
+.icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  flex-shrink: 0;
+}
+
+/* Richer band for the narrative "how it works" / final CTA sections. */
+.band-feature {
+  background-color: var(--color-canvas);
+}
+
+/* Top accent bar */
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-glow) 50%,
+    var(--color-accent) 100%
+  );
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

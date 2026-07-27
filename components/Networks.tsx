@@ -1,0 +1,53 @@
+import { Reveal } from "./Reveal";
+
+const networks = [
+  "Ethereum",
+  "Base",
+  "Arbitrum",
+  "Optimism",
+  "Polygon",
+  "Avalanche",
+  "BNB Chain",
+  "Solana",
+];
+
+export function Networks() {
+  return (
+    <section id="networks" className="section border-b border-line bg-surface">
+      <div className="container-x">
+        <div className="max-w-2xl">
+          <Reveal as="p" className="eyebrow">
+            Coverage
+          </Reveal>
+          <Reveal as="h2" className="display mt-4 text-3xl md:text-4xl text-ink">
+            Cross-chain support, out of the box
+          </Reveal>
+          <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
+            We support every major chain and protocol so your team doesn&rsquo;t
+            have to. Build once, reach everywhere.
+          </Reveal>
+        </div>
+
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {networks.map((n, i) => (
+            <Reveal
+              key={n}
+              delay={i * 40}
+              className="card flex items-center gap-3 px-4 py-4"
+            >
+              <span className="display flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-soft text-sm text-accent-strong">
+                {n.charAt(0)}
+              </span>
+              <span className="text-sm font-medium text-ink-soft">{n}</span>
+            </Reveal>
+          ))}
+        </div>
+
+        <p className="mt-6 text-sm text-muted">
+          Coverage expands continuously. New networks and protocols are added on
+          our side, with no integration work on yours.
+        </p>
+      </div>
+    </section>
+  );
+}
