@@ -34,9 +34,9 @@ const cases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="section border-b border-line bg-surface">
-      <div className="container-x">
-        <div className="max-w-3xl">
+    <section id="use-cases" className="split-section border-b border-line">
+      <div className="split-top bg-surface">
+        <div className="container-x max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Use cases
           </Reveal>
@@ -44,8 +44,10 @@ export function UseCases() {
             One integration, many financial products
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 flex flex-col gap-6">
+      <div className="split-bottom on-dark">
+        <div className="container-x flex flex-col gap-6">
           {cases.map((c, i) => (
             <div
               key={c.tag}

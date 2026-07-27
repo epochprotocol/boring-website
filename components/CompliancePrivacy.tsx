@@ -3,15 +3,11 @@ import { Reveal } from "./Reveal";
 
 export function CompliancePrivacy() {
   return (
-    <section
-      id="compliance"
-      className="relative overflow-hidden border-b border-line bg-surface-2"
-    >
-      <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
-      <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
-
-      <div className="container-x section relative">
-        <div className="max-w-3xl">
+    <section id="compliance" className="split-section border-b border-line">
+      <div className="split-top relative overflow-hidden bg-surface-2">
+        <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
+        <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
+        <div className="container-x relative max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Compliance &amp; privacy
           </Reveal>
@@ -24,8 +20,11 @@ export function CompliancePrivacy() {
             before anything settles.
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+      <div className="split-bottom on-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden="true" />
+        <div className="container-x relative grid gap-6 md:grid-cols-2">
           <Reveal className="card p-8">
             <div className="icon-tile">
               <Icon name="shield" />

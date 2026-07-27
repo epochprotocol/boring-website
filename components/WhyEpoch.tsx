@@ -26,9 +26,9 @@ const benefits = [
 
 export function WhyEpoch() {
   return (
-    <section className="section border-b border-line bg-surface">
-      <div className="container-x">
-        <div className="max-w-3xl">
+    <section className="split-section border-b border-line">
+      <div className="split-top bg-surface">
+        <div className="container-x max-w-3xl">
           <Reveal as="p" className="eyebrow">
             For institutions &amp; product teams
           </Reveal>
@@ -40,8 +40,10 @@ export function WhyEpoch() {
             complexity.
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
+      <div className="split-bottom on-dark">
+        <div className="container-x grid gap-6 sm:grid-cols-2">
           {benefits.map((b, i) => (
             <Reveal key={b.title} delay={i * 60} className="card p-7">
               <div className="flex items-start gap-4">

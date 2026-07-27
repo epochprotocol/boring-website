@@ -13,9 +13,9 @@ const networks = [
 
 export function Networks() {
   return (
-    <section id="networks" className="section border-b border-line bg-surface-2">
-      <div className="container-x">
-        <div className="max-w-3xl">
+    <section id="networks" className="split-section border-b border-line">
+      <div className="split-top bg-surface-2">
+        <div className="container-x max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Coverage
           </Reveal>
@@ -27,26 +27,30 @@ export function Networks() {
             have to. Build once, reach everywhere.
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {networks.map((n, i) => (
-            <Reveal
-              key={n}
-              delay={i * 40}
-              className="card flex items-center gap-3 px-5 py-4"
-            >
-              <span className="display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-sm text-accent-strong">
-                {n.charAt(0)}
-              </span>
-              <span className="text-sm font-semibold text-ink">{n}</span>
-            </Reveal>
-          ))}
+      <div className="split-bottom on-dark">
+        <div className="container-x">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {networks.map((n, i) => (
+              <Reveal
+                key={n}
+                delay={i * 40}
+                className="card flex items-center gap-3 px-5 py-4"
+              >
+                <span className="display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-sm text-accent-strong">
+                  {n.charAt(0)}
+                </span>
+                <span className="text-sm font-semibold text-ink">{n}</span>
+              </Reveal>
+            ))}
+          </div>
+
+          <p className="mt-6 text-sm text-muted">
+            Coverage expands continuously. New networks and protocols are
+            added on our side, with no integration work on yours.
+          </p>
         </div>
-
-        <p className="mt-6 text-sm text-muted">
-          Coverage expands continuously. New networks and protocols are added on
-          our side, with no integration work on yours.
-        </p>
       </div>
     </section>
   );

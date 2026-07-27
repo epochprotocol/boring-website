@@ -20,9 +20,9 @@ const problems = [
 
 export function Problems() {
   return (
-    <section className="section border-b border-line bg-surface">
-      <div className="container-x">
-        <div className="max-w-3xl">
+    <section className="split-section border-b border-line">
+      <div className="split-top bg-surface">
+        <div className="container-x max-w-3xl">
           <Reveal as="p" className="eyebrow">
             Why this is hard today
           </Reveal>
@@ -30,8 +30,10 @@ export function Problems() {
             Building on-chain in-house is slow, costly, and rigid
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+      <div className="split-bottom on-dark">
+        <div className="container-x grid gap-6 md:grid-cols-3">
           {problems.map((p, i) => (
             <Reveal key={p.n} delay={i * 70} className="card p-8">
               <span className="display inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-lg text-accent-strong">

@@ -190,6 +190,23 @@ body {
   padding-inline: 1.5rem;
 }
 
+/* Horizontal split — each section's intro sits on the light tone; its
+   content (cards/grid) drops into an always-dark full-bleed band below,
+   divided by exactly one line. Tokens inside `.split-bottom` (on-dark)
+   already flip automatically since color/surface are CSS vars. */
+.split-section {
+  position: relative;
+}
+.split-top {
+  padding-top: var(--spacing-section);
+  padding-bottom: 4rem;
+}
+.split-bottom {
+  padding-top: 4rem;
+  padding-bottom: var(--spacing-section);
+  border-top: 1px solid var(--color-line);
+}
+
 /* Subtle technical grid backdrop */
 .grid-backdrop {
   background-image:

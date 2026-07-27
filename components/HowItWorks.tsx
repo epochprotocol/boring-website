@@ -23,15 +23,11 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section
-      id="how-it-works"
-      className="relative overflow-hidden border-b border-line bg-surface-2"
-    >
-      <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
-      <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
-
-      <div className="container-x section relative">
-        <div className="max-w-3xl">
+    <section id="how-it-works" className="split-section border-b border-line">
+      <div className="split-top relative overflow-hidden bg-surface-2">
+        <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
+        <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
+        <div className="container-x relative max-w-3xl">
           <Reveal as="p" className="eyebrow">
             How it works
           </Reveal>
@@ -39,8 +35,11 @@ export function HowItWorks() {
             From intent to settlement, in one integration
           </Reveal>
         </div>
+      </div>
 
-        <div className="relative mt-16 grid gap-12 md:grid-cols-3">
+      <div className="split-bottom on-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden="true" />
+        <div className="container-x relative grid gap-12 md:grid-cols-3">
           <div
             className="absolute top-6 left-0 right-0 hidden h-px bg-line-strong md:block"
             aria-hidden="true"
