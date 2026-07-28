@@ -120,13 +120,13 @@
    dark half of a split section, so two adjacent dark sections read as
    distinct surfaces instead of one continuous black block. */
 .on-dark-band {
-  --color-canvas: #30333f;
-  --color-surface: #363a47;
-  --color-surface-2: #3d4250;
-  --card-0: #363a47;
-  --card-1: #3d4250;
-  --card-2: #444a59;
-  --card-3: #4b5162;
+  --color-canvas: #202330; /* Previously #30333f — darker, still lighter than pure-black .on-dark */
+  --color-surface: #262a38;
+  --color-surface-2: #2c3140;
+  --card-0: #262a38;
+  --card-1: #2c3140;
+  --card-2: #333849;
+  --card-3: #3a4152;
 }
 
 * {
