@@ -26,7 +26,7 @@ function Pixels() {
 
 export function Metrics() {
   return (
-    <section className="on-dark relative overflow-hidden border-b border-line">
+    <section className="on-dark on-dark-band relative overflow-hidden border-b border-line">
       <div className="absolute inset-0 grid-backdrop opacity-50" aria-hidden="true" />
       <div className="absolute inset-0 atmosphere-soft opacity-70" aria-hidden="true" />
 
