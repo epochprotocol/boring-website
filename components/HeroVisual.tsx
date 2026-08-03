@@ -1,5 +1,4 @@
 import { ChainMark, type ChainName } from "./ChainMark";
-import { Icon } from "./Icon";
 
 /**
  * The hero object. Previously a stack of pillowy shadowed cards with a
@@ -23,7 +22,7 @@ const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Solana"];
 export function HeroVisual() {
   return (
     <div className="relative">
-      <div className="panel relative overflow-hidden bg-surface">
+      <div className="panel relative overflow-hidden bg-surface" data-record>
         <div
           className="absolute inset-0 grid-backdrop opacity-50"
           aria-hidden="true"
@@ -42,14 +41,9 @@ export function HeroVisual() {
         </div>
 
         <div className="relative px-5 py-5">
-          <div className="flex items-center gap-3">
-            <span className="icon-tile">
-              <Icon name="boxCheck" />
-            </span>
-            <div>
-              <p className="display t-h3 text-ink">Acquire position</p>
-              <p className="label mt-1">Ref EPX-4471-0C</p>
-            </div>
+          <div>
+            <p className="display t-h3 text-ink">Acquire position</p>
+            <p className="label mt-1.5">Ref EPX-4471-0C</p>
           </div>
 
           {/* Keyed field table — hairline rules, monospace values. */}
@@ -57,6 +51,7 @@ export function HeroVisual() {
             {rows.map((r) => (
               <div
                 key={r.k}
+                data-record-row
                 className="flex items-baseline justify-between gap-4 border-b border-line py-2.5"
               >
                 <dt className="label">{r.k}</dt>
@@ -73,8 +68,11 @@ export function HeroVisual() {
 
           <div className="mt-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-ink-soft">
+              {/* Same marks, same order as the rails diagram further down the
+                  page. Reusing the geometry means the record and the diagram
+                  are visibly describing one thing. */}
               {route.map((ch) => (
-                <span key={ch} title={ch}>
+                <span key={ch} title={ch} data-route-mark>
                   <ChainMark name={ch} className="h-4 w-4" />
                 </span>
               ))}

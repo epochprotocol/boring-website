@@ -87,9 +87,11 @@ export function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-200 ${
+      // Solid canvas on scroll, not a translucent blur. Frosted glass is a
+      // consumer-app signature and it makes type sitting behind it soft.
+      className={`sticky top-0 z-50 transition-colors duration-200 ${
         scrolled || open
-          ? "border-b border-line bg-canvas/80 backdrop-blur-xl backdrop-saturate-150"
+          ? "border-b border-line bg-canvas"
           : "border-b border-transparent bg-transparent"
       }`}
     >

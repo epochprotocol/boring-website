@@ -25,7 +25,6 @@ export default function ContactPage() {
       <main id="main">
         <section className="relative overflow-hidden border-b border-line">
           <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
-          <div className="absolute inset-0 atmosphere" aria-hidden="true" />
           <div className="container-x relative py-20 md:py-24">
             <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
               <div>

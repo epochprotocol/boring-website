@@ -4,11 +4,17 @@ import { DOCS_URL, SALES_CALENDAR_URL } from "@/lib/site";
 type CtaButtonsProps = {
   className?: string;
   align?: "start" | "center";
+  /** Lets a parent scene mark this group as one of its animated items. */
+  "data-hero-item"?: boolean;
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
 
-export function CtaButtons({ className = "", align = "start" }: CtaButtonsProps) {
+export function CtaButtons({
+  className = "",
+  align = "start",
+  ...rest
+}: CtaButtonsProps) {
   const bookProps = isExternal(SALES_CALENDAR_URL)
     ? { target: "_blank", rel: "noopener noreferrer" }
     : {};
@@ -18,6 +24,7 @@ export function CtaButtons({ className = "", align = "start" }: CtaButtonsProps)
       className={`flex flex-col sm:flex-row gap-3 ${
         align === "center" ? "sm:justify-center" : ""
       } ${className}`}
+      {...rest}
     >
       <Link
         href={SALES_CALENDAR_URL}

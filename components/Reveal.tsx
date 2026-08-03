@@ -1,52 +1,23 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
-type RevealProps = {
+/**
+ * DEPRECATED — kept only so no stale import breaks a build.
+ *
+ * This was a blanket "fade up on scroll" wrapper applied to almost every
+ * element on the page. Uniform fade-up is decoration without narrative
+ * purpose: it says nothing about the content, it delays reading, and it is
+ * the single clearest tell of a template.
+ *
+ * Motion now lives in `components/MotionLayer.tsx`, where each scene has one
+ * timeline and a reason to exist. Delete this file once you have confirmed
+ * nothing imports it.
+ */
+export function Reveal({
+  children,
+  className = "",
+}: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   as?: keyof React.JSX.IntrinsicElements;
-};
-
-export function Reveal({
-  children,
-  className = "",
-  delay = 0,
-  as: Tag = "div",
-}: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  const Component = Tag as React.ElementType;
-
-  return (
-    <Component
-      ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-    >
-      {children}
-    </Component>
-  );
+}) {
+  return <div className={className}>{children}</div>;
 }

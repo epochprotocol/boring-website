@@ -5,8 +5,7 @@ import {
   SECURITY_EMAIL,
   STATUS_URL,
 } from "@/lib/site";
-import { Icon } from "./Icon";
-import { Reveal } from "./Reveal";
+import { RuledList, type RuledRow } from "./RuledList";
 import { SectionHeader } from "./SectionHeader";
 
 /**
@@ -22,19 +21,19 @@ import { SectionHeader } from "./SectionHeader";
  *     assurance that does not exist.
  */
 
-const pillars = [
+const pillars: RuledRow[] = [
   {
-    icon: "lock" as const,
+    index: "01",
     title: "You hold the keys",
     body: "Epoch never holds your signing keys and never takes discretionary control of your balances. Authorisation originates from your infrastructure for every outcome.",
   },
   {
-    icon: "shield" as const,
+    index: "02",
     title: "Scoped, time-bound execution",
     body: "Value transits Epoch's settlement contracts only for the legs of a flow that require it. Approvals are scoped to a single outcome and expire — no standing allowances.",
   },
   {
-    icon: "layers" as const,
+    index: "03",
     title: "Defined failure behaviour",
     body: "If a leg fails, the flow stops in a known state. Funds are returned to the originating account or held recoverable, never left mid-route, and the terminal state is reported to your systems.",
   },
@@ -48,7 +47,7 @@ function Row({
   children: React.ReactNode;
 }) {
   return (
-    <div className="spec-row">
+    <div className="spec-row" data-spec-row>
       <div className="spec-label">{label}</div>
       <div className="spec-value">{children}</div>
     </div>
@@ -65,25 +64,15 @@ export function Security() {
     >
       <div className="container-x">
         <SectionHeader
-          index="06"
+          index="07"
           eyebrow="Security & custody"
           title="The answers your risk team asks for first"
           lead="Epoch is non-custodial infrastructure. We orchestrate execution; we do not hold your assets, and we do not stand between you and your funds."
         />
 
-        <Reveal className="ledger-grid section-body md:grid-cols-3">
-          {pillars.map((p) => (
-            <div key={p.title} className="ledger-cell ledger-cell-interactive">
-              <div className="icon-tile">
-                <Icon name={p.icon} />
-              </div>
-              <h3 className="display t-h3 mt-5 text-ink">{p.title}</h3>
-              <p className="t-body mt-2.5 text-ink-soft">{p.body}</p>
-            </div>
-          ))}
-        </Reveal>
+        <RuledList rows={pillars} scene="security" className="section-body" />
 
-        <Reveal className="panel mt-4 p-7 md:p-9">
+        <div className="panel mt-10 p-7 md:p-9" data-scene="assurance">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <h3 className="display t-h3 text-ink">Assurance</h3>
             <p className="label">Diligence reference</p>
@@ -94,6 +83,13 @@ export function Security() {
               <strong>Non-custodial.</strong> Client keys remain client-side.
               Assets transit Epoch settlement contracts only within an
               authorised flow and are never held on your behalf outside one.
+            </Row>
+
+            <Row label="Execution model">
+              Outcomes are settled by <strong>coordinated solvers</strong>
+              competing to fill your intent, not by a single privileged
+              executor. Epoch decomposes the intent, sources execution, and
+              verifies the result against what you asked for.
             </Row>
 
             <Row label="Policy enforcement">
@@ -187,7 +183,7 @@ export function Security() {
               .
             </Row>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

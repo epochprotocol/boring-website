@@ -14,19 +14,92 @@ export const SECURITY_EMAIL = "security@epochprotocol.xyz";
 export const NAV_LINKS = [
   { label: "Product", href: "/#product" },
   { label: "How it works", href: "/#how-it-works" },
+  { label: "Build", href: "/#build" },
   { label: "Security", href: "/#security" },
   { label: "Compliance", href: "/#compliance" },
   { label: "Use cases", href: "/#use-cases" },
 ] as const;
 
+// Corrected against the live site — the previous X and Discord links were
+// guesses and both were wrong.
 export const SOCIAL_LINKS = [
   { label: "Docs", href: DOCS_URL },
   { label: "GitHub", href: "https://github.com/epochprotocol" },
-  { label: "X", href: "https://x.com/epochprotocol" },
-  { label: "Discord", href: "https://discord.gg/epochprotocol" },
+  { label: "X", href: "https://x.com/0xEpochProtocol" },
+  { label: "Discord", href: "https://discord.com/invite/Pd4yZmqYjb" },
 ] as const;
 
 export const TAGLINE = "One API. Every chain. Any financial outcome.";
+
+/**
+ * The positioning line from the live site at epochprotocol.xyz. It is better
+ * than anything invented here — concrete, unhyped, and it says what the
+ * company is rather than what it does.
+ */
+export const POSITIONING = "Rails for modern finance";
+
+/** Network stage. Shown as a live status marker rather than a claim. */
+export const NETWORK_STAGE = "Mainnet";
+
+/**
+ * The live application built on Epoch. A product a reader can actually open
+ * is worth more than any amount of trust copy, and this one already exists —
+ * it is linked from the live site.
+ */
+export const LIVE_APP_URL = "https://www.kismet.today/";
+
+/**
+ * The three ways to integrate, taken from the live site. The boring-website
+ * had flattened all of this into "one API", which undersold it: a widget, an
+ * SDK and a raw API are three genuinely different commitments for a buyer,
+ * and naming them is what lets an engineering lead place the work.
+ */
+export const SURFACES: { name: string; detail: string }[] = [
+  {
+    name: "Widget",
+    detail:
+      "Drop-in interface. The fastest path to accepting inbound from any chain, token or fiat.",
+  },
+  {
+    name: "Flows SDK",
+    detail:
+      "Compose multi-step outcomes inside your own product surface, with your own UI.",
+  },
+  {
+    name: "Intents SDK & API",
+    detail:
+      "State the outcome directly and let Epoch coordinate solvers and settlement.",
+  },
+];
+
+/**
+ * Published writing. These are real posts from the company's own channels —
+ * the same rule as everywhere else applies, so if the list is emptied the
+ * section disappears rather than showing placeholders.
+ */
+export const UPDATES: { title: string; blurb: string; href: string }[] = [
+  {
+    title: "Launching our demo app and testnet infrastructure",
+    blurb: "Introducing Epoch, and the case for making Web3 work for everyone.",
+    href: "https://x.com/0xEpochProtocol/status/1963633125881524311",
+  },
+  {
+    title: "First look at Epoch's Sub-Intent Orchestrator",
+    blurb: "The component that decomposes an intent and drives its execution.",
+    href: "https://x.com/0xEpochProtocol/status/1869340852247740626",
+  },
+  {
+    title: "Solver settlement mechanisms for cross-chain bridging",
+    blurb:
+      "How trustless settlement actually works across chains, and where it breaks.",
+    href: "https://medium.com/@to.epochprotocol/intents-and-solver-settlements-for-cross-chain-bridging-in-web3-9b666d85ab1c",
+  },
+  {
+    title: "Solver auction mechanisms",
+    blurb: "Intent frameworks and the evolution of DeFi order execution.",
+    href: "https://medium.com/@to.epochprotocol/intent-solver-mechanisms-the-evolution-of-defi-order-execution-3714551b2f4a",
+  },
+];
 
 /* ------------------------------------------------------------------ *
  * TRUST CONFIGURATION

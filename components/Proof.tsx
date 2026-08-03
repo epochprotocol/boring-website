@@ -1,5 +1,4 @@
 import { DESIGN_PARTNERS, INVESTORS, PARTNERS, TEAM } from "@/lib/site";
-import { Reveal } from "./Reveal";
 
 /**
  * The evidence layer. Institutions underwrite people and references before
@@ -22,17 +21,17 @@ export function Proof() {
   if (!hasPartners && !hasInvestors && !hasTeam) return null;
 
   return (
-    <section id="proof" className="section border-b border-line bg-surface">
+    <section id="proof" className="section border-b border-line bg-surface" data-scene="proof">
       <div className="container-x">
         {/* Deliberately unnumbered: this is a proof strip between chapters,
             not a chapter of its own, and it renders conditionally. */}
         <div className="max-w-2xl">
-          <Reveal as="p" className="eyebrow">
+          <p className="eyebrow">
             Who we work with
-          </Reveal>
-          <Reveal as="h2" className="display t-h2 mt-6 text-ink">
+          </p>
+          <h2 className="display t-h2 mt-6 text-ink">
             Built with institutions, not for a thesis
-          </Reveal>
+          </h2>
         </div>
 
         {hasPartners ? (
@@ -40,14 +39,14 @@ export function Proof() {
             <h3 className="label">
               Design partners
             </h3>
-            <Reveal className="ledger-grid mt-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 border-b border-line" data-rows>
               {DESIGN_PARTNERS.map((p) => (
-                <div key={p.descriptor} className="ledger-cell">
+                <div key={p.descriptor} data-row className="ruled-row border-t border-line py-6">
                   <p className="display t-h3 text-ink">{p.descriptor}</p>
                   <p className="t-body mt-2 text-ink-soft">{p.detail}</p>
                 </div>
               ))}
-            </Reveal>
+            </div>
           </div>
         ) : null}
 
@@ -56,9 +55,9 @@ export function Proof() {
             <h3 className="label">
               Leadership
             </h3>
-            <Reveal className="ledger-grid mt-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 border-b border-line" data-rows>
               {TEAM.map((m) => (
-                <div key={m.name} className="ledger-cell">
+                <div key={m.name} data-row className="ruled-row border-t border-line py-6">
                   <p className="display t-h3 text-ink">{m.name}</p>
                   <p className="tag mt-1">
                     {m.role}
@@ -78,7 +77,7 @@ export function Proof() {
                   ) : null}
                 </div>
               ))}
-            </Reveal>
+            </div>
           </div>
         ) : null}
 

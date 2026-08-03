@@ -1,4 +1,3 @@
-import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { RailsDiagram } from "./RailsDiagram";
 
@@ -25,7 +24,7 @@ export function Product() {
             />
 
             {/* Ruled list rather than bulleted checks — reads as a spec. */}
-            <Reveal as="ul" className="mt-8 border-t border-line">
+            <ul className="mt-8 border-t border-line">
               {points.map((p) => (
                 <li
                   key={p.k}
@@ -35,15 +34,15 @@ export function Product() {
                   <span className="t-body text-ink-soft">{p.v}</span>
                 </li>
               ))}
-            </Reveal>
+            </ul>
           </div>
         </div>
 
         <div className="split-col on-dark relative overflow-hidden">
           <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden="true" />
-          <Reveal className="panel relative w-full max-w-md p-8">
+          <div className="panel relative w-full max-w-md p-8">
             <RailsDiagram />
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

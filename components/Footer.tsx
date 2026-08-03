@@ -10,6 +10,7 @@ import {
   SOCIAL_LINKS,
   STATUS_URL,
   TAGLINE,
+  POSITIONING,
 } from "@/lib/site";
 import { Wordmark } from "./Wordmark";
 
@@ -43,7 +44,9 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Wordmark />
-            <p className="mt-4 max-w-xs text-sm text-muted">{TAGLINE}</p>
+            <p className="mt-4 max-w-xs text-sm text-muted">
+              {POSITIONING}. {TAGLINE}
+            </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href={SALES_CALENDAR_URL}

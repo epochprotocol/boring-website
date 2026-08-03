@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
-import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { DOCS_URL } from "@/lib/site";
 
@@ -59,8 +58,11 @@ const CAPABILITIES: Capability[] = [
   },
 ];
 
+/** The order the composer builds the default request in. */
+const AUTOPLAY: string[] = ["bridge", "swap", "compliance"];
+
 const c = {
-  kw: "text-glow",
+  kw: "tok-kw",
   fn: "text-accent-strong",
   str: "text-[color:var(--color-teal)]",
   com: "text-muted",
@@ -68,16 +70,68 @@ const c = {
 };
 
 export function Capabilities() {
-  const [selected, setSelected] = useState<string[]>([
-    "bridge",
-    "swap",
-    "compliance",
-  ]);
+  const [selected, setSelected] = useState<string[]>(AUTOPLAY);
+  const [touched, setTouched] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  const toggle = (id: string) =>
+  /**
+   * Stripe's developer sections build their code sample as you arrive at
+   * them, so the reader watches the request being composed rather than
+   * finding it already written. This does the same: on first scroll-in the
+   * composer empties and re-adds each capability in order, and the matching
+   * control lights up as its step lands.
+   *
+   * Three rules keep it from being annoying:
+   *  - It runs once, and only when the section is actually reached.
+   *  - The moment the reader touches a control, autoplay is abandoned for
+   *    good. Their intent outranks the demo.
+   *  - Under reduced motion it never runs; the finished request is simply
+   *    there, which is the same end state.
+   */
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    if (!document.documentElement.classList.contains("motion")) return;
+
+    let timers: number[] = [];
+    let played = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || played) return;
+          played = true;
+          observer.disconnect();
+
+          setSelected((current) => (current.length ? [] : current));
+          AUTOPLAY.forEach((id, i) => {
+            timers.push(
+              window.setTimeout(() => {
+                setSelected((current) =>
+                  current.includes(id) ? current : [...current, id]
+                );
+              }, 320 + i * 420)
+            );
+          });
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      timers.forEach((t) => window.clearTimeout(t));
+      timers = [];
+    };
+  }, []);
+
+  const toggle = (id: string) => {
+    setTouched(true);
     setSelected((s) =>
       s.includes(id) ? s.filter((x) => x !== id) : [...s, id]
     );
+  };
 
   const steps = CAPABILITIES.filter((cap) => selected.includes(cap.id)).map(
     (cap) => cap.step
@@ -85,7 +139,9 @@ export function Capabilities() {
 
   return (
     <section
+      ref={sectionRef}
       id="capabilities"
+      data-composer={touched ? "manual" : "auto"}
       className="section border-b border-line bg-surface-2"
     >
       <div className="container-x">
@@ -96,7 +152,7 @@ export function Capabilities() {
           lead="Toggle what your flow needs. It all runs through one API surface — no extra services to assemble or maintain."
         />
 
-        <Reveal className="panel section-body grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">
+        <div className="panel section-body grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">
           {/* Selector */}
           <div className="p-6 md:p-8">
             <div className="grid gap-3 sm:grid-cols-2">
@@ -146,9 +202,10 @@ export function Capabilities() {
                         strokeWidth={2}
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="h-2.5 w-2.5"
+                        className="tick h-2.5 w-2.5"
+                        data-checked={active}
                       >
-                        <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                        <path d="M2.5 6.5l2.5 2.5 4.5-5" pathLength={1} />
                       </svg>
                     </span>
                   </button>
@@ -208,8 +265,13 @@ export function Capabilities() {
                     <span key={s}>
                       {"\n"}
                       {"    "}
-                      <span className={c.str}>&quot;{s}&quot;</span>
-                      <span className={c.punc}>,</span>
+                      {/* Keyed by step, so a newly added step mounts a fresh
+                          node and the wipe plays exactly once, for that
+                          line, without any imperative animation code. */}
+                      <span className="code-line">
+                        <span className={c.str}>&quot;{s}&quot;</span>
+                        <span className={c.punc}>,</span>
+                      </span>
                     </span>
                   ))
                 )}
@@ -222,7 +284,7 @@ export function Capabilities() {
               </code>
             </pre>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

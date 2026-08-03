@@ -297,10 +297,8 @@ h4 {
   font-variant-numeric: tabular-nums;
 }
 
-/* Retained for backwards compatibility. Gradient text is gone from the
-   language, so this is now simply the accent colour — every existing usage
-   flattens to solid blue rather than needing a hunt-and-replace. */
-.text-glow {
+/* Code token colours. Flat, no gradient anywhere. */
+.tok-kw {
   color: var(--color-accent-strong);
 }
 
@@ -350,6 +348,22 @@ h4 {
   justify-content: center;
   padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3.5rem);
 }
+/* The narrative half of "How it works" holds while the steps pass it. CSS
+   sticky rather than a GSAP pin: no pin-spacer, no added scroll distance,
+   and it cannot desynchronise from the scrollbar. Scoped to `.motion`, so
+   reduced motion removes the pin exactly as required, and to desktop, because
+   pinning at touch widths is what makes a page feel like it has taken the
+   scroll away from you. */
+@media (min-width: 1024px) {
+  .motion .split-col-sticky {
+    align-items: flex-start;
+  }
+  .motion .split-col-sticky > [data-steps-pin] {
+    position: sticky;
+    top: 7rem;
+  }
+}
+
 .split-col + .split-col {
   border-top: 1px solid var(--color-line);
 }
@@ -368,29 +382,10 @@ h4 {
   background-size: 48px 48px;
 }
 
-/* Atmospheric washes, dialled back to near-invisible. They now register as
-   a slight unevenness in the paper rather than as coloured light. */
-.atmosphere {
-  background: radial-gradient(
-    50% 60% at 82% 0%,
-    var(--color-accent-soft),
-    transparent 60%
-  );
-}
-.hero-gradient {
-  background: radial-gradient(
-    46% 58% at 78% 0%,
-    var(--color-accent-soft),
-    transparent 64%
-  );
-}
-.atmosphere-soft {
-  background: radial-gradient(
-    60% 70% at 50% 0%,
-    var(--color-accent-soft),
-    transparent 66%
-  );
-}
+/* Atmospheric washes have been removed outright. Every one of them was a
+   radial gradient, and gradients are the fastest way to make an
+   infrastructure product look like a consumer app. Tone changes between
+   sections now come from flat surface steps and rules alone. */
 
 /* ==========================================================================
    SURFACES
@@ -409,13 +404,7 @@ h4 {
    merely dark UI. Invisible in light mode, where it isn't needed. */
 .dark .panel,
 .mix .panel,
-.on-dark .panel,
-.dark .card,
-.mix .card,
-.on-dark .card,
-.dark .ledger-grid,
-.mix .ledger-grid,
-.on-dark .ledger-grid {
+.on-dark .panel {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -428,65 +417,12 @@ h4 {
   border-color: var(--color-line-strong);
 }
 
-/* Legacy aliases so any component not yet migrated still renders correctly
-   within the new language rather than falling back to unstyled boxes. */
-.card,
-.card-static {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card);
-  box-shadow: none;
-  transition: border-color 0.18s ease;
-}
-.card:hover {
-  border-color: var(--color-line-strong);
-}
-.stack-card {
-  box-shadow: none;
-}
-.stack-item {
-  position: sticky;
-  position: -webkit-sticky;
-}
-
-/* Ledger grid — cells separated by true hairlines rather than gaps, so a
-   group of items reads as one ruled table. Set on the container; children
-   need no border of their own.
-
-   <div class="ledger-grid sm:grid-cols-3">
-     <div class="ledger-cell">…</div>
-   </div> */
-.ledger-grid {
-  display: grid;
-  gap: 1px;
-  background-color: var(--color-line);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-}
-.ledger-cell {
-  background-color: var(--color-surface);
-  padding: 1.75rem;
-}
-@media (min-width: 768px) {
-  .ledger-cell {
-    padding: 2rem;
-  }
-}
-/* Tighter cell for dense registers such as the network coverage grid. */
-.ledger-cell-tight {
-  padding: 1rem;
-}
-@media (min-width: 768px) {
-  .ledger-cell-tight {
-    padding: 1rem;
-  }
-}
-.ledger-cell-interactive {
-  transition: background-color 0.18s ease;
-}
-.ledger-cell-interactive:hover {
-  background-color: var(--color-surface-2);
+/* Ruled row — the page's primary content geometry, shared by every register
+   (problems, benefits, security pillars, use cases, coverage). It replaced the
+   card grids outright: a card grid says "here are some features we thought
+   of", a ruled register says "here is the record". */
+.ruled-row {
+  --row-rule: var(--color-line);
 }
 
 /* Icon tile — small, flat, hairline. Supporting mark, not an illustration. */
@@ -554,15 +490,39 @@ h4 {
 .btn:active {
   transform: translateY(1px);
 }
+/* Primary fills with accent on hover as a wipe from the left rather than a
+   colour swap. `isolation` lets the fill sit at z-index 0 behind the label
+   without wrapping the label in an element. */
 .btn-primary {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background-color: var(--color-ink);
   color: var(--color-canvas);
   border: 1px solid var(--color-ink);
+  transition: color 0.18s ease, border-color 0.24s ease;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-accent-strong);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-primary:hover {
-  background-color: var(--color-accent-strong);
   border-color: var(--color-accent-strong);
   color: #fff;
+}
+.btn-primary:hover::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after {
+    transition: none;
+  }
 }
 .btn-secondary {
   border: 1px solid var(--color-line-strong);
@@ -596,6 +556,23 @@ h4 {
 }
 .arrow-link:hover {
   color: var(--color-accent);
+}
+
+/* The capability tick draws itself. A checkmark that appears is a state
+   change; a checkmark that is drawn is a confirmation, and confirmation is
+   what the control is actually reporting. */
+.tick path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tick[data-checked="true"] path {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tick path {
+    transition: none;
+  }
 }
 
 /* Metadata chip — deliberately plain. It should read as a fact printed on
@@ -679,10 +656,22 @@ h4 {
   font-weight: 600;
 }
 
-/* Top accent bar — 2px, solid. */
+/* Top accent bar, now doing a job: it is the reading position.
+   The track is a hairline; the accent fill is driven by scroll. Pure
+   transform, so it costs nothing per frame. Without motion the fill sits at
+   full width and it reads exactly as the solid bar it was before. */
 .accent-bar {
   height: 2px;
-  background: var(--color-accent);
+  background-color: var(--color-line);
+}
+.accent-bar-fill {
+  display: block;
+  height: 100%;
+  transform-origin: left center;
+  background-color: var(--color-accent);
+}
+.motion .accent-bar-fill {
+  transform: scaleX(0);
 }
 
 /* ==========================================================================
@@ -690,16 +679,190 @@ h4 {
    Confirmation, not performance.
    ========================================================================== */
 
-.reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+
+/* --------------------------------------------------------------------------
+   MOTION INITIAL STATES
+
+   WHAT CHANGED AND WHY
+   This block used to hide every register row, spec row, lead paragraph and
+   rule on the page from first paint. That meant the page painted as an empty
+   skeleton — rules, borders and backgrounds with no content — and stayed that
+   way until the JavaScript chunk downloaded, parsed, and fonts resolved. It
+   read as a broken render, because functionally it was one.
+
+   The rule now is: CSS hides only what is above the fold and would otherwise
+   flash. Everything below the fold has its start state set by GSAP in
+   `MotionLayer`, immediately before its timeline is built — the reader has
+   not seen that content yet, so setting it from JavaScript costs nothing and
+   the page paints complete on first frame.
+
+   Masked headings need no CSS hiding at all: `.line-inner` does not exist
+   until the splitter creates it, so headings are fully rendered during the
+   entire pre-JavaScript window and only become animatable at the moment they
+   are split.
+   -------------------------------------------------------------------------- */
+
+/* Masked headings never use `text-wrap: balance`. The splitter measures with
+   balance off, so leaving it on before the split meant the heading re-wrapped
+   the instant it was split — a visible jump on every heading. */
+[data-mask-lines] {
+  text-wrap: wrap;
 }
-.reveal.is-visible {
+
+.motion [data-mask-lines] .line-inner {
+  transform: translate3d(0, 105%, 0);
+}
+
+/* Hero only. Small, above the fold, and revealed as soon as the layer mounts
+   rather than waiting on the full font set.
+
+   The heading is held at zero opacity rather than left to the `.line-inner`
+   rule alone: `.line-inner` does not exist until the splitter runs, so the
+   headline would otherwise paint, vanish the instant it was split, and then
+   slide back in — a flash that reads as a broken render. Sections below the
+   fold do not need this, because they are never split while visible. */
+.motion [data-scene="hero"] [data-mask-lines] {
+  opacity: 0;
+}
+.motion [data-scene="hero"] [data-header-rule] {
+  transform: scaleX(0);
+}
+.motion [data-scene="hero"] [data-hero-item] {
+  opacity: 0;
+}
+
+/* The wrapper the splitter injects around each line. `overflow: clip` rather
+   than `hidden` so it never creates a scroll container; the padding/margin
+   pair nets to zero so descenders are not shaved and no height changes. */
+[data-mask-lines] .line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+[data-mask-lines] .line-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   STEP STAGE
+   Three states of one record, stacked in a grid cell so the stage is as tall
+   as its tallest state and nothing reflows when the state changes. Without
+   motion the last state sits on top and reads as a finished record.
+   -------------------------------------------------------------------------- */
+.step-stage {
+  display: grid;
+  width: 100%;
+}
+.step-stage-layer {
+  grid-area: 1 / 1;
+  /* Short, so the swap reads as the record updating rather than as a
+     dissolve. The motion layer only ever sets one layer to 1 at a time. */
+  transition: opacity 0.2s ease;
+  /* Base case — no JavaScript, or reduced motion — shows the settled state
+     alone. Leaving all three at full opacity would stack three records in one
+     grid cell and render as illegible overlapping text. */
+  opacity: 0;
+}
+.step-stage-layer:last-child {
   opacity: 1;
-  transform: none;
+}
+/* With motion the sequence starts at the first state instead, and the layer
+   opacities are handed to the scrub from there. */
+.motion .step-stage-layer:last-child {
+  opacity: 0;
+}
+.motion .step-stage-layer[data-stage-index="0"] {
+  opacity: 1;
+}
+
+/* Dwell indicator for the auto-advancing accordion. Duration is set inline
+   so the rule and the timer are driven by one constant in the component. */
+.dwell {
+  animation-name: dwell-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+@keyframes dwell-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dwell {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+/* Each line of the composed request wipes in from the left as it is added.
+   A keyed React node means this plays exactly once per new step, with no
+   imperative animation code and nothing to clean up. */
+.code-line {
+  display: inline-block;
+  animation: code-line-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes code-line-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .code-line {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TICKER
+   Transform-only marquee. The track holds two identical copies of the list
+   and moves by exactly -50%, so the seam is never visible and nothing has to
+   be measured at runtime.
+   -------------------------------------------------------------------------- */
+.ticker {
+  overflow: hidden;
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-slide 44s linear infinite;
+  will-change: transform;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+.ticker-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-inline: 1.75rem;
+  border-right: 1px solid var(--color-line);
+  white-space: nowrap;
+}
+@keyframes ticker-slide {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }
 
 .flow-line {
@@ -728,11 +891,6 @@ h4 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
   .flow-line,
   .pulse-dot {
@@ -774,13 +932,8 @@ h4 {
    than blurring across two. */
 @media (min-resolution: 2dppx) {
   .panel,
-  .card,
-  .ledger-grid,
   .chip,
   .index-mark {
     border-width: 0.5px;
-  }
-  .ledger-grid {
-    gap: 0.5px;
   }
 }

@@ -1,13 +1,13 @@
-import { Reveal } from "./Reveal";
-
 /**
- * Every section on the page opens the same way: an index, a rule, an eyebrow,
- * a heading, and an optional lead. Previously each section improvised its own
- * header, so heading sizes and spacing drifted section to section.
+ * Every section opens the same way: an index, a rule, an eyebrow, a heading,
+ * an optional lead. The running index (§ 01 … § 09) is what makes the page
+ * read as a document rather than a scroll of marketing panels.
  *
- * The index ("§ 03") is what makes the page read as a document rather than a
- * scroll of marketing panels — it implies the whole thing was authored in one
- * pass by someone keeping count.
+ * This is a server component with no motion code in it. It only marks the
+ * parts the motion layer needs — the rule and the heading — with data
+ * attributes; `MotionLayer` finds them and owns the timeline. Keeping
+ * animation out of content components is what allows one GSAP context to be
+ * created and cleaned up for the whole page.
  */
 
 type SectionHeaderProps = {
@@ -32,23 +32,32 @@ export function SectionHeader({
   const centered = align === "center";
 
   return (
-    <div className={`${centered ? "mx-auto text-center" : ""} ${className}`}>
-      <Reveal
+    <div
+      className={`${centered ? "mx-auto text-center" : ""} ${className}`}
+      data-section-header
+    >
+      <div
         className={`flex items-center gap-3 ${centered ? "justify-center" : ""}`}
       >
-        <span className="section-index text-accent-strong">&sect;&nbsp;{index}</span>
-        <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
+        <span className="section-index text-accent-strong">
+          &sect;&nbsp;{index}
+        </span>
+        <span
+          className="h-px w-6 origin-left bg-line-strong"
+          aria-hidden="true"
+          data-header-rule
+        />
         <span className="label">{eyebrow}</span>
-      </Reveal>
+      </div>
 
-      <Reveal as="h2" className="display t-h2 mt-5 text-ink">
+      <h2 className="display t-h2 mt-5 text-ink" data-mask-lines>
         {title}
-      </Reveal>
+      </h2>
 
       {lead ? (
-        <Reveal as="p" className="t-lead mt-4 max-w-xl text-ink-soft">
+        <p className="t-lead mt-4 max-w-xl text-ink-soft" data-header-lead>
           {lead}
-        </Reveal>
+        </p>
       ) : null}
     </div>
   );
