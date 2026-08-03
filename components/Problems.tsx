@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 
 const problems = [
   {
@@ -22,28 +23,24 @@ export function Problems() {
   return (
     <section className="on-dark on-dark-band section border-b border-line">
       <div className="container-x">
-        <div className="max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            Why this is hard today
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            Building on-chain in-house is slow, costly, and rigid
-          </Reveal>
-        </div>
+        <SectionHeader
+          index="03"
+          eyebrow="Why this is hard today"
+          title="Building on-chain in-house is slow, costly, and rigid"
+        />
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {problems.map((p, i) => (
-            <Reveal key={p.n} delay={i * 70} className="card p-8">
-              <span className="display inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-lg text-accent-strong">
-                {p.n}
-              </span>
-              <h3 className="display mt-6 text-xl text-ink">{p.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-ink-soft">
-                {p.body}
-              </p>
-            </Reveal>
+        {/* Ledger grid: hairline-separated cells rather than floating cards.
+            The reveal wraps the whole grid, not each cell — cells fading in
+            individually would expose the grid's line-coloured background. */}
+        <Reveal className="ledger-grid section-body md:grid-cols-3">
+          {problems.map((p) => (
+            <div key={p.n} className="ledger-cell ledger-cell-interactive">
+              <span className="index-mark">{p.n}</span>
+              <h3 className="display t-h3 mt-6 text-ink">{p.title}</h3>
+              <p className="t-body mt-3 text-ink-soft">{p.body}</p>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

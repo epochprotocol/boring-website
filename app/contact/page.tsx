@@ -22,7 +22,7 @@ export default function ContactPage() {
   return (
     <>
       <Nav />
-      <main>
+      <main id="main">
         <section className="relative overflow-hidden border-b border-line">
           <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
           <div className="absolute inset-0 atmosphere" aria-hidden="true" />
@@ -30,10 +30,10 @@ export default function ContactPage() {
             <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
               <div>
                 <p className="eyebrow">Talk to us</p>
-                <h1 className="display mt-4 text-4xl md:text-5xl text-ink">
+                <h1 className="display t-h2 mt-4 text-ink">
                   Book a sales call
                 </h1>
-                <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
+                <p className="t-lead mt-5 max-w-md text-ink-soft">
                   Tell us the outcome you need on-chain. We will show you how
                   Epoch delivers it through one API &mdash; no dedicated Web3
                   team and no infrastructure to build from zero.

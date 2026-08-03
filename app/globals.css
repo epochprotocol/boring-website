@@ -1,120 +1,146 @@
 @import "tailwindcss";
 
-@theme {
-  /* LIGHT is the primary theme — calm and institutional, with brand blue +
-     lavender accents. Dark is an opt-in via the `.dark` class; individual
-     "moments" opt into dark via `.on-dark` regardless of the active theme.
-     Layout/shape/rhythm follow link.com's design language (see radii,
-     spacing and type scale below). */
-  --color-canvas: #e6e9f0;
-  --color-surface: #f6f8fb;
-  --color-surface-2: #dbe1eb;
-  --color-ink: #0d1420;
-  --color-ink-soft: #3f4956;
-  --color-muted: #626b78;
-  --color-line: rgba(13, 20, 32, 0.12);
-  --color-line-strong: rgba(13, 20, 32, 0.2);
-  --color-accent: #2b6ef5;
-  --color-accent-strong: #1c53c9;
-  --color-accent-soft: rgba(43, 110, 245, 0.1);
-  --color-on-accent: #ffffff;
-  /* Lavender is retained as a token but is now used only in the hero wash and
-     the top accent bar. Institutional readers parse blue+purple gradients as
-     "consumer crypto", so the palette runs near-monochrome + one blue. */
-  --color-glow: #6d5bcf;
-  --color-glow-soft: rgba(109, 91, 207, 0.12);
-  --color-teal: #10a597;
-  --color-positive: #0f8a5f;
-  --grid-line: rgba(13, 20, 32, 0.06);
+/* ==========================================================================
+   EPOCH DESIGN LANGUAGE — "LEDGER"
+   --------------------------------------------------------------------------
+   The previous language was borrowed from consumer fintech (link.com): pillowy
+   1.6rem radii, blue-to-lavender gradient text, glowing hover lifts, wide
+   whitespace. It is a good language for a product you sign up for in ninety
+   seconds. It is the wrong one for a product a bank's risk committee has to
+   approve.
 
-  /* Fonts wired from the `geist` package in layout.tsx */
+   This language is built from the vocabulary of financial instruments:
+   hairline rules, a visible grid, monospace for anything structural or
+   numeric, flat surfaces, and near-zero decoration. Energy comes from
+   precision and density rather than colour and motion.
+
+   RULES
+   1. Elevation does not exist. Hierarchy is expressed with rules and tone.
+   2. One accent. Blue means "interactive or important". Teal means "live".
+      Nothing else carries colour.
+   3. Monospace carries structure — labels, indices, data, metadata.
+      Sans carries prose. Never the reverse.
+   4. Radii are small and uniform. Nothing is a pill except live status dots.
+   5. Motion is confirmation, not performance. Under 250ms, no transforms
+      larger than 8px, nothing moves on hover.
+   ========================================================================== */
+
+@theme {
+  /* ---- Palette -----------------------------------------------------------
+     Near-monochrome cool greys with a single institutional blue. Lavender
+     has been removed from the working palette entirely — blue/purple
+     gradients are the strongest visual tell of consumer crypto. */
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef0f4;
+  --color-ink: #0b0e14;
+  --color-ink-soft: #3c434e;
+  --color-muted: #6a7280;
+  --color-line: rgba(11, 14, 20, 0.11);
+  --color-line-strong: rgba(11, 14, 20, 0.2);
+  --color-accent: #2563eb;
+  --color-accent-strong: #1d4ed8;
+  --color-accent-soft: rgba(37, 99, 235, 0.08);
+  --color-on-accent: #ffffff;
+  /* `glow` is retained only so legacy references resolve; it now points at
+     the same blue family so no gradient can reintroduce lavender. */
+  --color-glow: #1d4ed8;
+  --color-glow-soft: rgba(29, 78, 216, 0.1);
+  /* Reserved strictly for live/operational state. Never decorative. */
+  --color-teal: #0d9488;
+  --color-positive: #0f7a52;
+  --grid-line: rgba(11, 14, 20, 0.055);
+
+  /* ---- Type -------------------------------------------------------------- */
   --font-display: var(--font-geist-sans), system-ui, sans-serif;
   --font-body: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Rhythm — generous, but denser than before. Institutional buyers read
-     information density as substance; acres of whitespace read as brochure. */
-  --spacing-section: 7.5rem;
+  /* ---- Rhythm ------------------------------------------------------------
+     Denser than before. Information density reads as substance; acres of
+     whitespace read as brochure. */
+  --spacing-section: 7rem;
 
-  /* Radii — tightened from the very soft 1.6rem/0.95rem. Still modern and
-     product-like, no longer pill-soft. */
-  --radius-card: 0.875rem;
-  --radius-tile: 0.5rem;
-  --radius-control: 0.5rem;
+  /* ---- Geometry ----------------------------------------------------------
+     One small radius, used everywhere. 6px reads engineered; 26px reads
+     friendly, and friendly is not what is being bought here. */
+  --radius-card: 0.375rem;
+  --radius-tile: 0.25rem;
+  --radius-control: 0.375rem;
 }
 
 :root {
   color-scheme: light;
-  /* Monochrome logo shades — cool dark greys for light backgrounds. */
-  --logo-1: #1a2233;
-  --logo-2: #566070;
-  --logo-3: #8b95a3;
-  /* Stacking-card tiers — progressive shades so the deck reads as it piles. */
-  --card-0: #f6f8fb;
-  --card-1: #eaeff6;
-  --card-2: #e0e6f0;
-  --card-3: #d5dde9;
+  --logo-1: #0b0e14;
+  --logo-2: #4b525d;
+  --logo-3: #858c97;
+  /* Tiered surfaces for stacked/among-equals cards. The range is deliberately
+     narrow — these should read as one material under different light. */
+  --card-0: #ffffff;
+  --card-1: #f6f7f9;
+  --card-2: #eef0f4;
+  --card-3: #e6e9ee;
 }
 
 /* Full-site dark theme (toggle) and always-dark "moment" scope share the
    same palette overrides. */
 .dark,
 .on-dark {
-  --color-canvas: #050506;
-  --color-surface: #0c0d11;
-  --color-surface-2: #111319;
-  --color-ink: #f6f7f9;
-  --color-ink-soft: #c6c9d2;
-  --color-muted: #8a8d99;
-  --color-line: rgba(255, 255, 255, 0.09);
-  --color-line-strong: rgba(255, 255, 255, 0.17);
-  --color-accent: #4f8cff;
-  --color-accent-strong: #82abff;
-  --color-accent-soft: rgba(79, 140, 255, 0.14);
-  --color-on-accent: #050506;
-  --color-glow: #b9a6ff;
-  --color-glow-soft: rgba(185, 166, 255, 0.14);
-  --color-teal: #46d6c8;
-  --grid-line: rgba(255, 255, 255, 0.055);
-  color-scheme: dark;
-  /* Monochrome logo shades — white/greys for dark backgrounds (as brand). */
-  --logo-1: #eff0f1;
-  --logo-2: #cccccc;
-  --logo-3: #aaabab;
-  /* Stacking-card tiers — progressive dark shades. */
-  --card-0: #0e0f14;
-  --card-1: #12141c;
-  --card-2: #171a24;
-  --card-3: #1c202c;
-}
-
-/* MIX — a dusk-slate theme that blends light and dark: deeper than light,
-   softer than full dark. Opt-in via the `.mix` class. */
-.mix {
-  --color-canvas: #1b2130;
-  --color-surface: #232b3c;
-  --color-surface-2: #2b3446;
-  --color-ink: #eef1f7;
-  --color-ink-soft: #b7c0d0;
-  --color-muted: #8591a4;
+  --color-canvas: #07080b;
+  --color-surface: #0e1015;
+  --color-surface-2: #14171e;
+  --color-ink: #f4f6f8;
+  --color-ink-soft: #c0c5cd;
+  --color-muted: #848b96;
   --color-line: rgba(255, 255, 255, 0.1);
   --color-line-strong: rgba(255, 255, 255, 0.18);
-  --color-accent: #6fa0ff;
-  --color-accent-strong: #a6c3ff;
-  --color-accent-soft: rgba(111, 160, 255, 0.16);
-  --color-on-accent: #0d1420;
-  --color-glow: #c3b2ff;
-  --color-glow-soft: rgba(195, 178, 255, 0.16);
-  --color-teal: #46d6c8;
+  --color-accent: #5b8dff;
+  --color-accent-strong: #8ab0ff;
+  --color-accent-soft: rgba(91, 141, 255, 0.12);
+  --color-on-accent: #07080b;
+  --color-glow: #8ab0ff;
+  --color-glow-soft: rgba(138, 176, 255, 0.12);
+  --color-teal: #2dd4bf;
+  --color-positive: #34d399;
   --grid-line: rgba(255, 255, 255, 0.05);
   color-scheme: dark;
-  --logo-1: #eef1f7;
-  --logo-2: #c2c9d6;
-  --logo-3: #98a2b2;
-  --card-0: #232b3c;
-  --card-1: #293143;
-  --card-2: #2f384c;
-  --card-3: #354056;
+  --logo-1: #f4f6f8;
+  --logo-2: #c8cdd4;
+  --logo-3: #9aa1ab;
+  --card-0: #0e1015;
+  --card-1: #12151b;
+  --card-2: #171b22;
+  --card-3: #1c2029;
+}
+
+/* MIX — a dusk-slate theme between the two: deeper than light, softer than
+   full dark. Opt-in via the `.mix` class. */
+.mix {
+  --color-canvas: #171b24;
+  --color-surface: #1e232e;
+  --color-surface-2: #252b38;
+  --color-ink: #eceff4;
+  --color-ink-soft: #b3bbc8;
+  --color-muted: #838d9c;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-accent: #6d97ff;
+  --color-accent-strong: #9dbaff;
+  --color-accent-soft: rgba(109, 151, 255, 0.13);
+  --color-on-accent: #0b0e14;
+  --color-glow: #9dbaff;
+  --color-glow-soft: rgba(157, 186, 255, 0.13);
+  --color-teal: #2dd4bf;
+  --color-positive: #34d399;
+  --grid-line: rgba(255, 255, 255, 0.045);
+  color-scheme: dark;
+  --logo-1: #eceff4;
+  --logo-2: #bfc7d3;
+  --logo-3: #95a0af;
+  --card-0: #1e232e;
+  --card-1: #232936;
+  --card-2: #292f3e;
+  --card-3: #2f3646;
 }
 
 /* An always-dark region within a light page picks up the dark ink/canvas. */
@@ -123,17 +149,17 @@
   color: var(--color-ink);
 }
 
-/* Full-width dark bands get a touch lighter/bluer canvas than the always-
-   dark half of a split section, so two adjacent dark sections read as
-   distinct surfaces instead of one continuous black block. */
+/* Full-width dark bands sit a step lighter than the always-dark half of a
+   split section, so two adjacent dark sections read as distinct surfaces
+   rather than one continuous black block. */
 .on-dark-band {
-  --color-canvas: #202330; /* Previously #30333f — darker, still lighter than pure-black .on-dark */
-  --color-surface: #262a38;
-  --color-surface-2: #2c3140;
-  --card-0: #262a38;
-  --card-1: #2c3140;
-  --card-2: #333849;
-  --card-3: #3a4152;
+  --color-canvas: #12151c;
+  --color-surface: #171b23;
+  --color-surface-2: #1c212a;
+  --card-0: #171b23;
+  --card-1: #1c212a;
+  --card-2: #222732;
+  --card-3: #272d3a;
 }
 
 * {
@@ -142,165 +168,170 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
   background-color: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Contextual alternates + kerning on. Small, but it is the difference
+     between type that is set and type that is merely rendered. */
+  font-feature-settings: "kern" 1, "calt" 1;
 }
 
-/* Eyebrow — a quiet technical label. Previously a filled accent pill; the
-   flat rule-and-mono treatment reads as documentation rather than marketing. */
+/* Paragraphs avoid orphans; headings balance across lines instead of leaving
+   a single word stranded on the last line. Supported browsers get it, others
+   fall back silently. */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  color: var(--color-ink);
+}
+
+/* Numerals align in columns wherever they appear. Small detail, and exactly
+   the sort of thing the intended audience notices. */
+.display,
+.font-mono,
+[class*="font-mono"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   TYPE
+   ========================================================================== */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 560;
+  letter-spacing: -0.021em;
+  line-height: 1.06;
+}
+
+/* Fluid heading steps with optical tracking: the larger the size, the tighter
+   the tracking, because letterfit that reads correct at 16px looks loose at
+   68px. Line-height moves the opposite way. */
+.t-hero {
+  font-size: clamp(2.625rem, 5.6vw, 4.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.034em;
+}
+.t-h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.026em;
+}
+.t-h3 {
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  letter-spacing: -0.013em;
+}
+.t-lead {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+}
+.t-body {
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  letter-spacing: -0.003em;
+}
+@media (min-width: 768px) {
+  .t-lead {
+    font-size: 1.125rem;
+  }
+}
+
+/* Monospace label — the workhorse of this language. Section eyebrows, column
+   headers, metadata, table labels. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Eyebrow — a label preceded by a short accent rule. Replaces the filled
+   accent pill, which read as a marketing badge. */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.13em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 .eyebrow::before {
   content: "";
   display: inline-block;
-  width: 1.5rem;
+  width: 1.25rem;
   height: 1px;
   background: var(--color-accent);
   flex-shrink: 0;
 }
 
-.display {
-  font-family: var(--font-display);
-  font-weight: 640;
-  letter-spacing: -0.028em;
-  line-height: 1.02;
-}
-
-/* Gradient text — the brand's blue-to-lavender glow, used sparingly */
-.text-glow {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-accent-strong) 0%,
-    var(--color-glow) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/* Buttons — centralised so radius/scale stay consistent. Moved off full pills
-   (999px) to a 0.5rem control radius: pills read consumer, this reads product. */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-control);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1;
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    color 0.2s ease;
-  white-space: nowrap;
-}
-.btn-sm {
-  padding: 0.6rem 1rem;
-}
-.btn-lg {
-  padding: 0.85rem 1.4rem;
-}
-.btn-primary {
-  background-color: var(--color-accent);
-  color: var(--color-on-accent);
-  border: 1px solid var(--color-accent);
-}
-.btn-primary:hover {
-  background-color: var(--color-accent-strong);
-  border-color: var(--color-accent-strong);
-}
-.btn-secondary {
-  border: 1px solid var(--color-line-strong);
-  color: var(--color-ink);
-  font-weight: 500;
-  background-color: transparent;
-}
-.btn-secondary:hover {
-  border-color: var(--color-ink-soft);
-  background-color: var(--color-surface);
-}
-
-/* Small factual chip — used for trust attributes (audit status, custody
-   model, uptime). Deliberately unstyled-looking: it should read as metadata,
-   not as a badge someone designed to impress. */
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-control);
-  padding: 0.3rem 0.6rem;
+/* Section index — the "§ 03" marker that makes the page read as a document.
+   Sits in the left rail of every section header. */
+.section-index {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.02em;
-  color: var(--color-ink-soft);
-  background: var(--color-surface);
-}
-
-/* Spec row — label/value pairs for the trust section. Hairline rules only. */
-.spec-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.35rem;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--color-line);
-}
-@media (min-width: 640px) {
-  .spec-row {
-    grid-template-columns: 13rem 1fr;
-    gap: 1.5rem;
-    align-items: baseline;
-  }
-}
-.spec-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   color: var(--color-muted);
-}
-.spec-value {
-  font-size: 0.925rem;
-  line-height: 1.6;
-  color: var(--color-ink-soft);
-}
-.spec-value strong {
-  color: var(--color-ink);
-  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Section shell */
+/* Retained for backwards compatibility. Gradient text is gone from the
+   language, so this is now simply the accent colour — every existing usage
+   flattens to solid blue rather than needing a hunt-and-replace. */
+.text-glow {
+  color: var(--color-accent-strong);
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+/* Section rhythm is fluid rather than fixed. A flat 7rem is right at 1440px
+   and absurd at 375px, which is what makes otherwise-good sites feel
+   unconsidered on a phone. */
 .section {
-  padding-top: var(--spacing-section);
-  padding-bottom: var(--spacing-section);
+  padding-top: clamp(4rem, 9vw, 7rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
 }
 
+/* Gutters step with the viewport for the same reason. */
 .container-x {
   width: 100%;
-  max-width: 76rem;
+  max-width: 74rem;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-/* Two-column split (link.com's hero treatment) — a section divides into a
-   left and right half, each spanning the full section height edge-to-edge
-   with its own flat tone, separated by exactly one line. Stacks to
-   top/bottom on small screens. Tokens inside an `.on-dark` half flip
-   automatically since color/surface are CSS vars. */
+/* Standard gap between a section header and the content beneath it. Was
+   hand-set per section and had drifted between mt-12 and mt-16. */
+.section-body {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+/* Two-column split — each half spans the full section height edge to edge
+   with its own tone, separated by exactly one rule. Stacks on small screens. */
 .split-section {
   position: relative;
 }
@@ -317,12 +348,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4.5rem 1.5rem;
-}
-@media (min-width: 768px) {
-  .split-col {
-    padding: 5.5rem 3rem;
-  }
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3.5rem);
 }
 .split-col + .split-col {
   border-top: 1px solid var(--color-line);
@@ -334,132 +360,341 @@ body {
   }
 }
 
-/* Subtle technical grid backdrop */
+/* Technical grid backdrop — the structural motif of the language. */
 .grid-backdrop {
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 56px 56px;
+  background-size: 48px 48px;
 }
 
+/* Atmospheric washes, dialled back to near-invisible. They now register as
+   a slight unevenness in the paper rather than as coloured light. */
 .atmosphere {
-  background:
-    radial-gradient(50% 60% at 82% 0%, rgba(79, 140, 255, 0.18), transparent 60%),
-    radial-gradient(45% 55% at 10% 10%, rgba(140, 120, 230, 0.12), transparent 55%);
+  background: radial-gradient(
+    50% 60% at 82% 0%,
+    var(--color-accent-soft),
+    transparent 60%
+  );
 }
-
-/* Signature hero gradient — a Stripe-style flow of blue, lavender and a
-   whisper of teal. Works over both light and dark canvases. */
 .hero-gradient {
-  background:
-    radial-gradient(40% 52% at 80% 0%, rgba(79, 140, 255, 0.13), transparent 64%),
-    radial-gradient(34% 44% at 96% 20%, rgba(109, 91, 207, 0.07), transparent 62%),
-    radial-gradient(48% 60% at 6% 8%, rgba(79, 140, 255, 0.05), transparent 58%);
+  background: radial-gradient(
+    46% 58% at 78% 0%,
+    var(--color-accent-soft),
+    transparent 64%
+  );
 }
-
 .atmosphere-soft {
   background: radial-gradient(
     60% 70% at 50% 0%,
-    rgba(79, 140, 255, 0.12),
-    transparent 65%
+    var(--color-accent-soft),
+    transparent 66%
   );
 }
 
-/* Elevated card used across section grids — soft, generous radius (link.com) */
+/* ==========================================================================
+   SURFACES
+   No shadows anywhere. A panel is defined by its border and its tone.
+   ========================================================================== */
+
+.panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+/* On dark surfaces a single hairline reads flat and slightly cheap. A 1px
+   inset highlight along the top edge simulates the light a real material
+   would catch, and is the detail that separates expensive dark UI from
+   merely dark UI. Invisible in light mode, where it isn't needed. */
+.dark .panel,
+.mix .panel,
+.on-dark .panel,
+.dark .card,
+.mix .card,
+.on-dark .card,
+.dark .ledger-grid,
+.mix .ledger-grid,
+.on-dark .ledger-grid {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Interactive panel — border darkens on hover. It does not lift, scale,
+   glow, or change colour. */
+.panel-interactive {
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+.panel-interactive:hover {
+  border-color: var(--color-line-strong);
+}
+
+/* Legacy aliases so any component not yet migrated still renders correctly
+   within the new language rather than falling back to unstyled boxes. */
+.card,
 .card-static {
   background-color: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
-  box-shadow: 0 1px 2px rgba(14, 22, 38, 0.04),
-    0 18px 40px -32px rgba(14, 22, 38, 0.28);
-}
-.on-dark .card-static,
-.dark .card-static,
-.mix .card-static {
   box-shadow: none;
+  transition: border-color 0.18s ease;
 }
-.card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card);
-  box-shadow: 0 1px 2px rgba(14, 22, 38, 0.05);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-/* Hover is now a quiet border shift. The previous lift + blue glow read as a
-   consumer app; institutional surfaces should sit still. */
 .card:hover {
   border-color: var(--color-line-strong);
-  box-shadow: 0 1px 2px rgba(14, 22, 38, 0.06);
 }
-
-/* Stacking cards (Stripe-style) — each card sticks and piles under the next. */
+.stack-card {
+  box-shadow: none;
+}
 .stack-item {
   position: sticky;
   position: -webkit-sticky;
 }
-.stack-card {
-  box-shadow: 0 24px 60px -30px rgba(14, 22, 38, 0.35);
+
+/* Ledger grid — cells separated by true hairlines rather than gaps, so a
+   group of items reads as one ruled table. Set on the container; children
+   need no border of their own.
+
+   <div class="ledger-grid sm:grid-cols-3">
+     <div class="ledger-cell">…</div>
+   </div> */
+.ledger-grid {
+  display: grid;
+  gap: 1px;
+  background-color: var(--color-line);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
 }
-.on-dark .stack-card,
-.dark .stack-card,
-.mix .stack-card {
-  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+.ledger-cell {
+  background-color: var(--color-surface);
+  padding: 1.75rem;
 }
-.on-dark .card,
-.dark .card,
-.mix .card {
-  box-shadow: none;
+@media (min-width: 768px) {
+  .ledger-cell {
+    padding: 2rem;
+  }
 }
-.on-dark .card:hover,
-.dark .card:hover,
-.mix .card:hover {
-  box-shadow: none;
-  border-color: var(--color-line-strong);
+/* Tighter cell for dense registers such as the network coverage grid. */
+.ledger-cell-tight {
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .ledger-cell-tight {
+    padding: 1rem;
+  }
+}
+.ledger-cell-interactive {
+  transition: background-color 0.18s ease;
+}
+.ledger-cell-interactive:hover {
+  background-color: var(--color-surface-2);
 }
 
-/* Icon tile — flattened from the gradient-filled 3rem tile to a smaller,
-   hairline-bordered square. Less decorative, more UI. */
+/* Icon tile — small, flat, hairline. Supporting mark, not an illustration. */
 .icon-tile {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: var(--radius-tile);
   background: var(--color-accent-soft);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 16%, transparent);
   color: var(--color-accent-strong);
   flex-shrink: 0;
 }
 .icon-tile svg {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1rem;
+  height: 1rem;
 }
 
-/* Richer band for the narrative "how it works" / final CTA sections. */
-.band-feature {
-  background-color: var(--color-canvas);
+/* Numeric index marker — replaces the filled circles and rounded squares
+   that previously held step and item numbers. */
+.index-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding-inline: 0.4rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-tile);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-soft);
+  flex-shrink: 0;
 }
 
-/* Top accent bar — thinner, and a blue-to-blue ramp rather than the
-   blue/lavender rainbow. */
+/* ==========================================================================
+   CONTROLS
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-control);
+  font-size: 0.875rem;
+  font-weight: 550;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+  white-space: nowrap;
+}
+.btn-sm {
+  padding: 0.575rem 0.9rem;
+}
+.btn-lg {
+  padding: 0.8rem 1.25rem;
+}
+/* Active state is a 1px optical press rather than a scale transform: scaling
+   text resamples it and looks soft for the duration of the animation. */
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  border: 1px solid var(--color-ink);
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: #fff;
+}
+.btn-secondary {
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-ink);
+  font-weight: 500;
+  background-color: transparent;
+}
+.btn-secondary:hover {
+  border-color: var(--color-ink-soft);
+  background-color: var(--color-surface);
+}
+/* An arrow inside a button or link nudges forward on hover. The only piece of
+   decorative motion in the system, and it earns its place by signalling
+   direction. */
+.btn-arrow {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+.btn:hover .btn-arrow,
+.arrow-link:hover .btn-arrow {
+  transform: translateX(2px);
+}
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent-strong);
+  transition: color 0.18s ease;
+}
+.arrow-link:hover {
+  color: var(--color-accent);
+}
+
+/* Metadata chip — deliberately plain. It should read as a fact printed on
+   the page, not as a badge somebody designed. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.01em;
+  color: var(--color-ink-soft);
+  background: var(--color-surface);
+}
+
+/* Tag — categorical label on a card. Rule-bound, not filled. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+}
+
+/* Inline link within prose. */
+.link {
+  color: var(--color-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--color-accent) 40%,
+    transparent
+  );
+  transition: text-decoration-color 0.18s ease;
+}
+.link:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+/* ==========================================================================
+   DATA
+   ========================================================================== */
+
+/* Spec row — label/value pairs. The datasheet register used for anything a
+   risk or procurement reader needs to extract quickly. */
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  padding: 1.05rem 0;
+  border-top: 1px solid var(--color-line);
+}
+@media (min-width: 640px) {
+  .spec-row {
+    grid-template-columns: 12rem 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+}
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+.spec-value {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+.spec-value strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+/* Top accent bar — 2px, solid. */
 .accent-bar {
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-accent-strong) 0%,
-    var(--color-accent) 45%,
-    var(--color-glow) 100%
-  );
+  background: var(--color-accent);
 }
 
-/* Scroll reveal */
+/* ==========================================================================
+   MOTION
+   Confirmation, not performance.
+   ========================================================================== */
+
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(8px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -467,10 +702,9 @@ body {
   transform: none;
 }
 
-/* Animated "data flowing" dashes for the rails diagram */
 .flow-line {
   stroke-dasharray: 3 9;
-  animation: flow-dash 1.4s linear infinite;
+  animation: flow-dash 1.6s linear infinite;
 }
 @keyframes flow-dash {
   to {
@@ -478,19 +712,16 @@ body {
   }
 }
 
-/* Live "operational" pulse (1inch-style status) */
 .pulse-dot {
-  animation: pulse-dot 1.8s ease-in-out infinite;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 @keyframes pulse-dot {
   0%,
   100% {
     opacity: 1;
-    transform: scale(1);
   }
   50% {
-    opacity: 0.4;
-    transform: scale(0.82);
+    opacity: 0.35;
   }
 }
 
@@ -503,10 +734,53 @@ body {
     transform: none;
     transition: none;
   }
-  .flow-line {
-    animation: none;
-  }
+  .flow-line,
   .pulse-dot {
     animation: none;
+  }
+}
+
+/* Focus is always visible and always the accent. The knockout ring in the
+   canvas colour keeps the outline legible over any surface tone. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 16%, transparent);
+  border-radius: 3px;
+}
+
+/* Keyboard-only escape hatch to the main content. Visually hidden until
+   focused — a small thing, and one that is always missing from sites that
+   have not been finished properly. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 0.18s ease;
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-control);
+  font-size: 0.8125rem;
+  font-weight: 550;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Hairlines stay a true single device pixel on high-density displays rather
+   than blurring across two. */
+@media (min-resolution: 2dppx) {
+  .panel,
+  .card,
+  .ledger-grid,
+  .chip,
+  .index-mark {
+    border-width: 0.5px;
+  }
+  .ledger-grid {
+    gap: 0.5px;
   }
 }

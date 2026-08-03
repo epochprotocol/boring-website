@@ -85,7 +85,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Explore</h3>
+            <h3 className="label">Explore</h3>
             <ul className="mt-4 space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -101,7 +101,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+            <h3 className="label">
               Trust
             </h3>
             <ul className="mt-4 space-y-3">
@@ -133,7 +133,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Connect</h3>
+            <h3 className="label">Connect</h3>
             <ul className="mt-4 space-y-3">
               {connectLinks.map((link) => (
                 <li key={link.href}>

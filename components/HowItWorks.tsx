@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 
 const steps = [
   {
@@ -28,31 +29,34 @@ export function HowItWorks() {
         <div className="split-col relative overflow-hidden bg-surface-2">
           <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
           <div className="absolute inset-0 atmosphere-soft" aria-hidden="true" />
-          <div className="relative w-full max-w-md">
-            <Reveal as="p" className="eyebrow">
-              How it works
-            </Reveal>
-            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              From intent to settlement, in one integration
-            </Reveal>
-          </div>
+          <SectionHeader
+            index="04"
+            eyebrow="How it works"
+            title="From intent to settlement, in one integration"
+            className="relative w-full max-w-md"
+          />
         </div>
 
         <div className="split-col on-dark relative overflow-hidden">
           <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden="true" />
-          <div className="relative w-full max-w-md space-y-10">
+          {/* Steps as a ruled sequence. The vertical rule carries the eye
+              through the flow, so the numbered circles are unnecessary. */}
+          <div className="relative w-full max-w-md">
             {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 80} className="relative flex gap-4">
-                <span className="display inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line-strong bg-surface text-lg text-accent-strong">
-                  {s.n}
-                </span>
-                <div>
-                  <p className="eyebrow">{s.label}</p>
-                  <h3 className="display mt-3 text-xl text-ink">{s.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-ink-soft">
-                    {s.body}
-                  </p>
-                </div>
+              <Reveal
+                key={s.n}
+                delay={i * 80}
+                className="relative border-l border-line pb-9 pl-6 last:pb-0"
+              >
+                <span
+                  className="absolute -left-px top-1.5 h-6 w-px bg-accent"
+                  aria-hidden="true"
+                />
+                <p className="label">
+                  {s.label} &mdash; {s.n}
+                </p>
+                <h3 className="display t-h3 mt-3 text-ink">{s.title}</h3>
+                <p className="t-body mt-2.5 text-ink-soft">{s.body}</p>
               </Reveal>
             ))}
           </div>

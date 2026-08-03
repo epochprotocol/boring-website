@@ -24,46 +24,46 @@ export function Proof() {
   return (
     <section id="proof" className="section border-b border-line bg-surface">
       <div className="container-x">
-        <div className="max-w-3xl">
+        {/* Deliberately unnumbered: this is a proof strip between chapters,
+            not a chapter of its own, and it renders conditionally. */}
+        <div className="max-w-2xl">
           <Reveal as="p" className="eyebrow">
             Who we work with
           </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
+          <Reveal as="h2" className="display t-h2 mt-6 text-ink">
             Built with institutions, not for a thesis
           </Reveal>
         </div>
 
         {hasPartners ? (
-          <div className="mt-14">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="section-body">
+            <h3 className="label">
               Design partners
             </h3>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {DESIGN_PARTNERS.map((p, i) => (
-                <Reveal key={p.descriptor} delay={i * 60} className="card p-7">
-                  <p className="display text-lg text-ink">{p.descriptor}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                    {p.detail}
-                  </p>
-                </Reveal>
+            <Reveal className="ledger-grid mt-5 sm:grid-cols-2 lg:grid-cols-3">
+              {DESIGN_PARTNERS.map((p) => (
+                <div key={p.descriptor} className="ledger-cell">
+                  <p className="display t-h3 text-ink">{p.descriptor}</p>
+                  <p className="t-body mt-2 text-ink-soft">{p.detail}</p>
+                </div>
               ))}
-            </div>
+            </Reveal>
           </div>
         ) : null}
 
         {hasTeam ? (
-          <div className="mt-16">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="section-body">
+            <h3 className="label">
               Leadership
             </h3>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {TEAM.map((m, i) => (
-                <Reveal key={m.name} delay={i * 60} className="card p-7">
-                  <p className="display text-lg text-ink">{m.name}</p>
-                  <p className="mt-1 font-mono text-xs uppercase tracking-widest text-accent-strong">
+            <Reveal className="ledger-grid mt-5 sm:grid-cols-2 lg:grid-cols-3">
+              {TEAM.map((m) => (
+                <div key={m.name} className="ledger-cell">
+                  <p className="display t-h3 text-ink">{m.name}</p>
+                  <p className="tag mt-1">
                     {m.role}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                  <p className="t-body mt-3 text-ink-soft">
                     {m.background}
                   </p>
                   {m.linkedin ? (
@@ -71,14 +71,14 @@ export function Proof() {
                       href={m.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-block text-sm text-accent-strong underline underline-offset-4"
+                      className="link mt-4 inline-block text-sm"
                     >
                       LinkedIn
                     </a>
                   ) : null}
-                </Reveal>
+                </div>
               ))}
-            </div>
+            </Reveal>
           </div>
         ) : null}
 
@@ -86,7 +86,7 @@ export function Proof() {
           <div className="mt-16 grid gap-10 border-t border-line pt-10 md:grid-cols-2">
             {hasInvestors ? (
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+                <h3 className="label">
                   Backed by
                 </h3>
                 <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
@@ -112,7 +112,7 @@ export function Proof() {
 
             {hasEcosystem ? (
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+                <h3 className="label">
                   Infrastructure partners
                 </h3>
                 <ul className="mt-5 space-y-2">

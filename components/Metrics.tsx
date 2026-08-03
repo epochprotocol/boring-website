@@ -43,13 +43,13 @@ export function Metrics() {
                 href={STATUS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-line-strong px-3 py-1 font-mono text-xs text-ink-soft transition-colors hover:text-ink"
+                className="chip transition-colors hover:text-ink"
               >
                 <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-teal" />
                 Live uptime &amp; incident history
               </a>
             ) : (
-              <span className="inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-line-strong px-3 py-1 font-mono text-xs text-ink-soft">
+              <span className="chip">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Built for production workloads
               </span>
@@ -57,14 +57,16 @@ export function Metrics() {
             <Pixels />
           </div>
 
-          <h2 className="display mx-auto mt-8 max-w-3xl text-3xl md:text-4xl text-ink">
+          <h2 className="display t-h2 mx-auto mt-7 max-w-2xl text-ink">
             Institutional scale, without the operational overhead
           </h2>
 
-          <dl className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-12 sm:grid-cols-3">
+          {/* Ruled columns rather than three floating numbers. The vertical
+              hairlines are what make it read as a figure table. */}
+          <dl className="section-body mx-auto grid max-w-3xl grid-cols-1 divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {metrics.map((m) => (
-              <div key={m.v}>
-                <dt className="display text-6xl text-ink md:text-7xl">{m.k}</dt>
+              <div key={m.v} className="px-6 py-8">
+                <dt className="display text-5xl text-ink md:text-6xl">{m.k}</dt>
                 <dd className="mx-auto mt-3 max-w-[12rem] text-sm leading-relaxed text-muted">
                   {m.v}
                 </dd>

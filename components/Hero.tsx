@@ -7,20 +7,22 @@ export function Hero() {
     <section className="relative overflow-hidden border-b border-line">
       <div className="absolute inset-0 hero-gradient" aria-hidden="true" />
 
-      <div className="container-x relative pt-24 pb-24 md:pt-32 md:pb-36">
-        <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.02fr] lg:gap-20">
+      {/* Asymmetric column split — narrative slightly wider than the object,
+          which stops the two halves reading as a stalemate. */}
+      <div className="container-x relative pt-16 pb-20 md:pt-24 md:pb-28">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_1fr] lg:gap-16">
           <div>
             <p className="eyebrow reveal is-visible">{TAGLINE}</p>
 
             {/* Solid ink, no gradient fill. A blue-to-lavender headline is the
                 single strongest "consumer crypto" tell on a page like this. */}
-            <h1 className="display mt-6 text-5xl sm:text-6xl md:text-[4.2rem] text-ink">
+            <h1 className="display t-hero mt-6 text-ink">
               Define the outcome.
               <br />
               Epoch does the rest.
             </h1>
 
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
+            <p className="t-lead mt-6 max-w-md text-ink-soft">
               Your company defines the financial outcome. Epoch handles every
               chain, protocol, and payment rail underneath &mdash; no blockchain
               expertise required.
@@ -29,7 +31,7 @@ export function Hero() {
             <CtaButtons className="mt-8" />
 
             {/* Answer the two questions a bank asks first, above the fold. */}
-            <div className="mt-8 flex flex-wrap items-center gap-2">
+            <div className="mt-9 flex flex-wrap items-center gap-2 border-t border-line pt-6">
               <span className="chip">
                 <span
                   className="h-1.5 w-1.5 rounded-full bg-accent"

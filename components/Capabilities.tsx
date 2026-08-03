@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Icon } from "./Icon";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import { DOCS_URL } from "@/lib/site";
 
 type Capability = {
@@ -88,23 +89,14 @@ export function Capabilities() {
       className="section border-b border-line bg-surface-2"
     >
       <div className="container-x">
-        <div className="max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            Compose
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            Choose your capabilities. Epoch composes the outcome.
-          </Reveal>
-          <Reveal
-            as="p"
-            className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft"
-          >
-            Toggle what your flow needs. It all runs through one API surface
-            &mdash; no extra services to assemble or maintain.
-          </Reveal>
-        </div>
+        <SectionHeader
+          index="02"
+          eyebrow="Compose"
+          title="Choose your capabilities. Epoch composes the outcome."
+          lead="Toggle what your flow needs. It all runs through one API surface — no extra services to assemble or maintain."
+        />
 
-        <Reveal className="card-static mt-16 grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">
+        <Reveal className="panel section-body grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">
           {/* Selector */}
           <div className="p-6 md:p-8">
             <div className="grid gap-3 sm:grid-cols-2">
@@ -116,20 +108,20 @@ export function Capabilities() {
                     type="button"
                     aria-pressed={active}
                     onClick={() => toggle(cap.id)}
-                    className={`group flex items-start gap-3 rounded-2xl border p-4 text-left transition-all ${
+                    className={`group flex items-start gap-3 rounded-[var(--radius-control)] border p-4 text-left transition-colors ${
                       active
                         ? "border-accent bg-accent-soft"
                         : "border-line hover:border-line-strong bg-surface"
                     }`}
                   >
                     <span
-                      className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${
+                      className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-tile)] transition-colors ${
                         active
                           ? "bg-accent text-on-accent"
                           : "bg-surface-2 text-ink-soft"
                       }`}
                     >
-                      <Icon name={cap.icon} className="h-4 w-4" />
+                      <Icon name={cap.icon} className="h-3.5 w-3.5" />
                     </span>
                     <span>
                       <span className="flex items-center gap-1.5 text-sm font-semibold text-ink">
@@ -140,7 +132,7 @@ export function Capabilities() {
                       </span>
                     </span>
                     <span
-                      className={`ml-auto mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                      className={`ml-auto mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-[2px] border transition-colors ${
                         active
                           ? "border-accent bg-accent text-on-accent"
                           : "border-line-strong text-transparent"
@@ -168,22 +160,22 @@ export function Capabilities() {
               href={DOCS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent-strong hover:text-accent transition-colors"
+              className="arrow-link mt-6"
             >
               See the full API reference
-              <span aria-hidden="true">&rarr;</span>
+              <span className="btn-arrow" aria-hidden="true">
+                &rarr;
+              </span>
             </a>
           </div>
 
           {/* Live preview */}
           <div className="on-dark border-t border-line lg:border-l lg:border-t-0">
-            <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-              <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-              <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-              <span className="ml-3 font-mono text-xs text-muted">
-                request.ts
-              </span>
+            {/* Traffic-light dots were skeuomorphic filler. A filename and a
+                POST label say more in less space. */}
+            <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-3">
+              <span className="label">request.ts</span>
+              <span className="label text-accent-strong">POST /v1/solve</span>
             </div>
             <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed">
               <code>

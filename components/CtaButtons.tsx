@@ -19,8 +19,15 @@ export function CtaButtons({ className = "", align = "start" }: CtaButtonsProps)
         align === "center" ? "sm:justify-center" : ""
       } ${className}`}
     >
-      <Link href={SALES_CALENDAR_URL} {...bookProps} className="btn btn-lg btn-primary">
+      <Link
+        href={SALES_CALENDAR_URL}
+        {...bookProps}
+        className="btn btn-lg btn-primary"
+      >
         Book a sales call
+        <span className="btn-arrow" aria-hidden="true">
+          &rarr;
+        </span>
       </Link>
       <a
         href={DOCS_URL}

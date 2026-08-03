@@ -41,6 +41,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <div className="accent-bar" aria-hidden="true" />
         {children}
       </body>

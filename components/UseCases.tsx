@@ -1,5 +1,6 @@
 import { Icon } from "./Icon";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 
 const cases = [
   {
@@ -36,38 +37,33 @@ export function UseCases() {
   return (
     <section id="use-cases" className="on-dark on-dark-band section border-b border-line">
       <div className="container-x">
-        <div className="max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            Use cases
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            One integration, many financial products
-          </Reveal>
-        </div>
+        <SectionHeader
+          index="08"
+          eyebrow="Use cases"
+          title="One integration, many financial products"
+        />
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {cases.map((c, i) => (
-            <Reveal key={c.tag} delay={i * 60}>
-              <article
-                className="card-static p-8"
-                style={{ backgroundColor: `var(--card-${i})` }}
-              >
-                <div className="flex items-center gap-4">
+        <Reveal className="ledger-grid section-body md:grid-cols-2">
+          {cases.map((c) => (
+            <div key={c.tag} className="ledger-cell ledger-cell-interactive">
+              <article>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="tag">{c.tag}</span>
+                  <span className="section-index">{c.no}</span>
+                </div>
+                <div className="mt-5 flex items-start gap-4">
                   <span className="icon-tile">
                     <Icon name={c.icon} />
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-strong">
-                    {c.tag}
-                  </span>
+                  <div>
+                    <h3 className="display t-h3 text-ink">{c.title}</h3>
+                    <p className="t-body mt-2.5 text-ink-soft">{c.body}</p>
+                  </div>
                 </div>
-                <h3 className="display mt-6 text-2xl text-ink">{c.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-ink-soft">
-                  {c.body}
-                </p>
               </article>
-            </Reveal>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

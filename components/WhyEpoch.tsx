@@ -1,5 +1,6 @@
 import { Icon } from "./Icon";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 
 const benefits = [
   {
@@ -32,32 +33,24 @@ export function WhyEpoch() {
   return (
     <section className="section border-b border-line bg-surface">
       <div className="container-x">
-        <div className="max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            For institutions &amp; product teams
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            Why build on Epoch
-          </Reveal>
-          <Reveal as="p" className="mt-5 text-lg md:text-xl leading-relaxed text-ink-soft">
-            Scale across Web3 without scaling operational or engineering
-            complexity.
-          </Reveal>
-        </div>
+        <SectionHeader
+          index="05"
+          eyebrow="For institutions & product teams"
+          title="Why build on Epoch"
+          lead="Scale across Web3 without scaling operational or engineering complexity."
+        />
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {benefits.map((b, i) => (
-            <Reveal key={b.title} delay={i * 60} className="card p-7">
+        <Reveal className="ledger-grid section-body sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map((b) => (
+            <div key={b.title} className="ledger-cell ledger-cell-interactive">
               <div className="icon-tile">
                 <Icon name={b.icon} />
               </div>
-              <h3 className="display mt-5 text-lg text-ink">{b.title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                {b.body}
-              </p>
-            </Reveal>
+              <h3 className="display t-h3 mt-5 text-ink">{b.title}</h3>
+              <p className="t-body mt-2.5 text-ink-soft">{b.body}</p>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

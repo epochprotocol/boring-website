@@ -34,12 +34,12 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="card-static p-8">
-        <h3 className="display text-xl text-ink">Thank you</h3>
+      <div className="panel p-8">
+        <h3 className="display t-h3 text-ink">Thank you</h3>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Your email client should have opened with your message ready to send.
           If it did not, reach us directly at{" "}
-          <a href={`mailto:${SALES_EMAIL}`} className="text-accent underline">
+          <a href={`mailto:${SALES_EMAIL}`} className="link">
             {SALES_EMAIL}
           </a>
           . We will follow up shortly.
@@ -49,13 +49,15 @@ export function ContactForm() {
   }
 
   const field =
-    "mt-2 w-full rounded-md border border-line-strong bg-surface px-4 py-2.5 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent-soft";
-  const label = "text-sm font-medium text-ink-soft";
+    "mt-2 w-full rounded-[var(--radius-control)] border border-line-strong bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-accent";
+  // Field labels take the monospace register with the rest of the structural
+  // text, so the form reads as part of the same document as the datasheets.
+  const label = "label";
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="card-static p-8"
+      className="panel p-8"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>

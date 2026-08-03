@@ -1,10 +1,13 @@
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import { RailsDiagram } from "./RailsDiagram";
 
+// Staged as in / run / out so the list reads as a pipeline spec rather than
+// three unrelated bullets.
 const points = [
-  "Any chain, any token, or fiat — in.",
-  "Routing, bridging, swaps and policy — handled.",
-  "One verified outcome — back to your systems.",
+  { k: "In", v: "Any chain, any token, or fiat." },
+  { k: "Run", v: "Routing, bridging, swaps and policy — handled." },
+  { k: "Out", v: "One verified outcome, back to your systems." },
 ];
 
 export function Product() {
@@ -13,37 +16,23 @@ export function Product() {
       <div className="split-cols">
         <div className="split-col bg-surface">
           <div className="w-full max-w-md">
-            <Reveal as="p" className="eyebrow">
-              The product
-            </Reveal>
-            <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              An API for financial outcomes, not blockchain plumbing
-            </Reveal>
-            <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
-              You describe what needs to happen. Epoch determines how,
-              coordinates execution across chains and protocols, and reports
-              back the result. Your team works with outcomes; the complexity
-              stays on our side.
-            </Reveal>
+            <SectionHeader
+              index="01"
+              eyebrow="The product"
+              title="An API for financial outcomes, not blockchain plumbing"
+              lead="You describe what needs to happen. Epoch determines how, coordinates execution across chains and protocols, and reports back the result. Your team works with outcomes; the complexity stays on our side."
+              className="max-w-md"
+            />
 
-            <Reveal as="ul" className="mt-8 space-y-3.5">
+            {/* Ruled list rather than bulleted checks — reads as a spec. */}
+            <Reveal as="ul" className="mt-8 border-t border-line">
               {points.map((p) => (
-                <li key={p} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-strong">
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-3.5 w-3.5"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 8.5l3 3 7-8" />
-                    </svg>
-                  </span>
-                  <span className="text-base text-ink-soft">{p}</span>
+                <li
+                  key={p.k}
+                  className="grid grid-cols-[3.5rem_1fr] items-baseline gap-4 border-b border-line py-3.5"
+                >
+                  <span className="label text-accent-strong">{p.k}</span>
+                  <span className="t-body text-ink-soft">{p.v}</span>
                 </li>
               ))}
             </Reveal>
@@ -52,7 +41,7 @@ export function Product() {
 
         <div className="split-col on-dark relative overflow-hidden">
           <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden="true" />
-          <Reveal className="card-static relative p-8">
+          <Reveal className="panel relative w-full max-w-md p-8">
             <RailsDiagram />
           </Reveal>
         </div>

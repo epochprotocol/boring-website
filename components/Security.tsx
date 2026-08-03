@@ -7,6 +7,7 @@ import {
 } from "@/lib/site";
 import { Icon } from "./Icon";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 
 /**
  * The section a bank's risk function looks for and, until now, could not
@@ -63,40 +64,29 @@ export function Security() {
       className="section border-b border-line bg-surface-2"
     >
       <div className="container-x">
-        <div className="max-w-3xl">
-          <Reveal as="p" className="eyebrow">
-            Security &amp; custody
-          </Reveal>
-          <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-            The answers your risk team asks for first
-          </Reveal>
-          <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
-            Epoch is non-custodial infrastructure. We orchestrate execution;
-            we do not hold your assets, and we do not stand between you and
-            your funds.
-          </Reveal>
-        </div>
+        <SectionHeader
+          index="06"
+          eyebrow="Security & custody"
+          title="The answers your risk team asks for first"
+          lead="Epoch is non-custodial infrastructure. We orchestrate execution; we do not hold your assets, and we do not stand between you and your funds."
+        />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {pillars.map((p, i) => (
-            <Reveal key={p.title} delay={i * 60} className="card p-7">
+        <Reveal className="ledger-grid section-body md:grid-cols-3">
+          {pillars.map((p) => (
+            <div key={p.title} className="ledger-cell ledger-cell-interactive">
               <div className="icon-tile">
                 <Icon name={p.icon} />
               </div>
-              <h3 className="display mt-5 text-lg text-ink">{p.title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                {p.body}
-              </p>
-            </Reveal>
+              <h3 className="display t-h3 mt-5 text-ink">{p.title}</h3>
+              <p className="t-body mt-2.5 text-ink-soft">{p.body}</p>
+            </div>
           ))}
-        </div>
+        </Reveal>
 
-        <Reveal className="card-static mt-6 p-7 md:p-9">
+        <Reveal className="panel mt-4 p-7 md:p-9">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h3 className="display text-xl text-ink">Assurance</h3>
-            <p className="font-mono text-xs uppercase tracking-widest text-muted">
-              Diligence reference
-            </p>
+            <h3 className="display t-h3 text-ink">Assurance</h3>
+            <p className="label">Diligence reference</p>
           </div>
 
           <div className="mt-6">
@@ -120,7 +110,7 @@ export function Security() {
                         href={a.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-accent-strong underline underline-offset-4"
+                        className="link"
                       >
                         <strong>{a.firm}</strong>
                       </a>{" "}
@@ -168,7 +158,7 @@ export function Security() {
                   href={STATUS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent-strong underline underline-offset-4"
+                  className="link"
                 >
                   Live uptime and incident history
                 </a>
@@ -179,7 +169,7 @@ export function Security() {
               Vulnerability reports and diligence questionnaires:{" "}
               <a
                 href={`mailto:${SECURITY_EMAIL}`}
-                className="text-accent-strong underline underline-offset-4"
+                className="link"
               >
                 {SECURITY_EMAIL}
               </a>
@@ -190,7 +180,7 @@ export function Security() {
               under NDA for teams in evaluation.{" "}
               <a
                 href={`mailto:${SECURITY_EMAIL}?subject=Security%20pack%20request`}
-                className="text-accent-strong underline underline-offset-4"
+                className="link"
               >
                 Request it
               </a>
