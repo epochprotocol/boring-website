@@ -7,6 +7,8 @@ import { Problems } from "@/components/Problems";
 import { HowItWorks } from "@/components/HowItWorks";
 import { WhyEpoch } from "@/components/WhyEpoch";
 import { CompliancePrivacy } from "@/components/CompliancePrivacy";
+import { Security } from "@/components/Security";
+import { Proof } from "@/components/Proof";
 import { UseCases } from "@/components/UseCases";
 import { Networks } from "@/components/Networks";
 import { FinalCta } from "@/components/FinalCta";
@@ -24,7 +26,12 @@ export default function Home() {
         <Problems />
         <HowItWorks />
         <WhyEpoch />
+        {/* Security sits immediately after the value proposition and before
+            the compliance detail: custody is the first objection, so it gets
+            answered before anything else is asked for. */}
+        <Security />
         <CompliancePrivacy />
+        <Proof />
         <UseCases />
         <Networks />
         <FinalCta />

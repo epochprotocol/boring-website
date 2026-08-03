@@ -44,7 +44,7 @@ export default function ContactPage() {
                     <Link
                       href={SALES_CALENDAR_URL}
                       {...bookProps}
-                      className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
+                      className="btn btn-lg btn-primary"
                     >
                       Pick a time on our calendar
                     </Link>

@@ -19,18 +19,14 @@ export function CtaButtons({ className = "", align = "start" }: CtaButtonsProps)
         align === "center" ? "sm:justify-center" : ""
       } ${className}`}
     >
-      <Link
-        href={SALES_CALENDAR_URL}
-        {...bookProps}
-        className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong hover:text-canvas"
-      >
+      <Link href={SALES_CALENDAR_URL} {...bookProps} className="btn btn-lg btn-primary">
         Book a sales call
       </Link>
       <a
         href={DOCS_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent-strong"
+        className="btn btn-lg btn-secondary"
       >
         Read the docs
       </a>

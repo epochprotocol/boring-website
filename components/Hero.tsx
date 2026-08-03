@@ -1,6 +1,6 @@
 import { CtaButtons } from "./CtaButtons";
 import { HeroVisual } from "./HeroVisual";
-import { TAGLINE } from "@/lib/site";
+import { STATUS_URL, TAGLINE } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -12,19 +12,53 @@ export function Hero() {
           <div>
             <p className="eyebrow reveal is-visible">{TAGLINE}</p>
 
-            <h1 className="display mt-7 text-5xl sm:text-6xl md:text-[4.6rem] text-ink">
+            {/* Solid ink, no gradient fill. A blue-to-lavender headline is the
+                single strongest "consumer crypto" tell on a page like this. */}
+            <h1 className="display mt-6 text-5xl sm:text-6xl md:text-[4.2rem] text-ink">
               Define the outcome.
               <br />
-              <span className="text-glow">Epoch does the rest.</span>
+              Epoch does the rest.
             </h1>
 
-            <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
               Your company defines the financial outcome. Epoch handles every
               chain, protocol, and payment rail underneath &mdash; no blockchain
               expertise required.
             </p>
 
-            <CtaButtons className="mt-9" />
+            <CtaButtons className="mt-8" />
+
+            {/* Answer the two questions a bank asks first, above the fold. */}
+            <div className="mt-8 flex flex-wrap items-center gap-2">
+              <span className="chip">
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-accent"
+                  aria-hidden="true"
+                />
+                Non-custodial &mdash; you keep your keys
+              </span>
+              <span className="chip">
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-accent"
+                  aria-hidden="true"
+                />
+                Policy enforced pre-settlement
+              </span>
+              {STATUS_URL ? (
+                <a
+                  href={STATUS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="chip hover:border-line-strong"
+                >
+                  <span
+                    className="pulse-dot h-1.5 w-1.5 rounded-full bg-teal"
+                    aria-hidden="true"
+                  />
+                  Live status
+                </a>
+              ) : null}
+            </div>
           </div>
 
           <div className="lg:pl-4">

@@ -13,12 +13,17 @@ export function CompliancePrivacy() {
               Compliance &amp; privacy
             </Reveal>
             <Reveal as="h2" className="display mt-5 text-4xl md:text-5xl text-ink">
-              Controls and privacy, built into the flow
+              Your controls run before value moves
             </Reveal>
             <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
-              Compliance and confidentiality aren&rsquo;t bolted on
-              afterwards. They&rsquo;re steps in the same outcome you define
-              &mdash; enforced before anything settles.
+              Screening and policy are not a report you reconcile afterwards.
+              They are gating conditions inside the outcome you define &mdash;
+              if a check fails, nothing executes.
+            </Reveal>
+            <Reveal as="p" className="mt-4 text-sm leading-relaxed text-muted">
+              Epoch does not replace your compliance obligations or your
+              licences. It gives your existing policy a place to run inside the
+              execution path.
             </Reveal>
           </div>
         </div>
@@ -31,13 +36,14 @@ export function CompliancePrivacy() {
                 <Icon name="shield" />
               </div>
               <h3 className="display mt-5 text-xl text-ink">
-                Compliance checks at the end
+                Pre-settlement screening
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                Attach KYC, sanctions screening, and your own policy rules as
-                the final step of any flow. Checks run before an outcome
-                settles, so nothing executes outside your controls &mdash; no
-                separate integration to build or maintain.
+                KYC, sanctions and your own policy rules are evaluated as
+                blocking conditions before any leg executes. A failed check
+                halts the outcome rather than flagging it after the fact, and
+                every decision is returned to your systems for your audit
+                trail.
               </p>
             </Reveal>
 

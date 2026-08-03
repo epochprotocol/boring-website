@@ -19,8 +19,12 @@ const benefits = [
   },
   {
     icon: "boxCheck" as const,
-    title: "Everything included",
-    body: "No additional tools, services, or third-party integrations needed. Epoch works out of the box.",
+    // Previously "Everything included — no third-party integrations needed",
+    // which sophisticated buyers read as either naive or untrue: everyone
+    // knows this depends on bridges, venues and oracles. Owning the
+    // dependency and the failure path is the more credible position.
+    title: "We own the dependencies",
+    body: "Bridges, venues and oracles sit behind our SLA, not yours. We monitor them, route around degradation, and reconcile failed legs.",
   },
 ];
 

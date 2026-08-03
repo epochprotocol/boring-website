@@ -1,6 +1,7 @@
+import { ChainMark, type ChainName } from "./ChainMark";
 import { Reveal } from "./Reveal";
 
-const networks = [
+const networks: ChainName[] = [
   "Ethereum",
   "Base",
   "Arbitrum",
@@ -24,8 +25,9 @@ export function Networks() {
               Cross-chain support, out of the box
             </Reveal>
             <Reveal as="p" className="mt-5 text-lg leading-relaxed text-ink-soft">
-              We support every major chain and protocol so your team
-              doesn&rsquo;t have to. Build once, reach everywhere.
+              Eight networks in production today, with venue and bridge
+              coverage maintained on our side. Build once against one
+              interface.
             </Reveal>
           </div>
         </div>
@@ -39,8 +41,8 @@ export function Networks() {
                   delay={i * 40}
                   className="card flex items-center gap-3 px-5 py-4"
                 >
-                  <span className="display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-sm text-accent-strong">
-                    {n.charAt(0)}
+                  <span className="icon-tile">
+                    <ChainMark name={n} />
                   </span>
                   <span className="text-sm font-semibold text-ink">{n}</span>
                 </Reveal>

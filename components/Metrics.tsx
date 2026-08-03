@@ -1,3 +1,4 @@
+import { STATUS_URL } from "@/lib/site";
 import { Reveal } from "./Reveal";
 
 const metrics = [
@@ -32,12 +33,27 @@ export function Metrics() {
 
       <div className="container-x relative py-20 text-center md:py-28">
         <Reveal>
+          {/* "Enterprise-grade · operational 24/7" was an unverifiable claim.
+              Once STATUS_URL is set this becomes a link to real uptime data,
+              which is the only version of this statement worth making. */}
           <div className="flex items-center justify-center gap-4">
             <Pixels />
-            <span className="inline-flex items-center gap-2 rounded-full border border-line-strong px-3 py-1 font-mono text-xs text-ink-soft">
-              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
-              Enterprise-grade &middot; operational 24/7
-            </span>
+            {STATUS_URL ? (
+              <a
+                href={STATUS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-line-strong px-3 py-1 font-mono text-xs text-ink-soft transition-colors hover:text-ink"
+              >
+                <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-teal" />
+                Live uptime &amp; incident history
+              </a>
+            ) : (
+              <span className="inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-line-strong px-3 py-1 font-mono text-xs text-ink-soft">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                Built for production workloads
+              </span>
+            )}
             <Pixels />
           </div>
 
