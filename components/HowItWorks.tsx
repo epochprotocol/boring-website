@@ -34,19 +34,22 @@ const steps: {
 
 const stepPlates = [
   {
-    src: "/why-epoch-4.png",
+    src: "/step-1.png",
     label: "Step 01 · Define",
-    alt: "Diagram of bridges, venues, and oracles operating under Epoch's SLA",
+    alt: "Code intent feeding into Epoch's integration hub to define the outcome",
+    ratio: 1018 / 855,
   },
   {
-    src: "/why-epoch-5.png",
+    src: "/step-2.png",
     label: "Step 02 · Coordinate",
-    alt: "Diagram of Epoch routing around degradation and reconciling failed legs",
+    alt: "Handshake over Epoch's execution layer as paths are coordinated across rails",
+    ratio: 737 / 928,
   },
   {
-    src: "/why-epoch-3.png",
+    src: "/step-3.png",
     label: "Step 03 · Settle",
-    alt: "Diagram of one API integration replacing separately managed bridges and venues",
+    alt: "Synced systems confirming settlement after Epoch reports the verified result",
+    ratio: 927 / 956,
   },
 ];
 
@@ -87,7 +90,7 @@ export function HowItWorks() {
                     src={plate.src}
                     label={plate.label}
                     alt={plate.alt}
-                    ratio={4942 / 4300}
+                    ratio={plate.ratio}
                     sizes="(min-width: 1024px) 28vw, 100vw"
                   />
                 </div>
