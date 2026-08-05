@@ -12,6 +12,7 @@ import {
   TAGLINE,
   POSITIONING,
 } from "@/lib/site";
+import { FooterMark } from "./FooterMark";
 import { Wordmark } from "./Wordmark";
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -21,31 +22,36 @@ export function Footer() {
     ? { target: "_blank", rel: "noopener noreferrer" }
     : {};
 
-  // Trust and contact routes, assembled from config so nothing renders as a
-  // dead link. LinkedIn and the status page appear only once they exist.
-  const trustLinks: { label: string; href: string; external?: boolean }[] = [
+  const productLinks = [
+    ...NAV_LINKS.slice(0, 4),
+    { label: "Docs", href: DOCS_URL, external: true as const },
+  ];
+
+  const companyLinks: { label: string; href: string; external?: boolean }[] = [
+    { label: "Contact", href: "/contact" },
     { label: "Security & custody", href: "/#security" },
     { label: "Compliance", href: "/#compliance" },
     ...(STATUS_URL
       ? [{ label: "System status", href: STATUS_URL, external: true }]
       : []),
-    { label: "Report a vulnerability", href: `mailto:${SECURITY_EMAIL}`, external: true },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of use", href: "/terms" },
   ];
 
   const connectLinks = [
-    ...SOCIAL_LINKS,
+    ...SOCIAL_LINKS.filter((l) => l.label !== "Docs"),
     ...(LINKEDIN_URL ? [{ label: "LinkedIn", href: LINKEDIN_URL }] : []),
+    { label: "Sales", href: `mailto:${SALES_EMAIL}` },
+    { label: "Security", href: `mailto:${SECURITY_EMAIL}` },
   ];
 
   return (
-    <footer className="border-t border-line bg-surface-2">
-      <div className="container-x py-16">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="border-t border-line bg-surface">
+      <div className="container-x pt-16 md:pt-20">
+        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <Wordmark />
-            <p className="mt-4 max-w-xs text-sm text-muted">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               {POSITIONING}. {TAGLINE}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -65,59 +71,19 @@ export function Footer() {
                 Read the docs
               </a>
             </div>
-
-            <div className="mt-6 space-y-1 text-sm text-muted">
-              <p>
-                Sales:{" "}
-                <a
-                  href={`mailto:${SALES_EMAIL}`}
-                  className="text-ink-soft hover:text-ink transition-colors"
-                >
-                  {SALES_EMAIL}
-                </a>
-              </p>
-              <p>
-                Security:{" "}
-                <a
-                  href={`mailto:${SECURITY_EMAIL}`}
-                  className="text-ink-soft hover:text-ink transition-colors"
-                >
-                  {SECURITY_EMAIL}
-                </a>
-              </p>
-            </div>
           </div>
 
           <div>
-            <h3 className="label">Explore</h3>
+            <h3 className="label">Product</h3>
             <ul className="mt-4 space-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-ink-soft hover:text-ink transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="label">
-              Trust
-            </h3>
-            <ul className="mt-4 space-y-3">
-              {trustLinks.map((link) =>
-                link.external ? (
+              {productLinks.map((link) =>
+                "external" in link && link.external ? (
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      {...(link.href.startsWith("mailto:")
-                        ? {}
-                        : { target: "_blank", rel: "noopener noreferrer" })}
-                      className="text-sm text-ink-soft hover:text-ink transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-ink-soft transition-colors hover:text-ink"
                     >
                       {link.label}
                     </a>
@@ -126,7 +92,37 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ink-soft hover:text-ink transition-colors"
+                      className="text-sm text-ink-soft transition-colors hover:text-ink"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="label">Company</h3>
+            <ul className="mt-4 space-y-3">
+              {companyLinks.map((link) =>
+                link.external ? (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      {...(link.href.startsWith("mailto:")
+                        ? {}
+                        : { target: "_blank", rel: "noopener noreferrer" })}
+                      className="text-sm text-ink-soft transition-colors hover:text-ink"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-ink-soft transition-colors hover:text-ink"
                     >
                       {link.label}
                     </Link>
@@ -143,9 +139,10 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-ink-soft hover:text-ink transition-colors"
+                    {...(link.href.startsWith("mailto:")
+                      ? {}
+                      : { target: "_blank", rel: "noopener noreferrer" })}
+                    className="text-sm text-ink-soft transition-colors hover:text-ink"
                   >
                     {link.label}
                   </a>
@@ -168,21 +165,21 @@ export function Footer() {
                   }.`
                 : null}
             </p>
-            {/* Institutions read this kind of scope statement as candour, not
-                as a weakness. Its absence is what raises questions. */}
             <p className="max-w-2xl text-xs leading-relaxed text-muted">
               Epoch provides execution infrastructure and is not a bank, broker,
               money transmitter, or investment adviser. Nothing on this site is
               financial, legal, or investment advice.
             </p>
           </div>
-          <Link
-            href="/privacy"
-            className="shrink-0 text-xs text-muted hover:text-ink"
-          >
-            Privacy Policy
-          </Link>
+          <p className="shrink-0 text-xs text-muted">
+            Rails for modern finance.
+          </p>
         </div>
+      </div>
+
+      {/* Continues the same surface — no border, no dark band. */}
+      <div className="mt-8 pb-2 md:mt-10">
+        <FooterMark />
       </div>
     </footer>
   );

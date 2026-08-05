@@ -1,4 +1,5 @@
 import { ChainMark, type ChainName } from "./ChainMark";
+import { RecordAmount } from "./RecordAmount";
 
 /**
  * The hero object. Previously a stack of pillowy shadowed cards with a
@@ -9,10 +10,12 @@ import { ChainMark, type ChainName } from "./ChainMark";
  * outcome, so the visual should look like the receipt for one.
  */
 
-const rows: { k: string; v: string; mono?: boolean }[] = [
+const RECORD_AMOUNT = 248_315;
+
+const rows: { k: string; v: string; mono?: boolean; amount?: boolean }[] = [
   { k: "Outcome", v: "acquire", mono: true },
   { k: "Source", v: "Any chain, token, or fiat" },
-  { k: "Amount", v: "$248,315.00", mono: true },
+  { k: "Amount", v: "", mono: true, amount: true },
   { k: "Policy", v: "KYC · Sanctions", mono: true },
   { k: "Destination", v: "USDC on Base" },
 ];
@@ -57,10 +60,10 @@ export function HeroVisual() {
                 <dt className="label">{r.k}</dt>
                 <dd
                   className={`text-right text-sm text-ink ${
-                    r.mono ? "font-mono" : "font-medium"
+                    r.mono || r.amount ? "font-mono" : "font-medium"
                   }`}
                 >
-                  {r.v}
+                  {r.amount ? <RecordAmount value={RECORD_AMOUNT} /> : r.v}
                 </dd>
               </div>
             ))}

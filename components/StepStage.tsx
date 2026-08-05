@@ -1,4 +1,5 @@
 import { ChainMark, type ChainName } from "./ChainMark";
+import { RecordAmount } from "./RecordAmount";
 
 const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Solana"];
 
@@ -19,7 +20,21 @@ const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Solana"];
  * component always shows something complete and correct.
  */
 
-const states = [
+const RECORD_AMOUNT = 248_315;
+
+type Row = {
+  k: string;
+  v: string;
+  mono?: boolean;
+  amount?: boolean;
+};
+
+const states: {
+  id: "intent" | "routing" | "settled";
+  status: string;
+  tone: "muted" | "accent" | "teal";
+  rows: Row[];
+}[] = [
   {
     id: "intent",
     status: "Queued",
@@ -27,7 +42,7 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Source", v: "Any chain, token, or fiat" },
-      { k: "Amount", v: "$248,315.00", mono: true },
+      { k: "Amount", v: "", mono: true, amount: true },
       { k: "Route", v: "Pending", mono: true },
     ],
   },
@@ -38,7 +53,7 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Source", v: "Any chain, token, or fiat" },
-      { k: "Amount", v: "$248,315.00", mono: true },
+      { k: "Amount", v: "", mono: true, amount: true },
       { k: "Route", v: "4 chains · 1 signature", mono: true },
     ],
   },
@@ -49,11 +64,11 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Destination", v: "USDC on Base" },
-      { k: "Amount", v: "$248,315.00", mono: true },
+      { k: "Amount", v: "", mono: true, amount: true },
       { k: "Confirmed", v: "Reported to your systems" },
     ],
   },
-] as const;
+];
 
 export function StepStage() {
   return (
@@ -92,10 +107,10 @@ export function StepStage() {
                   <dt className="label">{r.k}</dt>
                   <dd
                     className={`text-right text-sm text-ink ${
-                      "mono" in r && r.mono ? "font-mono" : "font-medium"
+                      r.mono || r.amount ? "font-mono" : "font-medium"
                     }`}
                   >
-                    {r.v}
+                    {r.amount ? <RecordAmount value={RECORD_AMOUNT} /> : r.v}
                   </dd>
                 </div>
               ))}
