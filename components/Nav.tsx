@@ -106,11 +106,11 @@ export function Nav() {
           it leaves the viewport. */}
       <div data-nav-sentinel aria-hidden="true" className="h-px w-px" />
 
-      {/* The wrapper is sticky but click-transparent, so only the pill itself
-          intercepts the pointer. */}
-      <header className="pointer-events-none sticky top-0 z-50">
+      {/* Padding lives on the sticky wrapper so the pill keeps clear of the
+          viewport edge when stuck — margin on the child collapses away. */}
+      <header className="pointer-events-none sticky top-0 z-50 pt-4 sm:pt-6">
         <div
-          className={`mx-auto mt-6 w-max max-w-[calc(100vw-3rem)] rounded-full border backdrop-blur-xl transition-colors duration-500 ease-fluid ${
+          className={`mx-auto w-max max-w-[calc(100vw-3rem)] rounded-full border backdrop-blur-xl transition-colors duration-500 ease-fluid ${
             scrolled || open
               ? "border-line bg-canvas/80"
               : "border-line bg-canvas/60"
