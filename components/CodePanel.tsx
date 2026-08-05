@@ -31,7 +31,7 @@ export function CodePanel({ className = "" }: { className?: string }) {
           <span className={c.fn}>Epoch</span>
           <span className={c.punc}>{"({ apiKey });"}</span>
           {"\n\n"}
-          <span className={c.com}>{"// Define the outcome — Epoch handles the rest"}</span>
+          <span className={c.com}>{"// Define the outcome. Epoch handles the rest."}</span>
           {"\n"}
           <span className={c.kw}>const</span>{" "}
           <span className={c.punc}>result</span> ={" "}

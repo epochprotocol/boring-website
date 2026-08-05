@@ -7,7 +7,7 @@ const cases = [
   {
     index: "01",
     label: "Hedge funds & institutions",
-    title: "Execute strategy on-chain without a crypto desk",
+    title: "Execute strategy onchain without a crypto desk",
     body: "Enter and exit positions, move collateral, and rebalance across chains through a single API with policy controls in the flow.",
   },
   {
@@ -19,8 +19,8 @@ const cases = [
   {
     index: "03",
     label: "Fintechs & neobanks",
-    title: "Add on-chain features without rebuilding your stack",
-    body: "Offer swap, pay, earn, and cross-chain transfers to your users through one integration instead of many.",
+    title: "Add onchain features without rebuilding your stack",
+    body: "Offer swap, pay, earn, and transfers across chains to your users through one integration instead of many.",
   },
   {
     index: "04",

@@ -5,7 +5,7 @@ import { RailsDiagram } from "./RailsDiagram";
 // three unrelated bullets.
 const points = [
   { k: "In", v: "Any chain, any token, or fiat." },
-  { k: "Run", v: "Routing, bridging, swaps and policy — handled." },
+  { k: "Run", v: "Routing, bridging, swaps and policy. Handled." },
   { k: "Out", v: "One verified outcome, back to your systems." },
 ];
 
@@ -16,7 +16,7 @@ export function Product() {
         <div className="split-col bg-surface">
           <div className="w-full max-w-md">
             <SectionHeader
-              index="01"
+              index="03"
               eyebrow="The product"
               title="An API for financial outcomes, not blockchain plumbing"
               lead="You describe what needs to happen. Epoch determines how, coordinates execution across chains and protocols, and reports back the result. Your team works with outcomes; the complexity stays on our side."

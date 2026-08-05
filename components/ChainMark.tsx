@@ -18,9 +18,11 @@ export type ChainName =
   | "Polygon"
   | "Avalanche"
   | "BNB Chain"
-  | "Solana";
+  | "Solana"
+  | "Fiat"
+  | "L2";
 
-const marks: Record<ChainName, React.ReactNode> = {
+export const chainMarks: Record<ChainName, React.ReactNode> = {
   Ethereum: (
     <>
       <path d="M12 2.5 5.8 12.2 12 15.9l6.2-3.7L12 2.5Z" opacity="0.55" />
@@ -72,7 +74,66 @@ const marks: Record<ChainName, React.ReactNode> = {
       <path d="M6.6 14.7h13.1l-3.3 3.2H3.3l3.3-3.2Z" opacity="0.45" />
     </>
   ),
+  Fiat: (
+    <>
+      <rect
+        x="3.5"
+        y="6.5"
+        width="17"
+        height="11"
+        rx="1.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <circle cx="12" cy="12" r="2.6" />
+      <path
+        d="M6.2 9.2h1.8M16 14.8h1.8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+    </>
+  ),
+  L2: (
+    <>
+      <rect x="5" y="5" width="14" height="4" rx="1" opacity="0.4" />
+      <rect x="5" y="10" width="14" height="4" rx="1" opacity="0.7" />
+      <rect x="5" y="15" width="14" height="4" rx="1" />
+    </>
+  ),
 };
+
+/** Nested SVG glyph for use inside a parent <svg>. */
+export function ChainMarkGlyph({
+  name,
+  x,
+  y,
+  size = 14,
+  className = "",
+}: {
+  name: ChainName;
+  x: number;
+  y: number;
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      x={x}
+      y={y}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      {chainMarks[name]}
+    </svg>
+  );
+}
 
 export function ChainMark({
   name,
@@ -88,7 +149,7 @@ export function ChainMark({
       className={`h-5 w-5 ${className}`}
       aria-hidden="true"
     >
-      {marks[name]}
+      {chainMarks[name]}
     </svg>
   );
 }

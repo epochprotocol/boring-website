@@ -1,14 +1,23 @@
 import { CtaButtons } from "./CtaButtons";
+import { HeroBeams } from "./HeroBeams";
 import { HeroVisual } from "./HeroVisual";
-import { NETWORK_STAGE, POSITIONING, STATUS_URL, TAGLINE } from "@/lib/site";
+import { NETWORK_STAGE, POSITIONING, STATUS_URL } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-line" data-scene="hero">
+    <section
+      className="isolate relative overflow-hidden border-b border-line bg-canvas"
+      data-scene="hero"
+    >
+      {/* The animated light field sits behind every piece of hero content,
+          spanning the section edge to edge. Compositing hides the scene's
+          black canvas against whichever theme is active, so the section
+          keeps its own background and only the ribbons show. */}
+      <HeroBeams />
 
       {/* Asymmetric column split — narrative slightly wider than the object,
           which stops the two halves reading as a stalemate. */}
-      <div className="container-x relative pt-16 pb-20 md:pt-24 md:pb-28">
+      <div className="container-x relative z-10 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_1fr] lg:gap-16">
           <div>
             <p className="flex items-center gap-3">
@@ -24,21 +33,28 @@ export function Hero() {
               <span className="label text-teal">&middot; {NETWORK_STAGE}</span>
             </p>
 
-            {/* Solid ink, no gradient fill. A blue-to-lavender headline is the
-                single strongest "consumer crypto" tell on a page like this. */}
-            <h1 className="display t-hero mt-6 text-ink" data-mask-lines>
+            {/* The one gradient on the site. It fills the headline only, and
+                it is a tone fade (ink to its own grey), never a colour
+                sweep. */}
+            <h1
+              className="display heading-gradient t-hero mt-6 max-w-[680px]"
+              data-mask-lines
+            >
               Define the outcome.
               <br />
               Epoch does the rest.
             </h1>
 
-            <p className="t-lead mt-6 max-w-md text-ink-soft" data-hero-item>
+            <p
+              className="t-lead mt-6 max-w-[680px] text-ink-soft"
+              data-hero-item
+            >
               Your company defines the financial outcome. Epoch handles every
-              chain, protocol, and payment rail underneath &mdash; no blockchain
+              chain, protocol, and payment rail underneath it. No blockchain
               expertise required.
             </p>
 
-            <CtaButtons className="mt-8" data-hero-item />
+            <CtaButtons primaryOnly className="mt-8" data-hero-item />
 
             {/* Answer the two questions a bank asks first, above the fold. */}
             <div className="mt-9 flex flex-wrap items-center gap-2 border-t border-line pt-6" data-hero-item>
@@ -47,21 +63,21 @@ export function Hero() {
                   className="h-1.5 w-1.5 rounded-full bg-accent"
                   aria-hidden="true"
                 />
-                Non-custodial &mdash; you keep your keys
+                You keep your keys
               </span>
               <span className="chip">
                 <span
                   className="h-1.5 w-1.5 rounded-full bg-accent"
                   aria-hidden="true"
                 />
-                Policy enforced pre-settlement
+                Policy enforced before settlement
               </span>
               <span className="chip">
                 <span
                   className="h-1.5 w-1.5 rounded-full bg-accent"
                   aria-hidden="true"
                 />
-                One signature, solver-coordinated
+                One signature, solver coordinated
               </span>
               {STATUS_URL ? (
                 <a
@@ -80,7 +96,8 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="lg:pl-4">
+          <div className="relative lg:pl-4">
+            <HeroBeams />
             <HeroVisual />
           </div>
         </div>

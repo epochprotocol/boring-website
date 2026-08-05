@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DUR, EASE, ENTER, SCRUB, splitLines } from "@/lib/motion";
+import { DUR, EASE, EASE_FLUID, ENTER, SCRUB, splitLines } from "@/lib/motion";
 
 /**
  * The entire motion system for the site, in one place.
@@ -33,8 +33,8 @@ import { DUR, EASE, ENTER, SCRUB, splitLines } from "@/lib/motion";
  *   class is never applied, and every element renders in its final state.
  *   Pinning and scrubbing do not exist in that mode.
  * - One timeline per scene. Scrubs stay inside 0.6–1.2.
- * - Only transforms, opacity, clip-path and stroke offsets are animated, so
- *   nothing triggers layout and the compositor can hold 60fps.
+ * - Only transforms, opacity, blur and stroke offsets are animated — blur
+ *   rides the compositor with the transform — so nothing triggers layout.
  */
 export function MotionLayer() {
   useEffect(() => {
@@ -138,7 +138,16 @@ export function MotionLayer() {
                 // empty masks rather than finished text.
                 const lines = maskLines(heading);
                 gsap.set(heading, { opacity: 1 });
-                tl.to(lines, { y: 0, duration: DUR.slow, stagger: 0.075 }, 0.05);
+                tl.to(
+                  lines,
+                  {
+                    y: 0,
+                    duration: DUR.slow,
+                    ease: EASE_FLUID,
+                    stagger: 0.075,
+                  },
+                  0.05
+                );
               }
               if (items.length) {
                 tl.to(items, { opacity: 1, stagger: 0.07 }, "-=0.5");
@@ -176,12 +185,10 @@ export function MotionLayer() {
                Handled uniformly rather than per component: every section
                gets the same treatment for whichever parts it happens to
                have. The header rule draws, the heading is typeset, then
-               registers are written — each row's clip opens downward and
-               its contents follow.
-
-               Rows are clipped rather than faded because the page's core
-               gesture is a ledger being filled in. A uniform fade-up
-               would say nothing about the content.
+               registers rise into place — each row executes a heavy
+               fade-up: 64px of travel and 12px of blur resolving to
+               clear over 750ms on the fluid curve, so entering content
+               reads as having mass rather than being switched on.
                ========================================================= */
             document
               .querySelectorAll<HTMLElement>("main section")
@@ -219,11 +226,17 @@ export function MotionLayer() {
                 // document paints complete and only off-screen content is
                 // ever held back.
                 if (rule) gsap.set(rule, { scaleX: 0 });
-                if (lead) gsap.set(lead, { opacity: 0 });
+                if (lead) gsap.set(lead, { y: 64, opacity: 0, filter: "blur(12px)" });
                 if (rows.length) {
-                  gsap.set(rows, { clipPath: "inset(0 0 100% 0)" });
+                  gsap.set(rows, { y: 64, opacity: 0, filter: "blur(12px)" });
                 }
-                if (specRows.length) gsap.set(specRows, { opacity: 0 });
+                if (specRows.length) {
+                  gsap.set(specRows, {
+                    y: 64,
+                    opacity: 0,
+                    filter: "blur(12px)",
+                  });
+                }
 
                 const tl = gsap.timeline({
                   scrollTrigger: {
@@ -239,11 +252,28 @@ export function MotionLayer() {
                 if (heading) {
                   tl.to(
                     maskLines(heading),
-                    { y: 0, duration: DUR.slow, stagger: 0.055 },
+                    {
+                      y: 0,
+                      duration: DUR.slow,
+                      ease: EASE_FLUID,
+                      stagger: 0.055,
+                    },
                     0.04
                   );
                 }
-                if (lead) tl.to(lead, { opacity: 1 }, 0.22);
+                if (lead) {
+                  tl.to(
+                    lead,
+                    {
+                      y: 0,
+                      opacity: 1,
+                      filter: "blur(0px)",
+                      duration: DUR.heavy,
+                      ease: EASE_FLUID,
+                    },
+                    0.12
+                  );
+                }
 
                 // Figures rise out of masks like headings do, rather than
                 // fading. They are the largest type in the section and should
@@ -257,15 +287,18 @@ export function MotionLayer() {
                   );
                 });
 
-                // One mechanism per element. Clipping the row and fading its
-                // children was double-hiding: it doubled the time the row
-                // spent invisible and made the reveal read as a stutter.
+                // One mechanism per element. Rows get the same heavy fade-up
+                // as leads; the stagger keeps a register reading as lines
+                // landing one after another.
                 tl.to(
                   rows,
                   {
-                    clipPath: "inset(0 0 0% 0)",
-                    duration: DUR.base,
-                    stagger: 0.045,
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: DUR.heavy,
+                    ease: EASE_FLUID,
+                    stagger: 0.06,
                   },
                   0.16
                 );
@@ -273,7 +306,14 @@ export function MotionLayer() {
                 if (specRows.length) {
                   tl.to(
                     specRows,
-                    { opacity: 1, duration: DUR.quick, stagger: 0.03 },
+                    {
+                      y: 0,
+                      opacity: 1,
+                      filter: "blur(0px)",
+                      duration: DUR.heavy,
+                      ease: EASE_FLUID,
+                      stagger: 0.05,
+                    },
                     0.2
                   );
                 }
@@ -299,14 +339,22 @@ export function MotionLayer() {
               gsap.set(nodes, { scale: 0, transformOrigin: "center" });
               gsap.set(outcome, { opacity: 0 });
 
+              // Bind to the product section so scrubbing starts when the
+              // section is in focus — not when the SVG top peeks past the
+              // fold (`top 85%` on the diagram fired while half the section
+              // was still off-screen).
+              const product =
+                document.querySelector<HTMLElement>("#product") ?? rails;
+              const railsScroll = {
+                trigger: product,
+                start: "top 40%",
+                end: "bottom 55%",
+                scrub: SCRUB.base,
+              };
+
               gsap
                 .timeline({
-                  scrollTrigger: {
-                    trigger: rails,
-                    start: "top 85%",
-                    end: "bottom 60%",
-                    scrub: SCRUB.base,
-                  },
+                  scrollTrigger: { ...railsScroll },
                 })
                 .to(nodes, { scale: 1, stagger: 0.05, duration: 0.3 }, 0)
                 .to(
@@ -335,12 +383,7 @@ export function MotionLayer() {
               if (marker && travel > 0) {
                 gsap
                   .timeline({
-                    scrollTrigger: {
-                      trigger: rails,
-                      start: "top 85%",
-                      end: "bottom 60%",
-                      scrub: SCRUB.base,
-                    },
+                    scrollTrigger: { ...railsScroll },
                   })
                   .set(marker, { opacity: 0 })
                   .to(marker, { opacity: 1, duration: 0.1 }, 1.35)
@@ -371,13 +414,22 @@ export function MotionLayer() {
               // legible, which is the actual intent.
               gsap.set(items, { opacity: 0.55 });
 
+              // Bind to the section, not the steps column: sticky layout means
+              // the steps top clears `top 72%` long before the section feels
+              // in focus, so step 2 was already active on first read. Hold
+              // progress at zero until the section top reaches mid-viewport,
+              // then scrub through while it remains the primary subject.
+              const howItWorks =
+                document.querySelector<HTMLElement>("#how-it-works") ?? steps;
+              const stepsTrigger = {
+                trigger: howItWorks,
+                start: "top 40%",
+                end: "bottom 55%",
+                scrub: SCRUB.tight,
+              };
+
               const tl = gsap.timeline({
-                scrollTrigger: {
-                  trigger: steps,
-                  start: "top 72%",
-                  end: "bottom 80%",
-                  scrub: SCRUB.tight,
-                },
+                scrollTrigger: stepsTrigger,
               });
 
               if (progress) {
@@ -425,9 +477,9 @@ export function MotionLayer() {
                 show(0);
 
                 ScrollTrigger.create({
-                  trigger: steps,
-                  start: "top 72%",
-                  end: "bottom 80%",
+                  trigger: howItWorks,
+                  start: stepsTrigger.start,
+                  end: stepsTrigger.end,
                   onUpdate: (self) => {
                     const index = Math.min(
                       layers.length - 1,

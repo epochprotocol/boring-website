@@ -31,6 +31,7 @@ export function Footer() {
       : []),
     { label: "Report a vulnerability", href: `mailto:${SECURITY_EMAIL}`, external: true },
     { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of use", href: "/terms" },
   ];
 
   const connectLinks = [

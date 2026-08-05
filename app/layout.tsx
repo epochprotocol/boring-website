@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     template: "%s — Epoch",
   },
   description:
-    "Epoch is the API institutions use to define a financial outcome on-chain and have it executed across every chain, protocol, and payment rail. No Web3 team required.",
+    "Epoch is the API institutions use to define a financial outcome and have it executed across every chain, protocol, and payment rail. No Web3 team required.",
   openGraph: {
     title: `Epoch — ${TAGLINE}`,
     description:
-      "Define the outcome. Epoch executes it on-chain — across every chain, protocol, and payment rail.",
+      "Define the outcome. Epoch executes it across every chain, protocol, and payment rail.",
     type: "website",
     url: "https://epochprotocol.xyz",
     siteName: "Epoch",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Epoch — ${TAGLINE}`,
     description:
-      "Define the outcome. Epoch executes it on-chain — across every chain, protocol, and payment rail.",
+      "Define the outcome. Epoch executes it across every chain, protocol, and payment rail.",
   },
 };
 

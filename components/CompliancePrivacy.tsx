@@ -8,13 +8,13 @@ import { SectionHeader } from "./SectionHeader";
 const controls = [
   {
     index: "01",
-    title: "Pre-settlement screening",
+    title: "Screening before execution",
     body: "KYC, sanctions and your own policy rules are evaluated as blocking conditions before any leg executes. A failed check halts the outcome rather than flagging it after the fact, and every decision is returned to your systems for your audit trail.",
   },
   {
     index: "02",
     title: "Privacy when you need it",
-    body: "Some flows shouldn't be public. Through our partnership with Miden, Epoch can route to zero-knowledge settlement, keeping sensitive transaction details confidential while remaining verifiable.",
+    body: "Some flows shouldn't be public. Through our partnership with Miden, Epoch can route to private, verifiable settlement, keeping sensitive transaction details confidential while remaining verifiable.",
     note: "In partnership with Miden",
   },
 ];
@@ -30,7 +30,7 @@ export function CompliancePrivacy() {
               index="08"
               eyebrow="Compliance & privacy"
               title="Your controls run before value moves"
-              lead="Screening and policy are not a report you reconcile afterwards. They are gating conditions inside the outcome you define — if a check fails, nothing executes."
+              lead="Screening and policy are not a report you reconcile afterwards. They are gating conditions inside the outcome you define. If a check fails, nothing executes."
               className="max-w-md"
             />
             <p className="t-body mt-4 text-muted">

@@ -44,7 +44,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "compose",
-    label: "Multi-step flows",
+    label: "Composed flows",
     desc: "Chain actions into one atomic outcome.",
     icon: "layers",
     step: "compose",
@@ -146,10 +146,10 @@ export function Capabilities() {
     >
       <div className="container-x">
         <SectionHeader
-          index="02"
+          index="04"
           eyebrow="Compose"
           title="Choose your capabilities. Epoch composes the outcome."
-          lead="Toggle what your flow needs. It all runs through one API surface — no extra services to assemble or maintain."
+          lead="Toggle what your flow needs. It all runs through one API surface. No extra services to assemble or maintain."
         />
 
         <div className="panel section-body grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">

@@ -26,7 +26,7 @@ export function Networks() {
           <SectionHeader
             index="10"
             eyebrow="Coverage"
-            title="Cross-chain support, out of the box"
+            title="Support across chains, out of the box"
             lead="Eight networks live on mainnet today, with venue and bridge coverage maintained on our side. Testnets track the same interface, so nothing changes between environments."
             className="w-full max-w-md"
           />

@@ -12,7 +12,7 @@ import { ChainMark, type ChainName } from "./ChainMark";
 const rows: { k: string; v: string; mono?: boolean }[] = [
   { k: "Outcome", v: "acquire", mono: true },
   { k: "Source", v: "Any chain, token, or fiat" },
-  { k: "Amount", v: "$250,000.00", mono: true },
+  { k: "Amount", v: "$248,315.00", mono: true },
   { k: "Policy", v: "KYC · Sanctions", mono: true },
   { k: "Destination", v: "USDC on Base" },
 ];

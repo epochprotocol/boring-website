@@ -58,12 +58,12 @@ export const SURFACES: { name: string; detail: string }[] = [
   {
     name: "Widget",
     detail:
-      "Drop-in interface. The fastest path to accepting inbound from any chain, token or fiat.",
+      "Embedded widget. The fastest path to accepting inbound from any chain, token or fiat.",
   },
   {
     name: "Flows SDK",
     detail:
-      "Compose multi-step outcomes inside your own product surface, with your own UI.",
+      "Compose multi step outcomes inside your own product surface, with your own UI.",
   },
   {
     name: "Intents SDK & API",

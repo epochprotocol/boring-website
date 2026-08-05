@@ -1,35 +1,37 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   EPOCH DESIGN LANGUAGE — "LEDGER"
+   EPOCH DESIGN LANGUAGE — "FLUID LEDGER"
    --------------------------------------------------------------------------
-   The previous language was borrowed from consumer fintech (link.com): pillowy
-   1.6rem radii, blue-to-lavender gradient text, glowing hover lifts, wide
-   whitespace. It is a good language for a product you sign up for in ninety
-   seconds. It is the wrong one for a product a bank's risk committee has to
-   approve.
-
-   This language is built from the vocabulary of financial instruments:
-   hairline rules, a visible grid, monospace for anything structural or
-   numeric, flat surfaces, and near-zero decoration. Energy comes from
-   precision and density rather than colour and motion.
+   A long-form institutional story told with the vocabulary of financial
+   instruments: hairline rules, a visible grid, monospace for anything
+   structural or numeric, flat surfaces, and a single lavender accent.
 
    RULES
    1. Elevation does not exist. Hierarchy is expressed with rules and tone.
-   2. One accent. Blue means "interactive or important". Teal means "live".
-      Nothing else carries colour.
+   2. One accent. Purple means "interactive or important". The brighter
+      purple family means "live". Nothing else carries colour.
    3. Monospace carries structure — labels, indices, data, metadata.
       Sans carries prose. Never the reverse.
-   4. Radii are small and uniform. Nothing is a pill except live status dots.
-   5. Motion is confirmation, not performance. Under 250ms, no transforms
-      larger than 8px, nothing moves on hover.
+   4. Radii come from the Tailwind radius scale; nested radii shrink by the
+      gap between shapes.
+   5. Type snaps to the Tailwind scale. No arbitrary font sizes.
+   6. Spacing comes from a fixed table: 0, 2, 4, 8, 12, 16, 24, 32, 40, 48,
+      64, 80, 96. Nothing between, nothing outside.
+   7. Dark surfaces come from one family: 000000, 131209, 181818, 1F1F1F,
+      272727, 313131.
+   8. Gradients never appear in backgrounds. The one gradient on the site is
+      the hero heading's text fill.
+   9. Motion simulates mass: every reveal rides
+      cubic-bezier(0.32, 0.72, 0, 1).
    ========================================================================== */
 
 @theme {
   /* ---- Palette -----------------------------------------------------------
-     Near-monochrome cool greys with a single institutional blue. Lavender
-     has been removed from the working palette entirely — blue/purple
-     gradients are the strongest visual tell of consumer crypto. */
+     Near-monochrome cool greys with a single lavender accent, #d7c2ff.
+     The pastel is carried as-is for marks, fills and rules; a darker
+     same-hue purple handles every text-weight use so small type stays
+     legible on white. */
   --color-canvas: #f7f8fa;
   --color-surface: #ffffff;
   --color-surface-2: #eef0f4;
@@ -38,17 +40,19 @@
   --color-muted: #6a7280;
   --color-line: rgba(11, 14, 20, 0.11);
   --color-line-strong: rgba(11, 14, 20, 0.2);
-  --color-accent: #2563eb;
-  --color-accent-strong: #1d4ed8;
-  --color-accent-soft: rgba(37, 99, 235, 0.08);
-  --color-on-accent: #ffffff;
-  /* `glow` is retained only so legacy references resolve; it now points at
-     the same blue family so no gradient can reintroduce lavender. */
-  --color-glow: #1d4ed8;
-  --color-glow-soft: rgba(29, 78, 216, 0.1);
+  --color-accent: #d7c2ff;
+  --color-accent-strong: #7e22ce;
+  --color-accent-soft: rgba(215, 194, 255, 0.28);
+  --color-on-accent: #241642;
+  /* `glow` is retained only so legacy references resolve; it points at the
+     same purple family as the accent. */
+  --color-glow: #7e22ce;
+  --color-glow-soft: rgba(126, 34, 206, 0.1);
   /* Reserved strictly for live/operational state. Never decorative. */
-  --color-teal: #0d9488;
-  --color-positive: #0f7a52;
+  --color-teal: #9333ea;
+  --color-positive: #6d28d9;
+  /* Reserved strictly for validation errors. Never decorative. */
+  --color-danger: #b42318;
   --grid-line: rgba(11, 14, 20, 0.055);
 
   /* ---- Type -------------------------------------------------------------- */
@@ -56,14 +60,19 @@
   --font-body: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
+  /* ---- Motion ------------------------------------------------------------
+     One easing curve for the whole site. Reveals ride it at 700–800ms so
+     entering content reads as heavy rather than flicked. */
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+
   /* ---- Rhythm ------------------------------------------------------------
-     Denser than before. Information density reads as substance; acres of
-     whitespace read as brochure. */
-  --spacing-section: 7rem;
+     Every spacing value comes from one fixed table: 0, 2, 4, 8, 12, 16, 24,
+     32, 40, 48, 64, 80, 96. Nothing between, nothing outside. Sections step
+     between 64px and 96px with the viewport. */
+  --spacing-section: 6rem;
 
   /* ---- Geometry ----------------------------------------------------------
-     One small radius, used everywhere. 6px reads engineered; 26px reads
-     friendly, and friendly is not what is being bought here. */
+     Radii stay small and uniform, all on the Tailwind scale. */
   --radius-card: 0.375rem;
   --radius-tile: 0.25rem;
   --radius-control: 0.375rem;
@@ -86,61 +95,63 @@
    same palette overrides. */
 .dark,
 .on-dark {
-  --color-canvas: #07080b;
-  --color-surface: #0e1015;
-  --color-surface-2: #14171e;
+  --color-canvas: #000000;
+  --color-surface: #181818;
+  --color-surface-2: #1f1f1f;
   --color-ink: #f4f6f8;
   --color-ink-soft: #c0c5cd;
   --color-muted: #848b96;
   --color-line: rgba(255, 255, 255, 0.1);
   --color-line-strong: rgba(255, 255, 255, 0.18);
-  --color-accent: #5b8dff;
-  --color-accent-strong: #8ab0ff;
-  --color-accent-soft: rgba(91, 141, 255, 0.12);
-  --color-on-accent: #07080b;
-  --color-glow: #8ab0ff;
-  --color-glow-soft: rgba(138, 176, 255, 0.12);
-  --color-teal: #2dd4bf;
-  --color-positive: #34d399;
+  --color-accent: #d7c2ff;
+  --color-accent-strong: #ebdfff;
+  --color-accent-soft: rgba(215, 194, 255, 0.16);
+  --color-on-accent: #241642;
+  --color-glow: #ebdfff;
+  --color-glow-soft: rgba(235, 223, 255, 0.14);
+  --color-teal: #c084fc;
+  --color-positive: #c4b5fd;
+  --color-danger: #f97066;
   --grid-line: rgba(255, 255, 255, 0.05);
   color-scheme: dark;
   --logo-1: #f4f6f8;
   --logo-2: #c8cdd4;
   --logo-3: #9aa1ab;
-  --card-0: #0e1015;
-  --card-1: #12151b;
-  --card-2: #171b22;
-  --card-3: #1c2029;
+  --card-0: #181818;
+  --card-1: #1f1f1f;
+  --card-2: #272727;
+  --card-3: #313131;
 }
 
 /* MIX — a dusk-slate theme between the two: deeper than light, softer than
    full dark. Opt-in via the `.mix` class. */
 .mix {
-  --color-canvas: #171b24;
-  --color-surface: #1e232e;
-  --color-surface-2: #252b38;
+  --color-canvas: #181818;
+  --color-surface: #1f1f1f;
+  --color-surface-2: #272727;
   --color-ink: #eceff4;
   --color-ink-soft: #b3bbc8;
   --color-muted: #838d9c;
   --color-line: rgba(255, 255, 255, 0.1);
   --color-line-strong: rgba(255, 255, 255, 0.18);
-  --color-accent: #6d97ff;
-  --color-accent-strong: #9dbaff;
-  --color-accent-soft: rgba(109, 151, 255, 0.13);
-  --color-on-accent: #0b0e14;
-  --color-glow: #9dbaff;
-  --color-glow-soft: rgba(157, 186, 255, 0.13);
-  --color-teal: #2dd4bf;
-  --color-positive: #34d399;
+  --color-accent: #dcc8ff;
+  --color-accent-strong: #e6d6ff;
+  --color-accent-soft: rgba(215, 194, 255, 0.15);
+  --color-on-accent: #241642;
+  --color-glow: #e6d6ff;
+  --color-glow-soft: rgba(230, 214, 255, 0.13);
+  --color-teal: #c084fc;
+  --color-positive: #c4b5fd;
+  --color-danger: #f97066;
   --grid-line: rgba(255, 255, 255, 0.045);
   color-scheme: dark;
   --logo-1: #eceff4;
   --logo-2: #bfc7d3;
   --logo-3: #95a0af;
-  --card-0: #1e232e;
-  --card-1: #232936;
-  --card-2: #292f3e;
-  --card-3: #2f3646;
+  --card-0: #1f1f1f;
+  --card-1: #272727;
+  --card-2: #313131;
+  --card-3: #313131;
 }
 
 /* An always-dark region within a light page picks up the dark ink/canvas. */
@@ -153,13 +164,13 @@
    split section, so two adjacent dark sections read as distinct surfaces
    rather than one continuous black block. */
 .on-dark-band {
-  --color-canvas: #12151c;
-  --color-surface: #171b23;
-  --color-surface-2: #1c212a;
-  --card-0: #171b23;
-  --card-1: #1c212a;
-  --card-2: #222732;
-  --card-3: #272d3a;
+  --color-canvas: #181818;
+  --color-surface: #1f1f1f;
+  --color-surface-2: #272727;
+  --card-0: #1f1f1f;
+  --card-1: #272727;
+  --card-2: #313131;
+  --card-3: #313131;
 }
 
 * {
@@ -222,37 +233,70 @@ h4 {
   line-height: 1.06;
 }
 
-/* Fluid heading steps with optical tracking: the larger the size, the tighter
-   the tracking, because letterfit that reads correct at 16px looks loose at
-   68px. Line-height moves the opposite way. */
+/* Every step sits exactly on the Tailwind type scale with that step's own
+   line height. Tracking stays optical: the larger the size, the tighter the
+   tracking, because letterfit that reads correct at 16px looks loose at
+   72px. */
 .t-hero {
-  font-size: clamp(2.625rem, 5.6vw, 4.25rem);
-  line-height: 1.03;
+  font-size: clamp(3.75rem, 6vw, 4.5rem); /* text-6xl -> text-7xl */
+  line-height: 1;
   letter-spacing: -0.034em;
 }
 .t-h2 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.12;
+  font-size: 2.25rem; /* text-4xl */
+  line-height: 2.5rem;
   letter-spacing: -0.026em;
 }
 .t-h3 {
-  font-size: 1.0625rem;
-  line-height: 1.35;
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75rem;
   letter-spacing: -0.013em;
 }
 .t-lead {
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75rem;
   letter-spacing: -0.006em;
 }
 .t-body {
-  font-size: 0.9375rem;
-  line-height: 1.62;
+  font-size: 1rem; /* text-base */
+  line-height: 1.5rem;
   letter-spacing: -0.003em;
 }
-@media (min-width: 768px) {
-  .t-lead {
-    font-size: 1.125rem;
+
+/* The one gradient on the site, and it fills type only — never a background.
+   Runs left to right, ink fading toward its own muted tone; dark scopes use
+   the same gesture in white. Applied to hero-scale headings.
+
+   The fill is gated on support: without `background-clip: text` the
+   transparent colour would blank the heading, so unsupported engines get
+   solid ink instead. Split headings are handled too — the motion splitter
+   wraps each line in a transformed span, and a clipped background on an
+   ancestor does not follow transformed descendants, so each line carries its
+   own fill. */
+.heading-gradient {
+  color: var(--color-ink);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .heading-gradient {
+    background-image: linear-gradient(to right, #000000, #666666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .heading-gradient .line-inner {
+    background-image: linear-gradient(to right, #000000, #666666);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .dark .heading-gradient,
+  .on-dark .heading-gradient,
+  .mix .heading-gradient {
+    background-image: linear-gradient(to right, #ffffff, #9b9b9b);
+  }
+  .dark .heading-gradient .line-inner,
+  .on-dark .heading-gradient .line-inner,
+  .mix .heading-gradient .line-inner {
+    background-image: linear-gradient(to right, #ffffff, #9b9b9b);
   }
 }
 
@@ -260,7 +304,8 @@ h4 {
    headers, metadata, table labels. */
 .label {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -270,18 +315,19 @@ h4 {
    accent pill, which read as a marketing badge. */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 .eyebrow::before {
   content: "";
   display: inline-block;
-  width: 1.25rem;
+  width: 1rem;
   height: 1px;
   background: var(--color-accent);
   flex-shrink: 0;
@@ -291,7 +337,8 @@ h4 {
    Sits in the left rail of every section header. */
 .section-index {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   letter-spacing: 0.1em;
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
@@ -306,26 +353,35 @@ h4 {
    LAYOUT
    ========================================================================== */
 
-/* Section rhythm is fluid rather than fixed. A flat 7rem is right at 1440px
-   and absurd at 375px, which is what makes otherwise-good sites feel
-   unconsidered on a phone. */
+/* Section rhythm steps with the viewport but only ever lands on the spacing
+   table: 64px on small screens, 96px from desktop up. */
 .section {
-  padding-top: clamp(4rem, 9vw, 7rem);
-  padding-bottom: clamp(4rem, 9vw, 7rem);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
 }
 
-/* Gutters step with the viewport for the same reason. */
+/* Gutters step the same way: 24px, then 40px. */
 .container-x {
   width: 100%;
   max-width: 74rem;
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  padding-inline: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .container-x {
+    padding-inline: 2.5rem;
+  }
 }
 
-/* Standard gap between a section header and the content beneath it. Was
-   hand-set per section and had drifted between mt-12 and mt-16. */
+/* Standard gap between a section header and the content beneath it. */
 .section-body {
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  margin-top: 3rem;
 }
 
 /* Two-column split — each half spans the full section height edge to edge
@@ -346,7 +402,12 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3.5rem);
+  padding: 4rem 2rem;
+}
+@media (min-width: 1024px) {
+  .split-col {
+    padding: 6rem 3rem;
+  }
 }
 /* The narrative half of "How it works" holds while the steps pass it. CSS
    sticky rather than a GSAP pin: no pin-spacer, no added scroll distance,
@@ -372,6 +433,41 @@ h4 {
     border-top: none;
     border-left: 1px solid var(--color-line);
   }
+}
+
+/* The Beams field renders on a pure-black canvas, which must never paint the
+   hero black. Compositing hides the canvas instead of changing it:
+
+   Light theme — the field is inverted (black canvas becomes white, ribbons
+   become dark) and multiplied into the page. White is the multiply neutral,
+   so the canvas disappears into the background and the ribbons read as soft
+   ink streaks.
+
+   Dark and mix themes — the canvas already matches the page, so `lighten`
+   hides it (black loses to the page tone) and only the lit ribbons show.
+
+   The field is laid out in the right half of the hero (see HeroBeams), so
+   the ribbons sit behind the outcome record. The mask only softens the
+   edges of that right-hand field so it does not cut as a hard line. */
+.hero-beams {
+  position: relative;
+  mask-image: radial-gradient(
+    ellipse 85% 90% at 50% 48%,
+    black 40%,
+    transparent 95%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 90% at 50% 48%,
+    black 40%,
+    transparent 95%
+  );
+}
+.hero-beams-light {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+.hero-beams-dark {
+  mix-blend-mode: lighten;
 }
 
 /* Technical grid backdrop — the structural motif of the language. */
@@ -425,6 +521,15 @@ h4 {
   --row-rule: var(--color-line);
 }
 
+/* Match the icon tile so index / icon / title share one vertical center. */
+.ruled-row [data-row-title] {
+  line-height: 2rem;
+}
+
+.ruled-row [data-row-title] .tag {
+  line-height: 1;
+}
+
 /* Icon tile — small, flat, hairline. Supporting mark, not an illustration. */
 .icon-tile {
   display: inline-flex;
@@ -451,7 +556,7 @@ h4 {
   justify-content: center;
   min-width: 2rem;
   height: 2rem;
-  padding-inline: 0.4rem;
+  padding-inline: 0.5rem;
   border: 1px solid var(--color-line-strong);
   border-radius: var(--radius-tile);
   font-family: var(--font-mono);
@@ -472,7 +577,7 @@ h4 {
   gap: 0.5rem;
   border-radius: var(--radius-control);
   font-size: 0.875rem;
-  font-weight: 550;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.005em;
   transition: background-color 0.18s ease, border-color 0.18s ease,
@@ -480,26 +585,28 @@ h4 {
   white-space: nowrap;
 }
 .btn-sm {
-  padding: 0.575rem 0.9rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem; /* text-sm */
 }
 .btn-lg {
-  padding: 0.8rem 1.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem; /* text-base */
 }
 /* Active state is a 1px optical press rather than a scale transform: scaling
    text resamples it and looks soft for the duration of the animation. */
 .btn:active {
   transform: translateY(1px);
 }
-/* Primary fills with accent on hover as a wipe from the left rather than a
-   colour swap. `isolation` lets the fill sit at z-index 0 behind the label
-   without wrapping the label in an element. */
+/* Primary rests on accent; hover wipes to ink from the left. `isolation`
+   lets the fill sit at z-index 0 behind the label without wrapping the label
+   in an element. `--color-on-accent` holds ~10:1 contrast on the pastel fill. */
 .btn-primary {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: var(--color-ink);
-  color: var(--color-canvas);
-  border: 1px solid var(--color-ink);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  border: 1px solid var(--color-accent);
   transition: color 0.18s ease, border-color 0.24s ease;
 }
 .btn-primary::after {
@@ -507,14 +614,14 @@ h4 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: var(--color-accent-strong);
+  background-color: var(--color-ink);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-primary:hover {
-  border-color: var(--color-accent-strong);
-  color: #fff;
+  border-color: var(--color-ink);
+  color: var(--color-canvas);
 }
 .btn-primary:hover::after {
   transform: scaleX(1);
@@ -527,7 +634,7 @@ h4 {
 .btn-secondary {
   border: 1px solid var(--color-line-strong);
   color: var(--color-ink);
-  font-weight: 500;
+  font-weight: 600;
   background-color: transparent;
 }
 .btn-secondary:hover {
@@ -548,7 +655,7 @@ h4 {
 .arrow-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-accent-strong);
@@ -580,12 +687,13 @@ h4 {
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-control);
-  padding: 0.3rem 0.6rem;
+  padding: 0.25rem 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   letter-spacing: 0.01em;
   color: var(--color-ink-soft);
   background: var(--color-surface);
@@ -596,7 +704,8 @@ h4 {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent-strong);
@@ -628,8 +737,8 @@ h4 {
 .spec-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.35rem;
-  padding: 1.05rem 0;
+  gap: 0.5rem;
+  padding: 1rem 0;
   border-top: 1px solid var(--color-line);
 }
 @media (min-width: 640px) {
@@ -641,14 +750,15 @@ h4 {
 }
 .spec-label {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-muted);
 }
 .spec-value {
-  font-size: 0.9375rem;
-  line-height: 1.6;
+  font-size: 1rem; /* text-base */
+  line-height: 1.5rem;
   color: var(--color-ink-soft);
 }
 .spec-value strong {
@@ -849,8 +959,8 @@ h4 {
 .ticker-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding-inline: 1.75rem;
+  gap: 0.5rem;
+  padding-inline: 1.5rem;
   border-right: 1px solid var(--color-line);
   white-space: nowrap;
 }
@@ -919,13 +1029,50 @@ h4 {
   transition: transform 0.18s ease;
   background: var(--color-ink);
   color: var(--color-canvas);
-  padding: 0.6rem 0.9rem;
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-control);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 550;
 }
 .skip-link:focus-visible {
   transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE NAV OVERLAY
+   The menu opens as a screen-filling glass sheet. The tint is theme aware —
+   white over the light theme, black over dark and mix — via a class rather
+   than the `dark:` variant, because the site's themes are `.dark` and `.mix`
+   classes on the root element, not media-driven.
+   -------------------------------------------------------------------------- */
+.nav-overlay {
+  background: rgba(255, 255, 255, 0.8);
+}
+.dark .nav-overlay,
+.mix .nav-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Links rise into place one after another. Delays are set inline per item so
+   the stagger is driven by the same list that renders the links. */
+.nav-overlay-item {
+  animation: nav-item-in 0.7s var(--ease-fluid) both;
+}
+@keyframes nav-item-in {
+  from {
+    transform: translateY(3rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-overlay-item {
+    animation: none;
+  }
 }
 
 /* Hairlines stay a true single device pixel on high-density displays rather
@@ -949,11 +1096,11 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.65rem 0.9rem;
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--color-line);
 }
 .diagram-body {
-  padding: 0.85rem 0.75rem 1rem;
+  padding: 1rem 0.75rem;
 }
 .on-dark .diagram,
 .dark .diagram,
@@ -966,9 +1113,13 @@ h4 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.45rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
   color: var(--color-accent-strong);
   vertical-align: -0.2em;
+}
+.spec-mark svg {
+  width: 0.875rem;
+  height: 0.875rem;
 }

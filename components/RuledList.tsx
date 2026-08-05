@@ -1,24 +1,22 @@
+import { Icon, type IconName } from "./Icon";
+
 /**
  * The page's primary content geometry, reused by every list-like section:
  * problems, capabilities of the platform, security pillars, use cases.
  *
- * It replaces the card grids. A card grid says "here are some features we
- * thought of"; a ruled register says "here is the record". The second is the
- * register a settlement product should be speaking in, and it also gives the
- * motion layer something honest to animate — rules that draw and rows that
- * are written, rather than boxes that fade up.
- *
- * Geometry is shared with `.spec-row` in the assurance sheet, so the two read
- * as the same document.
+ * One horizontal axis per row: index, icon, optional tag + title, body.
+ * Tags stack above the title so every labeled row shares the same hierarchy.
  */
 
 export type RuledRow = {
   /** Monospace index, e.g. "01". Omit for unindexed registers. */
   index?: string;
-  /** Optional categorical label above the title. */
+  /** Optional categorical label beside the title. */
   label?: string;
   title: string;
   body: string;
+  /** Supporting mark beside the title, not a card. */
+  icon?: IconName;
 };
 
 export function RuledList({
@@ -41,24 +39,34 @@ export function RuledList({
         <div
           key={row.title}
           data-row
-          className="ruled-row grid gap-x-8 gap-y-3 border-t border-line py-7 md:grid-cols-[3.5rem_minmax(0,19rem)_minmax(0,1fr)] md:py-8"
+          className="ruled-row grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-5 gap-y-3 border-t border-line py-7 md:grid-cols-[3.5rem_minmax(0,22rem)_minmax(0,1fr)] md:gap-x-8 md:py-8"
         >
-          <div className="flex items-baseline gap-3 md:block">
-            {row.index ? (
-              <span className="section-index text-accent-strong" data-row-index>
-                {row.index}
+          {row.index ? (
+            <span className="section-index text-accent-strong" data-row-index>
+              {row.index}
+            </span>
+          ) : (
+            <span aria-hidden="true" />
+          )}
+
+          <div className="flex min-w-0 items-center gap-3">
+            {row.icon ? (
+              <span className="icon-tile">
+                <Icon name={row.icon} />
               </span>
             ) : null}
+            <div className="flex min-w-0 flex-col items-start gap-1">
+              {row.label ? <span className="tag">{row.label}</span> : null}
+              <h3 className="display t-h3 text-ink" data-row-title>
+                {row.title}
+              </h3>
+            </div>
           </div>
 
-          <div>
-            {row.label ? <p className="tag mb-2">{row.label}</p> : null}
-            <h3 className="display t-h3 text-ink" data-row-title>
-              {row.title}
-            </h3>
-          </div>
-
-          <p className="t-body text-ink-soft" data-row-body>
+          <p
+            className="col-span-2 t-body text-ink-soft md:col-span-1"
+            data-row-body
+          >
             {row.body}
           </p>
         </div>

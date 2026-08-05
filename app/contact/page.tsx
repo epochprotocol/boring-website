@@ -8,7 +8,7 @@ import { DOCS_URL, SALES_CALENDAR_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Book a sales call",
   description:
-    "Talk to the Epoch team about defining and executing financial outcomes on-chain through a single API.",
+    "Talk to the Epoch team about defining and executing financial outcomes onchain through a single API.",
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -33,9 +33,9 @@ export default function ContactPage() {
                   Book a sales call
                 </h1>
                 <p className="t-lead mt-5 max-w-md text-ink-soft">
-                  Tell us the outcome you need on-chain. We will show you how
-                  Epoch delivers it through one API &mdash; no dedicated Web3
-                  team and no infrastructure to build from zero.
+                  Tell us the outcome you need onchain. We will show you how
+                  Epoch delivers it through one API. No dedicated Web3 team
+                  and no infrastructure to build from zero.
                 </p>
 
                 {bookingIsExternal && (

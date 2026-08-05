@@ -117,8 +117,9 @@ export function Proof() {
                 <ul className="mt-5 space-y-2">
                   {PARTNERS.map((p) => (
                     <li key={p.name} className="text-sm text-ink-soft">
-                      <span className="font-semibold text-ink">{p.name}</span>{" "}
-                      &mdash; {p.detail}
+                      <span className="font-semibold text-ink">{p.name}</span>
+                      {": "}
+                      {p.detail}
                     </li>
                   ))}
                 </ul>

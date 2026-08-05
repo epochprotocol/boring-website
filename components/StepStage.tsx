@@ -27,8 +27,8 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Source", v: "Any chain, token, or fiat" },
-      { k: "Amount", v: "$250,000.00", mono: true },
-      { k: "Route", v: "—", mono: true },
+      { k: "Amount", v: "$248,315.00", mono: true },
+      { k: "Route", v: "Pending", mono: true },
     ],
   },
   {
@@ -38,7 +38,7 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Source", v: "Any chain, token, or fiat" },
-      { k: "Amount", v: "$250,000.00", mono: true },
+      { k: "Amount", v: "$248,315.00", mono: true },
       { k: "Route", v: "4 chains · 1 signature", mono: true },
     ],
   },
@@ -49,7 +49,7 @@ const states = [
     rows: [
       { k: "Outcome", v: "acquire", mono: true },
       { k: "Destination", v: "USDC on Base" },
-      { k: "Amount", v: "$250,000.00", mono: true },
+      { k: "Amount", v: "$248,315.00", mono: true },
       { k: "Confirmed", v: "Reported to your systems" },
     ],
   },
