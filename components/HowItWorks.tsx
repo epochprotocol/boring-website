@@ -66,7 +66,10 @@ const stepPlates = [
  */
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="split-section border-b border-line">
+    <section
+      id="how-it-works"
+      className="split-section split-left-surface-2 split-grid-right border-b border-line"
+    >
       <div className="split-cols">
         <div className="split-col split-col-sticky relative overflow-hidden bg-surface-2">
           <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />

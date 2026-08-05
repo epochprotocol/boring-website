@@ -385,28 +385,81 @@ h4 {
 }
 
 /* Two-column split — each half spans the full section height edge to edge
-   with its own tone, separated by exactly one rule. Stacks on small screens. */
+   with its own tone, separated by exactly one rule. Stacks on small screens.
+   Backgrounds are painted on the SECTION (not the flex columns) so Safari
+   cannot inflate min-height:100% to the viewport or fail to stretch a flex
+   grid-item — both of which left a tall empty band under the content. */
 .split-section {
   position: relative;
+  --split-left: var(--color-surface);
+  --split-right: #111111;
+}
+.split-section.split-left-surface-2 {
+  --split-left: var(--color-surface-2);
 }
 .split-cols {
   display: grid;
   grid-template-columns: 1fr;
+  /* Stretch so sticky halves have a tall containing block; section height
+     still comes only from content (never viewport percentages). */
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
 }
 @media (min-width: 1024px) {
+  .split-section {
+    background: linear-gradient(
+      to right,
+      var(--split-left) 0 50%,
+      var(--split-right) 50% 100%
+    );
+  }
+  .split-section.split-grid-right::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 50%;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.4;
+  }
   .split-cols {
     grid-template-columns: 1fr 1fr;
+  }
+  /* Column fills become transparent — the section gradient owns the tone. */
+  .split-col.bg-surface,
+  .split-col.bg-surface-2,
+  .split-col.on-dark {
+    background-color: transparent;
+  }
+  .split-col > .grid-backdrop {
+    display: none;
   }
 }
 .split-col {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  box-sizing: border-box;
   padding: 4rem 2rem;
+}
+/* Opt-in vertical centering for a visual half (e.g. the rails diagram). */
+.split-col.split-col-center {
+  align-items: center;
 }
 @media (min-width: 1024px) {
   .split-col {
     padding: 6rem 3rem;
+  }
+}
+/* Mobile / stacked: restore solid fills on each column. */
+@media (max-width: 1023px) {
+  .dark .split-col.on-dark,
+  .mix .split-col.on-dark {
+    background-color: #111111;
   }
 }
 /* The narrative half of "How it works" holds while the steps pass it. CSS
@@ -431,7 +484,20 @@ h4 {
 @media (min-width: 1024px) {
   .split-col + .split-col {
     border-top: none;
-    border-left: 1px solid var(--color-line);
+    /* Divider is painted on the section so it always spans full height,
+       even when a flex column fails to stretch in Safari. */
+    border-left: none;
+  }
+  .split-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 2;
+    width: 1px;
+    background: var(--color-line);
+    pointer-events: none;
   }
 }
 

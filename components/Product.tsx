@@ -11,7 +11,10 @@ const points = [
 
 export function Product() {
   return (
-    <section id="product" className="split-section border-b border-line">
+    <section
+      id="product"
+      className="split-section split-grid-right border-b border-line"
+    >
       <div className="split-cols">
         <div className="split-col bg-surface">
           <div className="w-full max-w-md">
