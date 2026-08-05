@@ -94,7 +94,7 @@ export function MotionLayer() {
                costs one compositor property per frame.
                ========================================================= */
             const progressBar = document.querySelector<HTMLElement>(
-              "[data-scroll-progress]"
+              "[data-scroll-progress]",
             );
             if (progressBar) {
               gsap.to(progressBar, {
@@ -117,7 +117,7 @@ export function MotionLayer() {
                One timeline, front to back.
                ========================================================= */
             const hero = document.querySelector<HTMLElement>(
-              '[data-scene="hero"]'
+              '[data-scene="hero"]',
             );
 
             if (hero) {
@@ -146,7 +146,7 @@ export function MotionLayer() {
                     ease: EASE_FLUID,
                     stagger: 0.075,
                   },
-                  0.05
+                  0.05,
                 );
               }
               if (items.length) {
@@ -158,7 +158,7 @@ export function MotionLayer() {
                   record,
                   { clipPath: "inset(0 0 100% 0)" },
                   { clipPath: "inset(0 0 0% 0)", duration: DUR.slow },
-                  0.3
+                  0.3,
                 );
               }
               if (rows.length) {
@@ -175,7 +175,7 @@ export function MotionLayer() {
                 tl.to(
                   routeMarks,
                   { opacity: 1, duration: DUR.quick, stagger: 0.07 },
-                  "-=0.25"
+                  "-=0.25",
                 );
               }
             }
@@ -226,7 +226,8 @@ export function MotionLayer() {
                 // document paints complete and only off-screen content is
                 // ever held back.
                 if (rule) gsap.set(rule, { scaleX: 0 });
-                if (lead) gsap.set(lead, { y: 64, opacity: 0, filter: "blur(12px)" });
+                if (lead)
+                  gsap.set(lead, { y: 64, opacity: 0, filter: "blur(12px)" });
                 if (rows.length) {
                   gsap.set(rows, { y: 64, opacity: 0, filter: "blur(12px)" });
                 }
@@ -258,7 +259,7 @@ export function MotionLayer() {
                       ease: EASE_FLUID,
                       stagger: 0.055,
                     },
-                    0.04
+                    0.04,
                   );
                 }
                 if (lead) {
@@ -271,7 +272,7 @@ export function MotionLayer() {
                       duration: DUR.heavy,
                       ease: EASE_FLUID,
                     },
-                    0.12
+                    0.12,
                   );
                 }
 
@@ -283,7 +284,7 @@ export function MotionLayer() {
                   tl.to(
                     maskLines(figure),
                     { y: 0, duration: DUR.base },
-                    0.3 + i * 0.08
+                    0.3 + i * 0.08,
                   );
                 });
 
@@ -300,7 +301,7 @@ export function MotionLayer() {
                     ease: EASE_FLUID,
                     stagger: 0.06,
                   },
-                  0.16
+                  0.16,
                 );
 
                 if (specRows.length) {
@@ -314,7 +315,7 @@ export function MotionLayer() {
                       ease: EASE_FLUID,
                       stagger: 0.05,
                     },
-                    0.2
+                    0.2,
                   );
                 }
               });
@@ -347,8 +348,8 @@ export function MotionLayer() {
                 document.querySelector<HTMLElement>("#product") ?? rails;
               const railsScroll = {
                 trigger: product,
-                start: "top 40%",
-                end: "bottom 55%",
+                start: "top 60%",
+                end: "bottom 85%",
                 scrub: SCRUB.base,
               };
 
@@ -360,7 +361,7 @@ export function MotionLayer() {
                 .to(
                   railPaths,
                   { strokeDashoffset: 0, stagger: 0.08, duration: 1 },
-                  0.1
+                  0.1,
                 )
                 .to(outcomeRail, { strokeDashoffset: 0, duration: 0.5 }, 1.35)
                 .to(outcome, { opacity: 1, duration: 0.3 }, 1.7);
@@ -374,8 +375,8 @@ export function MotionLayer() {
               // the same SVG expects.
               let travel = 0;
               try {
-                travel = (outcomeRail as SVGPathElement | null)?.getBBox()
-                  .width ?? 0;
+                travel =
+                  (outcomeRail as SVGPathElement | null)?.getBBox().width ?? 0;
               } catch {
                 travel = 0;
               }
@@ -423,8 +424,8 @@ export function MotionLayer() {
                 document.querySelector<HTMLElement>("#how-it-works") ?? steps;
               const stepsTrigger = {
                 trigger: howItWorks,
-                start: "top 40%",
-                end: "bottom 55%",
+                start: "top 50%",
+                end: "bottom 75%",
                 scrub: SCRUB.tight,
               };
 
@@ -437,7 +438,7 @@ export function MotionLayer() {
                   progress,
                   { scaleY: 0 },
                   { scaleY: 1, ease: "none", duration: items.length },
-                  0
+                  0,
                 );
               }
               items.forEach((item, i) => {
@@ -461,8 +462,8 @@ export function MotionLayer() {
                */
               const layers = Array.from(
                 document.querySelectorAll<HTMLElement>(
-                  "[data-step-stage] .step-stage-layer"
-                )
+                  "[data-step-stage] .step-stage-layer",
+                ),
               );
 
               if (layers.length) {
@@ -483,7 +484,7 @@ export function MotionLayer() {
                   onUpdate: (self) => {
                     const index = Math.min(
                       layers.length - 1,
-                      Math.floor(self.progress * layers.length)
+                      Math.floor(self.progress * layers.length),
                     );
                     show(index);
                   },
@@ -499,7 +500,7 @@ export function MotionLayer() {
             return () => {
               restorers.forEach((restore) => restore());
             };
-          }
+          },
         );
       });
     };
