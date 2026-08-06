@@ -5,6 +5,7 @@
 
 import type { ReactNode } from "react";
 import { ChainMarkGlyph, type ChainName } from "./ChainMark";
+import { EpochLogo } from "./EpochLogo";
 
 type DiagramProps = { className?: string };
 
@@ -502,12 +503,13 @@ export function FragmentInfographic({ className = "" }: DiagramProps) {
     </g>
   );
 
-  // Logo + wordmark centered as one group inside the API box.
-  const logoSize = 16;
-  const apiLabel = "Epoch API";
-  const apiLabelW = 56;
-  const apiGap = 6;
-  const apiGroupW = logoSize + apiGap + apiLabelW;
+  // Wordmark + "API" centered as one group inside the API box.
+  const logoH = 12;
+  const logoW = 60;
+  const apiLabel = "API";
+  const apiLabelW = 22;
+  const apiGap = 4;
+  const apiGroupW = logoW + apiGap + apiLabelW;
   const apiGroupX = api.cx - apiGroupW / 2;
 
   return (
@@ -607,34 +609,18 @@ export function FragmentInfographic({ className = "" }: DiagramProps) {
           stroke="var(--color-accent)"
           strokeWidth={1.5}
         />
-        <svg
+        <foreignObject
           x={apiGroupX}
-          y={api.cy - logoSize / 2}
-          width={logoSize}
-          height={logoSize}
-          viewBox="0 0 48 48"
-          fill="none"
-          aria-hidden="true"
+          y={api.cy - logoH / 2}
+          width={logoW}
+          height={logoH}
         >
-          <polygon
-            style={{ fill: "var(--logo-1)" }}
-            points="20.74,9.7 27.17,9.7 29.57,13.92 27.65,17.47 20.64,18.14 18.34,13.92"
-          />
-          <polygon
-            style={{ fill: "var(--logo-2)" }}
-            points="15.26,19.2 21.31,19.49 29.57,33.98 26.88,38.69 21.12,38.78 17.57,32.74"
-          />
-          <polygon
-            style={{ fill: "var(--logo-1)" }}
-            points="26.76,19.2 32.81,19.49 41.07,33.98 38.38,38.69 32.62,38.78 29.07,32.74"
-          />
-          <polygon
-            style={{ fill: "var(--logo-3)" }}
-            points="9.6,28.99 15.26,28.99 18.14,33.89 15.84,37.92 9.6,38.78 6.82,33.89"
-          />
-        </svg>
+          <div className="flex h-full w-full items-center justify-center">
+            <EpochLogo className="h-full w-full" />
+          </div>
+        </foreignObject>
         <text
-          x={apiGroupX + logoSize + apiGap + apiLabelW / 2}
+          x={apiGroupX + logoW + apiGap + apiLabelW / 2}
           y={api.cy}
           textAnchor="middle"
           dominantBaseline="central"
@@ -672,6 +658,164 @@ export function FragmentInfographic({ className = "" }: DiagramProps) {
         >
           YOUR APP
         </text>
+      </svg>
+    </Frame>
+  );
+}
+
+/** Non-custodial model: keys stay with client. Used in Security. */
+export function CustodyInfographic({ className = "" }: DiagramProps) {
+  return (
+    <Frame label="Custody model" className={className}>
+      <svg
+        viewBox="0 0 320 128"
+        fill="none"
+        className="h-auto w-full"
+        aria-hidden="true"
+      >
+        {/* Client */}
+        <rect
+          x={16}
+          y={28}
+          width={88}
+          height={72}
+          rx={6}
+          fill="var(--color-surface)"
+          stroke="var(--color-line-strong)"
+          strokeWidth={1.5}
+        />
+        <text
+          x={60}
+          y={50}
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="8"
+          letterSpacing="0.08em"
+          fill="var(--color-muted)"
+        >
+          CLIENT
+        </text>
+        <circle
+          cx={60}
+          cy={70}
+          r={10}
+          stroke="var(--color-accent)"
+          strokeWidth={1.5}
+          fill="var(--color-accent-soft)"
+        />
+        <path
+          d="M56 70h5M63 70v3"
+          stroke="var(--color-accent-strong)"
+          strokeWidth={1.4}
+          strokeLinecap="round"
+        />
+        <text
+          x={60}
+          y={92}
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="8"
+          fill="var(--color-ink-soft)"
+        >
+          KEYS
+        </text>
+
+        {/* Auth arrow */}
+        <path
+          d="M108 64 H140"
+          stroke="var(--color-accent)"
+          strokeWidth={1.5}
+        />
+        <path
+          d="M134 60l6 4-6 4"
+          stroke="var(--color-accent)"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <text
+          x={124}
+          y={56}
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="7"
+          letterSpacing="0.06em"
+          fill="var(--color-muted)"
+        >
+          AUTH
+        </text>
+
+        {/* Epoch — shared wordmark asset (logo + name) */}
+        <rect
+          x={144}
+          y={36}
+          width={72}
+          height={56}
+          rx={6}
+          fill="var(--color-surface)"
+          stroke="var(--color-accent)"
+          strokeWidth={1.5}
+        />
+        <foreignObject x={150} y={46} width={60} height={14}>
+          <div className="flex h-full w-full items-center justify-center">
+            <EpochLogo className="h-3.5 w-[4.4rem]" />
+          </div>
+        </foreignObject>
+        <text
+          x={180}
+          y={78}
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="7.5"
+          letterSpacing="0.06em"
+          fill="var(--color-muted)"
+        >
+          ORCHESTRATE
+        </text>
+
+        {/* Execute arrow */}
+        <path
+          d="M220 64 H250"
+          stroke="var(--color-line-strong)"
+          strokeWidth={1.5}
+        />
+        <path
+          d="M244 60l6 4-6 4"
+          stroke="var(--color-line-strong)"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {/* Chains */}
+        {[
+          { y: 36, t: "L1" },
+          { y: 64, t: "L2" },
+          { y: 92, t: "FIAT" },
+        ].map((n) => (
+          <g key={n.t}>
+            <rect
+              x={254}
+              y={n.y}
+              width={50}
+              height={22}
+              rx={4}
+              fill="var(--color-surface)"
+              stroke="var(--color-line-strong)"
+              strokeWidth={1.25}
+            />
+            <text
+              x={279}
+              y={n.y + 15}
+              textAnchor="middle"
+              fontFamily="var(--font-mono)"
+              fontSize="8"
+              fill="var(--color-ink-soft)"
+            >
+              {n.t}
+            </text>
+          </g>
+        ))}
       </svg>
     </Frame>
   );

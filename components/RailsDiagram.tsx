@@ -1,4 +1,5 @@
 import { ChainMarkGlyph, type ChainName } from "./ChainMark";
+import { EpochLogo } from "./EpochLogo";
 
 const sources: { label: string; chain: ChainName; y: number }[] = [
   { label: "ETH", chain: "Ethereum", y: 26 },
@@ -81,7 +82,7 @@ export function RailsDiagram() {
         );
       })}
 
-      {/* Epoch hub — logo + wordmark */}
+      {/* Epoch hub — shared wordmark asset (logo + name) */}
       <rect
         x={hubL}
         y={hubY - 19}
@@ -93,46 +94,17 @@ export function RailsDiagram() {
         strokeWidth={1}
         data-hub
       />
-      <svg
-        x={hubL + 8}
-        y={hubY - 10}
-        width={20}
-        height={20}
-        viewBox="0 0 48 48"
-        fill="none"
-        aria-hidden="true"
+      <foreignObject
+        x={hubL + 7}
+        y={hubY - 7}
+        width={hubW - 14}
+        height={14}
         data-hub
       >
-        <polygon
-          style={{ fill: "var(--logo-1)" }}
-          points="20.74,9.7 27.17,9.7 29.57,13.92 27.65,17.47 20.64,18.14 18.34,13.92"
-        />
-        <polygon
-          style={{ fill: "var(--logo-2)" }}
-          points="15.26,19.2 21.31,19.49 29.57,33.98 26.88,38.69 21.12,38.78 17.57,32.74"
-        />
-        <polygon
-          style={{ fill: "var(--logo-1)" }}
-          points="26.76,19.2 32.81,19.49 41.07,33.98 38.38,38.69 32.62,38.78 29.07,32.74"
-        />
-        <polygon
-          style={{ fill: "var(--logo-3)" }}
-          points="9.6,28.99 15.26,28.99 18.14,33.89 15.84,37.92 9.6,38.78 6.82,33.89"
-        />
-      </svg>
-      <text
-        x={hubL + 52}
-        y={hubY + 4}
-        textAnchor="middle"
-        fontFamily="var(--font-display)"
-        fontSize="12"
-        fontWeight={600}
-        letterSpacing="-0.02em"
-        fill="var(--color-ink)"
-        data-hub
-      >
-        Epoch
-      </text>
+        <div className="flex h-full w-full items-center justify-center">
+          <EpochLogo className="h-3.5 w-full" />
+        </div>
+      </foreignObject>
 
       <path
         d={`M${hubL + hubW} ${hubY} H ${outX - 8}`}
