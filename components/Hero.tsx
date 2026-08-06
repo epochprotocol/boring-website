@@ -49,9 +49,8 @@ export function Hero() {
               className="t-lead mt-6 max-w-[680px] text-ink-soft"
               data-hero-item
             >
-              Your company defines the financial outcome. Epoch handles every
-              chain, protocol, and payment rail underneath it. No blockchain
-              expertise required.
+              You define the financial outcome. Epoch handles the chains and
+              rails underneath. No blockchain expertise required.
             </p>
 
             <CtaButtons primaryOnly className="mt-8" data-hero-item />
@@ -70,14 +69,14 @@ export function Hero() {
                   className="h-1.5 w-1.5 rounded-full bg-accent"
                   aria-hidden="true"
                 />
-                Policy enforced before settlement
+                Policy before settlement
               </span>
               <span className="chip">
                 <span
                   className="h-1.5 w-1.5 rounded-full bg-accent"
                   aria-hidden="true"
                 />
-                One signature, solver coordinated
+                One signature, solver-filled
               </span>
               {STATUS_URL ? (
                 <a

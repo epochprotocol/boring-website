@@ -13,7 +13,7 @@ const steps: {
     n: "01",
     label: "Step 1",
     title: "Define the outcome",
-    body: "Through one API call, your product states what should be true: the asset, destination, position, or the full sequence of results you need.",
+    body: "One API call states the asset, destination, position or full sequence you need.",
     icon: "intent",
   },
   {
@@ -27,7 +27,7 @@ const steps: {
     n: "03",
     label: "Step 3",
     title: "Settlement and confirmation",
-    body: "The outcome settles onchain and Epoch reports status back to your systems, so you can act on a verified result.",
+    body: "Outcome settles onchain; verified status returns to your systems.",
     icon: "settle",
   },
 ];
@@ -77,7 +77,7 @@ export function HowItWorks() {
             <SectionHeader
               index="05"
               eyebrow="How it works"
-              title="From intent to settlement, in one integration"
+              title="Intent to settlement, one integration"
               className="w-full max-w-md"
             />
             {/* Plate advances with the steps via the same stage scrub as the

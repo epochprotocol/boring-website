@@ -9,12 +9,12 @@ const controls = [
   {
     index: "01",
     title: "Screening before execution",
-    body: "KYC, sanctions and your own policy rules are evaluated as blocking conditions before any leg executes. A failed check halts the outcome rather than flagging it after the fact, and every decision is returned to your systems for your audit trail.",
+    body: "KYC, sanctions, and policy block before any leg runs. Failed checks halt the outcome; every decision hits your audit trail.",
   },
   {
     index: "02",
     title: "Privacy when you need it",
-    body: "Some flows shouldn't be public. Through our partnership with Miden, Epoch can route to private, verifiable settlement, keeping sensitive transaction details confidential while remaining verifiable.",
+    body: "Via Miden, route to private, verifiable settlement—confidential details, still verifiable.",
     note: "In partnership with Miden",
   },
 ];
@@ -32,14 +32,13 @@ export function CompliancePrivacy() {
             <SectionHeader
               index="08"
               eyebrow="Compliance & privacy"
-              title="Your controls run before value moves"
-              lead="Screening and policy are not a report you reconcile afterwards. They are gating conditions inside the outcome you define. If a check fails, nothing executes."
+              title="Controls run before value moves"
+              lead="Screening and policy gate the outcome. If a check fails, nothing executes."
               className="max-w-md"
             />
             <p className="t-body mt-4 text-muted">
-              Epoch does not replace your compliance obligations or your
-              licences. It gives your existing policy a place to run inside the
-              execution path.
+              Epoch doesn&apos;t replace your licences or obligations, it runs
+              your policy inside the execution path.
             </p>
           </div>
         </div>

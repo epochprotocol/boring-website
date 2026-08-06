@@ -7,26 +7,26 @@ const cases = [
   {
     index: "01",
     label: "Hedge funds & institutions",
-    title: "Execute strategy onchain without a crypto desk",
-    body: "Enter and exit positions, move collateral, and rebalance across chains through a single API with policy controls in the flow.",
+    title: "Onchain strategy, no crypto desk",
+    body: "Enter, exit, move collateral, and rebalance across chains via one API—with policy in the flow.",
   },
   {
     index: "02",
     label: "Banks & payments",
-    title: "Accept any token, deliver the one you want",
-    body: "Take inbound from any chain or asset and settle into a single target (for example, USDC on Base). Sweep idle balances into yield.",
-  },
+    title: "Accept any token, deliver yours",
+    body: "Take any chain or asset; settle to one target (e.g. USDC on Base). Sweep idle balances into yield.",
+  },   
   {
     index: "03",
     label: "Fintechs & neobanks",
-    title: "Add onchain features without rebuilding your stack",
-    body: "Offer swap, pay, earn, and transfers across chains to your users through one integration instead of many.",
+    title: "Add Onchain features in same stack",
+    body: "Offer swap, pay, earn, and transfers across chains through one integration.",
   },
   {
     index: "04",
     label: "Product & platform teams",
-    title: "Onboard users into your product in one click",
-    body: "Get users from any chain, any token, or fiat straight into the position or state your product needs, with no bridge tutorial.",
+    title: "One-click product onboarding",
+    body: "From any chain, token, or fiat into the position you need—no bridge tutorial.",
   },
 ];
 

@@ -91,8 +91,8 @@ export function Faq() {
         <SectionHeader
           index="12"
           eyebrow="FAQ"
-          title="The questions every team asks first"
-          lead="Answers drawn from the same facts as the security and compliance sections. Nothing here is marketing."
+          title="Questions every team asks first"
+          lead="Same facts as security and compliance. Nothing here is marketing."
         />
 
         <div className="section-body border-b border-line">

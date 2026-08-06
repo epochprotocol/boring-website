@@ -21,8 +21,8 @@ export function Product() {
             <SectionHeader
               index="03"
               eyebrow="The product"
-              title="An API for financial outcomes, not blockchain plumbing"
-              lead="You describe what needs to happen. Epoch determines how, coordinates execution across chains and protocols, and reports back the result. Your team works with outcomes; the complexity stays on our side."
+              title="An API for outcomes, not plumbing"
+              lead="You state the outcome. Epoch routes, executes, and reports back. Complexity stays on our side."
               className="max-w-md"
             />
 

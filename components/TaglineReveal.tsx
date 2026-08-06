@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import ShinyText from "./ShinyText";
 
 const LINES = [
-  "One API call states the outcome.",
-  "Every chain underneath executes it.",
+  "One API call.",
+  "One outcome.",
+  "Chains underneath execute it.",
 ];
 
 /**

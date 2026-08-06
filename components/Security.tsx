@@ -22,23 +22,23 @@ import { SectionHeader } from "./SectionHeader";
  *     lib/site.ts and disappears when unset, so the page never implies an
  *     assurance that does not exist.
  */
-
 const pillars: RuledRow[] = [
   {
     index: "01",
     title: "You hold the keys",
-    body: "Epoch never holds your signing keys and never takes discretionary control of your balances. Authorisation originates from your infrastructure for every outcome.",
+    body: "Epoch never holds keys or discretionary control of balances.",
     icon: "key",
   },
   {
     index: "02",
-    title: "Scoped execution that expires",
-    body: "Value transits Epoch's settlement contracts only for the legs of a flow that require it. Approvals are scoped to a single outcome and expire. There are no standing allowances.",
+    title: "Scoped, expiring execution",
+    body: "Approvals cover one outcome and expire. No standing allowances.",
     icon: "clock",
   },
   {
     index: "03",
     title: "Defined failure behaviour",
+    //TODO need to shorten this sentence
     body: "If a leg fails, the flow stops in a known state. Funds are returned to the originating account or held recoverable, never left in transit, and the terminal state is reported to your systems.",
     icon: "fail",
   },
@@ -81,8 +81,8 @@ export function Security() {
           <SectionHeader
             index="07"
             eyebrow="Security & custody"
-            title="The answers your risk team asks for first"
-            lead="You keep your keys. We orchestrate execution; we do not hold your assets, and we do not stand between you and your funds."
+            title="Answers your risk team asks first"
+            lead="You keep the keys. We orchestrate execution—we never hold your assets."
           />
           <CustodyInfographic className="mx-auto w-full max-w-md lg:mx-0 lg:justify-self-end" />
         </div>
@@ -97,6 +97,7 @@ export function Security() {
 
           <div className="mt-6">
             <Row label="Custody model" icon="key">
+            {/* TODO need to shorten this sentence */}
               <strong>You keep your keys.</strong> Client keys remain
               client-side. Assets transit Epoch settlement contracts only
               within an authorised flow and are never held on your behalf
@@ -104,15 +105,13 @@ export function Security() {
             </Row>
 
             <Row label="Execution model" icon="route">
-              Outcomes are settled by <strong>coordinated solvers</strong>
-              competing to fill your intent, not by a single privileged
-              executor. Epoch decomposes the intent, sources execution, and
-              verifies the result against what you asked for.
+              Outcomes settled by <strong>competing coordinated solvers</strong>, not one privileged
+              executor. Epoch sources execution and verifies the result.
             </Row>
 
             <Row label="Policy enforcement" icon="policy">
-              Screening and policy rules are evaluated as blocking conditions
-              before execution. A failed check halts the outcome.
+              Screening and policy block before execution. Failed checks halt
+              the outcome.
             </Row>
 
             {AUDITS.length > 0 ? (
@@ -164,9 +163,8 @@ export function Security() {
             ) : null}
 
             <Row label="Regulatory position" icon="bank">
-              Epoch provides execution infrastructure. Licensing, customer
-              onboarding and reporting obligations remain with you; we
-              integrate with the controls you already operate under.
+              Epoch is execution infrastructure. Licensing, onboarding, and
+              reporting stay with you.
             </Row>
 
             {STATUS_URL ? (
@@ -177,7 +175,7 @@ export function Security() {
                   rel="noopener noreferrer"
                   className="link"
                 >
-                  Live uptime and incident history
+                  Live uptime & incidents
                 </a>
               </Row>
             ) : null}
@@ -193,8 +191,7 @@ export function Security() {
             </Row>
 
             <Row label="Security pack" icon="pack">
-              Architecture notes, threat model and audit history are available
-              under NDA for teams in evaluation.{" "}
+              Architecture, threat model, and audits available under NDA.{" "}
               <a
                 href={`mailto:${SECURITY_EMAIL}?subject=Security%20pack%20request`}
                 className="link"

@@ -5,22 +5,22 @@ const benefits: RuledRow[] = [
   {
     index: "01",
     label: "UX",
-    title: "Your users click once",
-    body: "Epoch handles the routing, bridging, and execution behind the scenes, so the whole flow feels like a single action.",
+    title: "One-click UX",
+    body: "Routing, bridging, and execution happen behind one action.",
     icon: "click",
   },
   {
     index: "02",
     label: "Institutional",
     title: "Built for institutions",
-    body: "Banks, fintechs, neobanks, and hedge funds ship with Epoch. No internal Web3 team required.",
+    body: "Banks, fintechs, and funds ship without a Web3 team.",
     icon: "bank",
   },
   {
     index: "03",
     label: "Integration",
-    title: "Built around the API",
-    body: "One integration instead of assembling and maintaining bridges, DEXs, and operational tooling yourself.",
+    title: "One API",
+    body: "Skip assembling bridges, DEXs, and ops tooling yourself.",
     icon: "plug",
   },
   {
@@ -30,7 +30,7 @@ const benefits: RuledRow[] = [
     // either naive or untrue. Owning the dependency and the failure path is
     // the more credible position.
     title: "We own the dependencies",
-    body: "Bridges, venues and oracles sit behind our SLA, not yours. We monitor them, route around degradation, and reconcile failed legs.",
+    body: "Bridges, venues, and oracles sit behind our SLA, not yours. We take care of everything for you.",
     icon: "boxCheck",
   },
 ];
@@ -43,7 +43,7 @@ export function WhyEpoch() {
           index="02"
           eyebrow="For institutions & product teams"
           title="Why build on Epoch"
-          lead="Scale across Web3 without scaling operational or engineering complexity."
+          lead="Scale across Web3 without scaling ops or engineering."
         />
         <RuledList rows={benefits} scene="why" className="section-body" />
       </div>

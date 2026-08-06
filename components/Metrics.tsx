@@ -66,7 +66,13 @@ export function Metrics() {
           className="display t-h2 mx-auto mt-7 max-w-2xl text-ink"
           data-mask-lines
         >
-          Institutional scale, without the operational overhead
+          Institutional scale,
+        </h2>
+        <h2
+          className="display t-h2 mx-auto  max-w-2xl text-ink"
+          data-mask-lines
+        >
+          Zero operational overhead
         </h2>
 
         <dl className="section-body mx-auto grid max-w-3xl grid-cols-1 divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
