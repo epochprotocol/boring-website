@@ -1,0 +1,12 @@
+# Epoch
+
+> Rails for modern finance. Epoch provides execution infrastructure for defining and executing financial outcomes across chains, protocols, and payment rails through one API.
+
+- Website: https://epochprotocol.xyz/
+- Documentation: https://docs.epochprotocol.xyz/
+- Contact: https://epochprotocol.xyz/contact/
+- Security contact: mailto:security@epochprotocol.xyz
+- Terms: https://epochprotocol.xyz/terms/
+- Privacy: https://epochprotocol.xyz/privacy/
+
+For implementation details, API references, and integration guidance, use the official documentation at https://docs.epochprotocol.xyz/.

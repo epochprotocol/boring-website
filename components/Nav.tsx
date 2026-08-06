@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DOCS_URL, NAV_LINKS, SALES_CALENDAR_URL } from "@/lib/site";
-import { Wordmark } from "./Wordmark";
+
 import { ThemeToggle } from "./ThemeToggle";
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -122,7 +123,13 @@ export function Nav() {
               className="flex shrink-0 items-center"
               aria-label="Epoch home"
             >
-              <Wordmark />
+              <Image
+                src="/epochfavicon32x32coloured.png"
+                alt=""
+                width={416}
+                height={416}
+                className="h-7 w-7 object-contain"
+              />
             </Link>
 
             <nav

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: "Book a sales call",
   description:
     "Talk to the Epoch team about defining and executing financial outcomes onchain through a single API.",
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact", title: "Book a sales call — Epoch" },
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);

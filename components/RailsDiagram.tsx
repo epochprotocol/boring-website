@@ -1,5 +1,4 @@
 import { ChainMarkGlyph, type ChainName } from "./ChainMark";
-import { EpochLogo } from "./EpochLogo";
 
 const sources: { label: string; chain: ChainName; y: number }[] = [
   { label: "ETH", chain: "Ethereum", y: 26 },
@@ -102,7 +101,11 @@ export function RailsDiagram() {
         data-hub
       >
         <div className="flex h-full w-full items-center justify-center">
-          <EpochLogo className="h-3.5 w-full" />
+          <img
+            src="/epoch-logo-whiteblack-.png"
+            alt=""
+            className="h-3.5 w-3.5 object-contain"
+          />
         </div>
       </foreignObject>
 

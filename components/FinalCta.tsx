@@ -20,7 +20,7 @@ export function FinalCta() {
       <div className="container-x relative">
         <div className="flex items-center gap-3">
           <Image
-            src="/epoch-logo.png"
+            src="/epochfavicon32x32coloured.png"
             alt=""
             width={416}
             height={416}

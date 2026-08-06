@@ -3,14 +3,17 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Terms of use",
+  title: "Terms & Conditions",
+  description: "Terms governing use of the Epoch website.",
+  alternates: { canonical: "/terms" },
+  openGraph: { url: "/terms", title: "Terms & Conditions — Epoch" },
 };
 
 const sections: { heading: string; body: string[] }[] = [
   {
     heading: "1. What these terms cover",
     body: [
-      "These terms govern your use of the Epoch website and the product information published on it. They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
+      "These terms govern your use of the Epoch website and the product information published by Sync Tech LLC (\"Sync Tech\", \"Epoch\", \"we\", \"us\", or \"our\"). They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
     ],
   },
   {
@@ -67,9 +70,9 @@ export default function TermsPage() {
       <main id="main" className="section">
         <div className="container-x max-w-2xl">
           <p className="eyebrow">Legal</p>
-          <h1 className="display t-h2 mt-4 text-ink">Terms of use</h1>
+          <h1 className="display t-h2 mt-4 text-ink">Terms &amp; Conditions</h1>
           <p className="mt-3 text-xs uppercase tracking-widest text-muted">
-            Last updated 5 August 2026
+            Effective 7 August 2026
           </p>
 
           <div className="mt-10 space-y-9">

@@ -1,0 +1,20 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" width="750" height="750">
+	<title>Epoch Protocol Full Logo-pdf</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m0 0h750v750h-750z"/>
+		</clipPath>
+	</defs>
+	<style>
+		.s0 { fill: #dbd8ce }
+		.s1 { fill: #363166 }
+		.s2 { fill: #615b9d }
+		.s3 { fill: #918bcb }
+	</style>
+	<g id="Page 1" clip-path="url(#cp1)">
+		<path id="Path 3" class="s0" d="m428.2 98.7h-106.4l-53.1 92 53.1 92.2h106.4l53.1-92.2z"/>
+		<path id="Path 4" class="s1" d="m215.5 466.9h-106.3l-53.2 92.2 53.2 92.1h106.3l53.2-92.1z"/>
+		<path id="Path 5" class="s2" d="m447.8 501l-3.6-6.2-16-27.9h-0.1l-71.5-123.8-34.8-60.2h-106.3l-53.2 92 35.8 62 87.7 151.8 36 62.5h106.4l53.1-92.1z"/>
+		<path id="Path 6" class="s3" d="m657.8 496.5l0.2-0.1-91.1-157.9-0.2 0.1-32.2-55.7h-106.3l-53.2 92 53.2 92h0.1l53.1 92-0.1 0.2 53.2 92.1h106.2l53.3-92.1z"/>
+	</g>
+</svg>
