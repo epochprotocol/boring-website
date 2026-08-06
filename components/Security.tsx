@@ -6,7 +6,6 @@ import {
   STATUS_URL,
 } from "@/lib/site";
 import { Icon, type IconName } from "./Icon";
-import { CustodyInfographic } from "./Infographics";
 import { RuledList, type RuledRow } from "./RuledList";
 import { SectionHeader } from "./SectionHeader";
 
@@ -77,15 +76,12 @@ export function Security() {
       className="section border-b border-line bg-surface-2"
     >
       <div className="container-x">
-        <div className="grid items-end gap-8 lg:grid-cols-2 lg:gap-12">
-          <SectionHeader
-            index="07"
-            eyebrow="Security & custody"
-            title="Answers your risk team asks first"
-            lead="You keep the keys. We orchestrate execution—we never hold your assets."
-          />
-          <CustodyInfographic className="mx-auto w-full max-w-md lg:mx-0 lg:justify-self-end" />
-        </div>
+        <SectionHeader
+          index="07"
+          eyebrow="Security & custody"
+          title="Answers your risk team asks first"
+          lead="You keep the keys. We orchestrate execution—we never hold your assets."
+        />
 
         <RuledList rows={pillars} scene="security" className="section-body" />
 
