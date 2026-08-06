@@ -32,14 +32,14 @@
      The pastel is carried as-is for marks, fills and rules; a darker
      same-hue purple handles every text-weight use so small type stays
      legible on white. */
-  --color-canvas: #f7f8fa;
-  --color-surface: #ffffff;
-  --color-surface-2: #eef0f4;
-  --color-ink: #0b0e14;
-  --color-ink-soft: #3c434e;
-  --color-muted: #6a7280;
-  --color-line: rgba(11, 14, 20, 0.11);
-  --color-line-strong: rgba(11, 14, 20, 0.2);
+  --color-canvas: #f0f3f8;
+  --color-surface: #fbfcfe;
+  --color-surface-2: #e6ebf3;
+  --color-ink: #0a1020;
+  --color-ink-soft: #3a4558;
+  --color-muted: #667085;
+  --color-line: rgba(10, 16, 32, 0.1);
+  --color-line-strong: rgba(10, 16, 32, 0.18);
   --color-accent: #d7c2ff;
   --color-accent-strong: #7e22ce;
   --color-accent-soft: rgba(215, 194, 255, 0.28);
@@ -53,7 +53,7 @@
   --color-positive: #6d28d9;
   /* Reserved strictly for validation errors. Never decorative. */
   --color-danger: #b42318;
-  --grid-line: rgba(11, 14, 20, 0.055);
+  --grid-line: rgba(10, 16, 32, 0.05);
 
   /* ---- Type -------------------------------------------------------------- */
   --font-display: var(--font-geist-sans), system-ui, sans-serif;
@@ -72,35 +72,35 @@
   --spacing-section: 6rem;
 
   /* ---- Geometry ----------------------------------------------------------
-     Radii stay small and uniform, all on the Tailwind scale. */
-  --radius-card: 0.375rem;
-  --radius-tile: 0.25rem;
-  --radius-control: 0.375rem;
+     Soft uniform radii. Cards and controls share 12px; tiles nest one step. */
+  --radius-card: 0.75rem;
+  --radius-tile: 0.5rem;
+  --radius-control: 0.75rem;
 }
 
 :root {
   color-scheme: light;
-  --logo-1: #0b0e14;
-  --logo-2: #4b525d;
-  --logo-3: #858c97;
-  /* Tiered surfaces for stacked/among-equals cards. The range is deliberately
-     narrow — these should read as one material under different light. */
-  --card-0: #ffffff;
-  --card-1: #f6f7f9;
-  --card-2: #eef0f4;
-  --card-3: #e6e9ee;
+  --logo-1: #0a1020;
+  --logo-2: #4a5568;
+  --logo-3: #8791a1;
+  --card-0: #fbfcfe;
+  --card-1: #f2f5fa;
+  --card-2: #e6ebf3;
+  --card-3: #dce3ee;
+  --shadow-panel: 0 1px 0 rgba(10, 16, 32, 0.04),
+    0 12px 40px rgba(126, 34, 206, 0.07);
 }
 
 /* Full-site dark theme (toggle) and always-dark "moment" scope share the
    same palette overrides. */
 .dark,
 .on-dark {
-  --color-canvas: #000000;
-  --color-surface: #181818;
-  --color-surface-2: #1f1f1f;
-  --color-ink: #f4f6f8;
-  --color-ink-soft: #c0c5cd;
-  --color-muted: #848b96;
+  --color-canvas: #070a10;
+  --color-surface: #10151e;
+  --color-surface-2: #161c28;
+  --color-ink: #eef2f8;
+  --color-ink-soft: #b7c0cf;
+  --color-muted: #8490a3;
   --color-line: rgba(255, 255, 255, 0.1);
   --color-line-strong: rgba(255, 255, 255, 0.18);
   --color-accent: #d7c2ff;
@@ -114,24 +114,26 @@
   --color-danger: #f97066;
   --grid-line: rgba(255, 255, 255, 0.05);
   color-scheme: dark;
-  --logo-1: #f4f6f8;
-  --logo-2: #c8cdd4;
-  --logo-3: #9aa1ab;
-  --card-0: #181818;
-  --card-1: #1f1f1f;
-  --card-2: #272727;
-  --card-3: #313131;
+  --logo-1: #eef2f8;
+  --logo-2: #c4ccd8;
+  --logo-3: #8f99ab;
+  --card-0: #10151e;
+  --card-1: #161c28;
+  --card-2: #1c2433;
+  --card-3: #243044;
+  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 48px rgba(0, 0, 0, 0.35);
 }
 
 /* MIX — a dusk-slate theme between the two: deeper than light, softer than
    full dark. Opt-in via the `.mix` class. */
 .mix {
-  --color-canvas: #181818;
-  --color-surface: #1f1f1f;
-  --color-surface-2: #272727;
-  --color-ink: #eceff4;
-  --color-ink-soft: #b3bbc8;
-  --color-muted: #838d9c;
+  --color-canvas: #0c111a;
+  --color-surface: #141a26;
+  --color-surface-2: #1a2230;
+  --color-ink: #e8edf5;
+  --color-ink-soft: #aeb8c9;
+  --color-muted: #7f8a9c;
   --color-line: rgba(255, 255, 255, 0.1);
   --color-line-strong: rgba(255, 255, 255, 0.18);
   --color-accent: #dcc8ff;
@@ -145,13 +147,15 @@
   --color-danger: #f97066;
   --grid-line: rgba(255, 255, 255, 0.045);
   color-scheme: dark;
-  --logo-1: #eceff4;
-  --logo-2: #bfc7d3;
-  --logo-3: #95a0af;
-  --card-0: #1f1f1f;
-  --card-1: #272727;
-  --card-2: #313131;
-  --card-3: #313131;
+  --logo-1: #e8edf5;
+  --logo-2: #b8c2d2;
+  --logo-3: #8a95a8;
+  --card-0: #141a26;
+  --card-1: #1a2230;
+  --card-2: #222b3c;
+  --card-3: #2a3548;
+  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 48px rgba(0, 0, 0, 0.3);
 }
 
 /* An always-dark region within a light page picks up the dark ink/canvas. */
@@ -164,13 +168,13 @@
    split section, so two adjacent dark sections read as distinct surfaces
    rather than one continuous black block. */
 .on-dark-band {
-  --color-canvas: #181818;
-  --color-surface: #1f1f1f;
-  --color-surface-2: #272727;
-  --card-0: #1f1f1f;
-  --card-1: #272727;
-  --card-2: #313131;
-  --card-3: #313131;
+  --color-canvas: #10151e;
+  --color-surface: #161c28;
+  --color-surface-2: #1c2433;
+  --card-0: #161c28;
+  --card-1: #1c2433;
+  --card-2: #243044;
+  --card-3: #2a3548;
 }
 
 * {
@@ -184,6 +188,18 @@ html {
 
 body {
   background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(
+      ellipse 70% 45% at 100% -10%,
+      rgba(215, 194, 255, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 55% 40% at 0% 100%,
+      rgba(126, 34, 206, 0.05),
+      transparent 50%
+    );
+  background-attachment: fixed;
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -191,9 +207,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* Contextual alternates + kerning on. Small, but it is the difference
-     between type that is set and type that is merely rendered. */
   font-feature-settings: "kern" 1, "calt" 1;
+}
+
+html.dark body,
+html.mix body {
+  background-image:
+    radial-gradient(
+      ellipse 70% 45% at 100% -10%,
+      rgba(215, 194, 255, 0.1),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 55% 40% at 0% 100%,
+      rgba(192, 132, 252, 0.06),
+      transparent 50%
+    );
 }
 
 /* Paragraphs avoid orphans; headings balance across lines instead of leaving
@@ -392,7 +421,7 @@ h4 {
 .split-section {
   position: relative;
   --split-left: var(--color-surface);
-  --split-right: #111111;
+  --split-right: #10151e;
 }
 .split-section.split-left-surface-2 {
   --split-left: var(--color-surface-2);
@@ -459,7 +488,7 @@ h4 {
 @media (max-width: 1023px) {
   .dark .split-col.on-dark,
   .mix .split-col.on-dark {
-    background-color: #111111;
+    background-color: #10151e;
   }
 }
 /* The narrative half of "How it works" holds while the steps pass it. CSS
@@ -544,39 +573,34 @@ h4 {
   background-size: 48px 48px;
 }
 
-/* Atmospheric washes have been removed outright. Every one of them was a
-   radial gradient, and gradients are the fastest way to make an
-   infrastructure product look like a consumer app. Tone changes between
-   sections now come from flat surface steps and rules alone. */
+/* Page atmosphere lives on `body` (lavender washes). Sections still step
+   with flat surface tones and rules. */
 
 /* ==========================================================================
    SURFACES
-   No shadows anywhere. A panel is defined by its border and its tone.
+   Panels use border + soft lavender-tinted elevation. No pure-black shadows.
    ========================================================================== */
 
 .panel {
   background-color: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-panel);
 }
 
-/* On dark surfaces a single hairline reads flat and slightly cheap. A 1px
-   inset highlight along the top edge simulates the light a real material
-   would catch, and is the detail that separates expensive dark UI from
-   merely dark UI. Invisible in light mode, where it isn't needed. */
 .dark .panel,
 .mix .panel,
 .on-dark .panel {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-/* Interactive panel — border darkens on hover. It does not lift, scale,
-   glow, or change colour. */
 .panel-interactive {
-  transition: border-color 0.18s ease, background-color 0.18s ease;
+  transition: border-color 0.2s var(--ease-fluid),
+    background-color 0.2s var(--ease-fluid),
+    box-shadow 0.2s var(--ease-fluid);
 }
 .panel-interactive:hover {
-  border-color: var(--color-line-strong);
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-line));
 }
 
 /* Ruled row — the page's primary content geometry, shared by every register
