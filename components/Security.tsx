@@ -8,6 +8,7 @@ import {
 import { Icon, type IconName } from "./Icon";
 import { RuledList, type RuledRow } from "./RuledList";
 import { SectionHeader } from "./SectionHeader";
+import { CustodyInfographic } from "./Infographics";
 
 /**
  * The section a bank's risk function looks for and, until now, could not
@@ -76,13 +77,15 @@ export function Security() {
       className="section border-b border-line bg-surface-2"
     >
       <div className="container-x">
+      <div className="grid items-end gap-8 lg:grid-cols-2 lg:gap-12">
         <SectionHeader
           index="07"
           eyebrow="Security & custody"
           title="Answers your risk team asks first"
           lead="You keep the keys. We orchestrate execution—we never hold your assets."
         />
-
+      <CustodyInfographic className="mx-auto w-full max-w-md lg:mx-0 lg:justify-self-end" />
+      </div>
         <RuledList rows={pillars} scene="security" className="section-body" />
 
         <div className="panel mt-10 p-7 md:p-9" data-scene="assurance">
