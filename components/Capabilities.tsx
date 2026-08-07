@@ -16,8 +16,8 @@ type Capability = {
 const CAPABILITIES: Capability[] = [
   {
     id: "bridge",
-    label: "Move across chains",
-    desc: "Route value between any supported networks.",
+    label: "Cross-chain",
+    desc: "Route value across supported networks.",
     icon: "crossChain",
     step: "bridge",
   },
@@ -30,8 +30,8 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "compliance",
-    label: "Compliance checks",
-    desc: "KYC, sanctions and policy screening.",
+    label: "Compliance",
+    desc: "KYC, sanctions, and policy screening.",
     icon: "shield",
     step: "compliance",
   },
@@ -44,7 +44,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "compose",
-    label: "Multi-step flows",
+    label: "Composed flows",
     desc: "Chain actions into one atomic outcome.",
     icon: "layers",
     step: "compose",
@@ -52,7 +52,7 @@ const CAPABILITIES: Capability[] = [
   {
     id: "settle",
     label: "Settle & confirm",
-    desc: "Verified result reported to your systems.",
+    desc: "Verified result to your systems.",
     icon: "boxCheck",
     step: "settle",
   },
@@ -146,10 +146,10 @@ export function Capabilities() {
     >
       <div className="container-x">
         <SectionHeader
-          index="02"
+          index="04"
           eyebrow="Compose"
-          title="Choose your capabilities. Epoch composes the outcome."
-          lead="Toggle what your flow needs. It all runs through one API surface — no extra services to assemble or maintain."
+          title="Pick capabilities. Epoch composes the outcome."
+          lead="Toggle what you need. One API—no extra services to maintain."
         />
 
         <div className="panel section-body grid gap-0 overflow-hidden lg:grid-cols-[1.1fr_1fr]">
@@ -219,7 +219,7 @@ export function Capabilities() {
               rel="noopener noreferrer"
               className="arrow-link mt-6"
             >
-              See the full API reference
+              Full API reference
               <span className="btn-arrow" aria-hidden="true">
                 &rarr;
               </span>

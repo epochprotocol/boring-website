@@ -20,14 +20,17 @@ const networks: ChainName[] = [
  */
 export function Networks() {
   return (
-    <section id="networks" className="split-section border-b border-line">
+    <section
+      id="networks"
+      className="split-section split-left-surface-2 border-b border-line"
+    >
       <div className="split-cols">
         <div className="split-col bg-surface-2">
           <SectionHeader
             index="10"
             eyebrow="Coverage"
-            title="Cross-chain support, out of the box"
-            lead="Eight networks live on mainnet today, with venue and bridge coverage maintained on our side. Testnets track the same interface, so nothing changes between environments."
+            title="Chains supported out of the box"
+            lead="Eight networks live on mainnet. Venue and bridge coverage stays on our side. Same interface on testnets."
             className="w-full max-w-md"
           />
         </div>
@@ -53,8 +56,7 @@ export function Networks() {
             </div>
 
             <p className="t-body mt-5 text-muted">
-              Coverage expands continuously. New networks and protocols are
-              added on our side, with no integration work on yours.
+              New networks and protocols land on our side—no work on yours.
             </p>
           </div>
         </div>

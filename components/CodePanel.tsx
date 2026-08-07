@@ -3,7 +3,7 @@
 // signal that this is a credible, developer-grade product.
 
 const c = {
-  kw: "text-glow", // keyword (gradient)
+  kw: "text-accent-strong",
   fn: "text-accent-strong",
   str: "text-[color:var(--color-teal)]",
   com: "text-muted",
@@ -13,11 +13,9 @@ const c = {
 export function CodePanel({ className = "" }: { className?: string }) {
   return (
     <div className={`panel overflow-hidden ${className}`}>
-      <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="ml-3 font-mono text-xs text-muted">outcome.ts</span>
+      <div className="flex items-center justify-between border-b border-line px-4 py-3">
+        <span className="label">outcome.ts</span>
+        <span className="label">Example</span>
       </div>
       <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed">
         <code>
@@ -33,7 +31,7 @@ export function CodePanel({ className = "" }: { className?: string }) {
           <span className={c.fn}>Epoch</span>
           <span className={c.punc}>{"({ apiKey });"}</span>
           {"\n\n"}
-          <span className={c.com}>{"// Define the outcome — Epoch handles the rest"}</span>
+          <span className={c.com}>{"// Define the outcome. Epoch handles the rest."}</span>
           {"\n"}
           <span className={c.kw}>const</span>{" "}
           <span className={c.punc}>result</span> ={" "}

@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DOCS_URL, NAV_LINKS, SALES_CALENDAR_URL } from "@/lib/site";
-import { Wordmark } from "./Wordmark";
+
 import { ThemeToggle } from "./ThemeToggle";
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -15,11 +16,21 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
 
+  /**
+   * Scrolled state from an IntersectionObserver on a one-pixel sentinel at
+   * the very top of the page. The previous version listened to `scroll`
+   * events, which forces a style pass on every frame of every scroll — the
+   * observer costs nothing once registered.
+   */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sentinel = document.querySelector("[data-nav-sentinel]");
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, []);
 
   /**
@@ -62,7 +73,7 @@ export function Nav() {
         setActive(best);
       },
       {
-        rootMargin: "-72px 0px -55% 0px",
+        rootMargin: "-96px 0px -55% 0px",
         threshold: [0, 0.15, 0.35, 0.6, 1],
       }
     );
@@ -71,14 +82,18 @@ export function Nav() {
     return () => observer.disconnect();
   }, []);
 
-  // Close the mobile menu on Escape.
+  // Close the mobile menu on Escape and hold the page still while it is open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const bookProps = isExternal(SALES_CALENDAR_URL)
@@ -86,123 +101,146 @@ export function Nav() {
     : {};
 
   return (
-    <header
-      // Solid canvas on scroll, not a translucent blur. Frosted glass is a
-      // consumer-app signature and it makes type sitting behind it soft.
-      className={`sticky top-0 z-50 transition-colors duration-200 ${
-        scrolled || open
-          ? "border-b border-line bg-canvas"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="container-x flex h-16 items-center justify-between gap-6">
-        <Link
-          href="/"
-          className="flex shrink-0 items-center"
-          aria-label="Epoch home"
+    <>
+      {/* Sentinel for the scrolled state. One pixel at the top of the
+          document; the observer flips the pill to its glass style the moment
+          it leaves the viewport. */}
+      <div data-nav-sentinel aria-hidden="true" className="h-px w-px" />
+
+      {/* Padding lives on the sticky wrapper so the pill keeps clear of the
+          viewport edge when stuck — margin on the child collapses away. */}
+      <header className="pointer-events-none sticky top-0 z-50 pt-4 sm:pt-6">
+        <div
+          className={`mx-auto w-max max-w-[calc(100vw-3rem)] rounded-full border backdrop-blur-xl transition-colors duration-500 ease-fluid ${
+            scrolled || open
+              ? "border-line bg-canvas/80"
+              : "border-line bg-canvas/60"
+          }`}
         >
-          <Wordmark />
-        </Link>
+          <div className="pointer-events-auto flex h-12 items-center gap-6 px-4 sm:px-6">
+            <Link
+              href="/"
+              className="flex shrink-0 items-center"
+              aria-label="Epoch home"
+            >
+              <Image
+                src="/epochfavicon32x32coloured.png"
+                alt=""
+                width={416}
+                height={416}
+                className="h-7 w-7 object-contain"
+              />
+            </Link>
 
-        <nav
-          className="hidden items-center gap-7 md:flex"
-          aria-label="Sections"
-        >
-          {NAV_LINKS.map((link) => {
-            const id = link.href.replace("/#", "");
-            const isActive = active === id;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={isActive ? "true" : undefined}
-                className={`relative py-1 text-sm transition-colors ${
-                  isActive
-                    ? "text-ink"
-                    : "text-muted hover:text-ink"
-                }`}
-              >
-                {link.label}
-                {/* Underline marks position rather than decorating the link. */}
-                <span
-                  aria-hidden="true"
-                  className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-accent transition-transform duration-200 ${
-                    isActive ? "scale-x-100" : "scale-x-0"
-                  }`}
-                />
-              </Link>
-            );
-          })}
-        </nav>
+            <nav
+              className="hidden items-center gap-6 lg:flex"
+              aria-label="Sections"
+            >
+              {NAV_LINKS.map((link) => {
+                const id = link.href.replace("/#", "");
+                const isActive = active === id;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`relative py-1 text-sm transition-colors ${
+                      isActive
+                        ? "text-ink"
+                        : "text-muted hover:text-ink"
+                    }`}
+                  >
+                    {link.label}
+                    {/* Underline marks position rather than decorating the link. */}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-accent transition-transform duration-200 ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
+            </nav>
 
-        <div className="hidden shrink-0 items-center gap-4 md:flex">
-          <a
-            href={DOCS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted transition-colors hover:text-ink"
-          >
-            Docs
-          </a>
-          <ThemeToggle />
-          <Link
-            href={SALES_CALENDAR_URL}
-            {...bookProps}
-            className="btn btn-sm btn-primary"
-          >
-            Book a call
-          </Link>
-        </div>
-
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-control)] border border-line-strong text-ink transition-colors hover:bg-surface md:hidden"
-        >
-          <span className="sr-only">Menu</span>
-          {/* The bars rotate into a cross rather than swapping icons. */}
-          <span className="relative block h-3 w-4" aria-hidden="true">
-            <span
-              className={`absolute left-0 block h-px w-4 bg-ink transition-transform duration-200 ${
-                open ? "top-1.5 rotate-45" : "top-0"
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1.5 block h-px w-4 bg-ink transition-opacity duration-200 ${
-                open ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`absolute left-0 block h-px w-4 bg-ink transition-transform duration-200 ${
-                open ? "top-1.5 -rotate-45" : "top-3"
-              }`}
-            />
-          </span>
-        </button>
-      </div>
-
-      {open && (
-        <div id="mobile-nav" className="border-t border-line bg-canvas md:hidden">
-          <div className="container-x flex flex-col py-2">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-line py-3 text-sm text-ink-soft transition-colors hover:text-ink"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="flex items-center justify-between py-4">
+            <div className="hidden shrink-0 items-center gap-4 lg:flex">
               <a
                 href={DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-ink-soft"
+                className="text-sm text-muted transition-colors hover:text-ink"
+              >
+                Docs
+              </a>
+              <ThemeToggle />
+              <Link
+                href={SALES_CALENDAR_URL}
+                {...bookProps}
+                className="btn btn-sm btn-primary"
+              >
+                Book a call
+              </Link>
+            </div>
+
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:bg-surface lg:hidden"
+            >
+              <span className="sr-only">Menu</span>
+              {/* Two bars morph into an X. Both bars stay visible through the
+                  entire transition — the shape rotates, nothing disappears. */}
+              <span className="relative block h-2.5 w-4" aria-hidden="true">
+                <span
+                  className={`absolute left-0 block h-0.5 w-4 rounded-full bg-ink transition-all duration-300 ease-fluid ${
+                    open ? "top-1 rotate-45" : "top-0"
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 block h-0.5 w-4 rounded-full bg-ink transition-all duration-300 ease-fluid ${
+                    open ? "top-1 -rotate-45" : "top-2"
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {open && (
+        <div
+          id="mobile-nav"
+          className="nav-overlay fixed inset-0 z-40 backdrop-blur-3xl lg:hidden"
+        >
+          <div className="container-x flex h-full flex-col items-center justify-center">
+            {NAV_LINKS.map((link, i) => {
+              const id = link.href.replace("/#", "");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  style={{ animationDelay: `${100 + i * 50}ms` }}
+                  className={`nav-overlay-item display py-2 text-4xl ${
+                    active === id ? "text-ink" : "text-ink-soft"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div
+              className="nav-overlay-item mt-8 flex items-center gap-4"
+              style={{ animationDelay: `${100 + NAV_LINKS.length * 50}ms` }}
+            >
+              <a
+                href={DOCS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg text-ink-soft transition-colors hover:text-ink"
               >
                 Docs
               </a>
@@ -212,13 +250,16 @@ export function Nav() {
               href={SALES_CALENDAR_URL}
               {...bookProps}
               onClick={() => setOpen(false)}
-              className="btn btn-lg btn-primary mb-4 w-full"
+              style={{
+                animationDelay: `${100 + (NAV_LINKS.length + 1) * 50}ms`,
+              }}
+              className="nav-overlay-item btn btn-lg btn-primary mt-4"
             >
               Book a sales call
             </Link>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

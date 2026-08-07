@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CtaButtons } from "./CtaButtons";
 
 /**
@@ -17,7 +18,16 @@ export function FinalCta() {
         aria-hidden="true"
       />
       <div className="container-x relative">
-        <p className="label">Talk to us</p>
+        <div className="flex items-center gap-3">
+          <Image
+            src="/epochfavicon32x32coloured.png"
+            alt=""
+            width={416}
+            height={416}
+            className="h-9 w-9"
+          />
+          <p className="label">Talk to us</p>
+        </div>
         <h2
           className="display t-h2 mt-5 max-w-2xl text-ink"
           data-mask-lines

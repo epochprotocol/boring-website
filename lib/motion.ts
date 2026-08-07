@@ -7,6 +7,19 @@
  * than composed.
  */
 
+import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
+
+/**
+ * The house curve, registered once so every tween — GSAP and CSS alike — can
+ * ride it. It is the same cubic-bezier(0.32, 0.72, 0, 1) the stylesheet
+ * exposes as `--ease-fluid`: fast out of the gate, long considered landing.
+ * Content arriving on it reads as heavy rather than flicked.
+ */
+gsap.registerPlugin(CustomEase);
+export const EASE_FLUID = "epoch-fluid";
+CustomEase.create(EASE_FLUID, "M0,0 C0.32,0.72 0,1 1,1");
+
 /** House easing. Decelerating, no overshoot, no bounce, no spring. */
 export const EASE = "power3.out";
 export const EASE_INOUT = "power2.inOut";
@@ -31,6 +44,9 @@ export const DUR = {
   quick: 0.28,
   base: 0.45,
   slow: 0.7,
+  /** The heavy reveal. Long enough that entering content reads as having
+      mass, per the design language's 700–800ms band. */
+  heavy: 0.75,
 } as const;
 
 /**

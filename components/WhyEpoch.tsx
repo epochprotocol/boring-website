@@ -4,26 +4,34 @@ import { SectionHeader } from "./SectionHeader";
 const benefits: RuledRow[] = [
   {
     index: "01",
+    label: "UX",
     title: "One-click UX",
-    body: "Your users click once. Epoch handles the routing, bridging, and execution behind the scenes.",
+    body: "Routing, bridging, and execution happen behind one action.",
+    icon: "click",
   },
   {
     index: "02",
-    title: "Abstracted execution",
-    body: "Built for banks, fintechs, neobanks, institutions, and hedge funds. No internal Web3 team required.",
+    label: "Institutional",
+    title: "Built for institutions",
+    body: "Banks, fintechs, and funds ship without a Web3 team.",
+    icon: "bank",
   },
   {
     index: "03",
-    title: "API-first integration",
-    body: "One integration instead of assembling and maintaining bridges, DEXs, and operational tooling yourself.",
+    label: "Integration",
+    title: "One API",
+    body: "Skip assembling bridges, DEXs, and ops tooling yourself.",
+    icon: "plug",
   },
   {
     index: "04",
-    // Previously "Everything included — no third-party integrations needed",
-    // which sophisticated buyers read as either naive or untrue. Owning the
-    // dependency and the failure path is the more credible position.
+    label: "Operations",
+    // Previously "Everything included", which sophisticated buyers read as
+    // either naive or untrue. Owning the dependency and the failure path is
+    // the more credible position.
     title: "We own the dependencies",
-    body: "Bridges, venues and oracles sit behind our SLA, not yours. We monitor them, route around degradation, and reconcile failed legs.",
+    body: "Bridges, venues, and oracles sit behind our SLA, not yours. We take care of everything for you.",
+    icon: "boxCheck",
   },
 ];
 
@@ -32,10 +40,10 @@ export function WhyEpoch() {
     <section className="section border-b border-line bg-surface">
       <div className="container-x">
         <SectionHeader
-          index="05"
+          index="02"
           eyebrow="For institutions & product teams"
           title="Why build on Epoch"
-          lead="Scale across Web3 without scaling operational or engineering complexity."
+          lead="Scale across Web3 without scaling ops or engineering."
         />
         <RuledList rows={benefits} scene="why" className="section-body" />
       </div>

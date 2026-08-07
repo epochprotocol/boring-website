@@ -6,10 +6,13 @@ export const DOCS_URL = "https://docs.epochprotocol.xyz";
 // NEXT_PUBLIC_SALES_CALENDAR_URL (e.g. a Calendly URL). Falls back to the
 // contact page so the CTA is never dead.
 export const SALES_CALENDAR_URL =
-  process.env.NEXT_PUBLIC_SALES_CALENDAR_URL || "/contact";
+  process.env.NEXT_PUBLIC_SALES_CALENDAR_URL ||
+  "https://cal.com/akshitostwal/epoch-team";
 
 export const SALES_EMAIL = "sales@epochprotocol.xyz";
 export const SECURITY_EMAIL = "security@epochprotocol.xyz";
+
+export const TALLY_CONTACT_FORM_URL = "https://tally.so/r/NpxEjW";
 
 export const NAV_LINKS = [
   { label: "Product", href: "/#product" },
@@ -58,12 +61,12 @@ export const SURFACES: { name: string; detail: string }[] = [
   {
     name: "Widget",
     detail:
-      "Drop-in interface. The fastest path to accepting inbound from any chain, token or fiat.",
+      "Embedded widget. The fastest path to accepting inbound from any chain, token or fiat.",
   },
   {
     name: "Flows SDK",
     detail:
-      "Compose multi-step outcomes inside your own product surface, with your own UI.",
+      "Compose multi step outcomes inside your own product surface, with your own UI.",
   },
   {
     name: "Intents SDK & API",
@@ -119,14 +122,15 @@ export const UPDATES: { title: string; blurb: string; href: string }[] = [
  * Recommended: Better Stack, Instatus or Statuspage on status.epochprotocol.xyz
  * TODO: set NEXT_PUBLIC_STATUS_URL once the status page is live.
  */
-export const STATUS_URL = process.env.NEXT_PUBLIC_STATUS_URL || "";
+export const STATUS_URL = "";
 
 /**
  * Company LinkedIn. Institutional buyers check this before replying to a
  * sales email; its absence is a negative signal.
  * TODO: add the company LinkedIn URL.
  */
-export const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
+export const LINKEDIN_URL =
+  "https://www.linkedin.com/company/91330194/";
 
 /**
  * The contracting legal entity. Banks need to know who they are signing with
@@ -134,9 +138,9 @@ export const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
  * TODO: fill in. Leave blank to hide the row entirely.
  */
 export const LEGAL_ENTITY = {
-  name: "", // e.g. "Epoch Labs Ltd."
-  jurisdiction: "", // e.g. "England & Wales"
-  registrationNumber: "", // e.g. "14829301"
+  name: "Sync Tech LLC",
+  jurisdiction: "",
+  registrationNumber: "",
 };
 
 /**
