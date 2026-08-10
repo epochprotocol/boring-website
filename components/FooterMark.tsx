@@ -9,11 +9,14 @@ import ParticleText from "./ParticleText";
  * than a second band.
  */
 export function FooterMark() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement;
-    const sync = () => setDark(root.classList.contains("dark"));
+    const sync = () =>
+      setDark(
+        root.classList.contains("dark") || root.classList.contains("mix")
+      );
     sync();
     const observer = new MutationObserver(sync);
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
@@ -44,8 +47,8 @@ export function FooterMark() {
         idleDrift={0.55}
         trigger="hover"
         fontSize="clamp(4rem, 16vw, 10rem)"
-        fontWeight={800}
-        fontFamily="inherit"
+        fontWeight={400}
+        fontFamily="Quantum Flat"
         glow={dark}
         className="display !min-h-0"
         style={{ minHeight: 0 }}

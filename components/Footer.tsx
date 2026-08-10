@@ -46,7 +46,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer className="border-t border-line bg-canvas">
       <div className="container-x pt-16 md:pt-20">
         <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>

@@ -21,7 +21,7 @@ export function Proof() {
   if (!hasPartners && !hasInvestors && !hasTeam) return null;
 
   return (
-    <section id="proof" className="section border-b border-line bg-surface" data-scene="proof">
+    <section id="proof" className="section border-b border-line bg-canvas" data-scene="proof">
       <div className="container-x">
         {/* Deliberately unnumbered: this is a proof strip between chapters,
             not a chapter of its own, and it renders conditionally. */}

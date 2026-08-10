@@ -21,20 +21,18 @@ export const metadata: Metadata = {
     description:
       "Define the outcome. Epoch executes it across every chain, protocol, and payment rail.",
     type: "website",
-    url: "https://epochprotocol.xyz",
+    url: "https://epochprotocol.xyz/",
     siteName: "Epoch",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `Epoch — ${TAGLINE}` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `Epoch — ${TAGLINE}`,
     description:
       "Define the outcome. Epoch executes it across every chain, protocol, and payment rail.",
-    images: ["/og-image.png"],
   },
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem("epoch-theme");var c=document.documentElement.classList;if(t==="dark"){c.add("dark");}else if(t==="mix"){c.add("mix");}}catch(e){}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem("epoch-theme");var c=document.documentElement.classList;c.remove("dark","mix","light");if(t==="light"){c.add("light");}else if(t==="mix"){c.add("mix");}else{c.add("dark");}}catch(e){document.documentElement.classList.add("dark");}})();`;
 
 /**
  * Adds the `motion` class before first paint, and only when JavaScript runs

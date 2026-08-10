@@ -31,7 +31,7 @@ function readTheme(): Theme {
  */
 export function HeroBeams() {
   const [allowed, setAllowed] = useState(false);
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");

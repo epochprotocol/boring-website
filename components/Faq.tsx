@@ -86,7 +86,7 @@ export function Faq() {
   };
 
   return (
-    <section className="section border-b border-line bg-surface-2">
+    <section className="section border-b border-line bg-canvas">
       <div className="container-x">
         <SectionHeader
           index="12"
