@@ -12,7 +12,7 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#000000",
     theme_color: "#000000",
     icons: [
-      { src: "/epochfavicon32x32coloured.png", sizes: "500x500", type: "image/png", purpose: "any maskable" },
+      { src: "/epochfavicon32x32coloured.png", sizes: "500x500", type: "image/png", purpose: "any" },
     ],
   };
 }
