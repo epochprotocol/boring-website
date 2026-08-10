@@ -70,12 +70,14 @@ function isIconChain(name: ChainName): name is IconChainName {
 
 function MidenMark({ className = "" }: { className?: string }) {
   return (
-    <img
-      src="/miden.svg"
-      alt=""
-      className={`h-5 w-5 object-contain ${className}`}
+    <svg
+      viewBox="0 0 18 25"
+      fill="currentColor"
+      className={`h-5 w-5 ${className}`}
       aria-hidden="true"
-    />
+    >
+      <use href="/miden.svg#miden-mark" />
+    </svg>
   );
 }
 
@@ -139,16 +141,18 @@ export function ChainMarkGlyph({
 }) {
   if (name === "Miden") {
     return (
-      <image
-        href="/miden.svg"
+      <svg
         x={x}
         y={y}
         width={size}
         height={size}
-        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 18 25"
+        fill="currentColor"
         className={className}
         aria-hidden="true"
-      />
+      >
+        <use href="/miden.svg#miden-mark" />
+      </svg>
     );
   }
   if (!isIconChain(name)) {
