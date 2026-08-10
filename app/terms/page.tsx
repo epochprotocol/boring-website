@@ -13,7 +13,7 @@ const sections: { heading: string; body: string[] }[] = [
   {
     heading: "1. What these terms cover",
     body: [
-      "These terms govern your use of the Epoch website and the product information published by Sync Tech LLC (\"Sync Tech\", \"Epoch\", \"we\", \"us\", or \"our\"). They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
+      "These terms govern your use of the Epoch website and the product information published by Async Tech Pvt Ltd (\"Async Tech Pvt Ltd\", \"Epoch\", \"we\", \"us\", or \"our\"). They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
     ],
   },
   {
