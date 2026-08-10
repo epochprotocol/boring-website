@@ -22,10 +22,10 @@ export function Networks() {
   return (
     <section
       id="networks"
-      className="split-section split-left-canvas border-b border-line"
+      className="split-section split-left-surface-2 border-b border-line"
     >
       <div className="split-cols">
-        <div className="split-col bg-canvas">
+        <div className="split-col bg-surface-2">
           <SectionHeader
             index="10"
             eyebrow="Coverage"
