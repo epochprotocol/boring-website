@@ -2,13 +2,11 @@ import type { ReactNode } from "react";
 import type { IconComponent } from "@web3icons/react";
 import {
   NetworkArbitrumOne,
-  NetworkAvalanche,
   NetworkBase,
   NetworkBinanceSmartChain,
   NetworkEthereum,
   NetworkOptimism,
   NetworkPolygon,
-  NetworkSolana,
 } from "@web3icons/react";
 
 export type ChainName =
@@ -17,23 +15,20 @@ export type ChainName =
   | "Arbitrum"
   | "Optimism"
   | "Polygon"
-  | "Avalanche"
+  | "Miden"
   | "BNB Chain"
-  | "Solana"
   | "Fiat"
   | "L2";
 
-type NetworkChainName = Exclude<ChainName, "Fiat" | "L2">;
+type IconChainName = Exclude<ChainName, "Fiat" | "L2" | "Miden">;
 
-const networkIcons: Record<NetworkChainName, IconComponent> = {
+const networkIcons: Record<IconChainName, IconComponent> = {
   Ethereum: NetworkEthereum,
   Base: NetworkBase,
   Arbitrum: NetworkArbitrumOne,
   Optimism: NetworkOptimism,
   Polygon: NetworkPolygon,
-  Avalanche: NetworkAvalanche,
   "BNB Chain": NetworkBinanceSmartChain,
-  Solana: NetworkSolana,
 };
 
 const utilityMarks: Record<"Fiat" | "L2", ReactNode> = {
@@ -69,8 +64,19 @@ const utilityMarks: Record<"Fiat" | "L2", ReactNode> = {
   ),
 };
 
-function isNetworkChain(name: ChainName): name is NetworkChainName {
-  return name !== "Fiat" && name !== "L2";
+function isIconChain(name: ChainName): name is IconChainName {
+  return name !== "Fiat" && name !== "L2" && name !== "Miden";
+}
+
+function MidenMark({ className = "" }: { className?: string }) {
+  return (
+    <img
+      src="/miden.svg"
+      alt=""
+      className={`h-5 w-5 object-contain ${className}`}
+      aria-hidden="true"
+    />
+  );
 }
 
 function UtilityMark({
@@ -92,7 +98,7 @@ function UtilityMark({
   );
 }
 
-/** Render an official network mark in monochrome, inheriting the surface color. */
+/** Render a network mark, using the provided Miden asset where needed. */
 export function ChainMark({
   name,
   className = "",
@@ -100,7 +106,10 @@ export function ChainMark({
   name: ChainName;
   className?: string;
 }) {
-  if (!isNetworkChain(name)) {
+  if (name === "Miden") {
+    return <MidenMark className={className} />;
+  }
+  if (!isIconChain(name)) {
     return <UtilityMark name={name} className={className} />;
   }
 
@@ -114,7 +123,7 @@ export function ChainMark({
   );
 }
 
-/** Nested official network mark for use inside a parent <svg>. */
+/** Nested network mark for use inside a parent <svg>. */
 export function ChainMarkGlyph({
   name,
   x,
@@ -128,7 +137,21 @@ export function ChainMarkGlyph({
   size?: number;
   className?: string;
 }) {
-  if (!isNetworkChain(name)) {
+  if (name === "Miden") {
+    return (
+      <image
+        href="/miden.svg"
+        x={x}
+        y={y}
+        width={size}
+        height={size}
+        preserveAspectRatio="xMidYMid meet"
+        className={className}
+        aria-hidden="true"
+      />
+    );
+  }
+  if (!isIconChain(name)) {
     return (
       <svg
         x={x}

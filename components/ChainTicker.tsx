@@ -6,9 +6,8 @@ const networks: ChainName[] = [
   "Arbitrum",
   "Optimism",
   "Polygon",
-  "Avalanche",
+  "Miden",
   "BNB Chain",
-  "Solana",
 ];
 
 /**

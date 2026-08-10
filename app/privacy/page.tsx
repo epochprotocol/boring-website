@@ -4,14 +4,14 @@ import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Sync Tech LLC collects and uses information submitted through the Epoch website.",
-  alternates: { canonical: "/privacy" },
-  openGraph: { url: "/privacy", title: "Privacy Policy — Epoch" },
+  description: "How Async Tech LLC, Singapore collects and uses information submitted through the Epoch website.",
+  alternates: { canonical: "/privacy/" },
+  openGraph: { url: "/privacy/", title: "Privacy Policy — Epoch" },
 };
 
 const sections = [
   { heading: "1. Who we are", body: [
-    "This Privacy Policy explains how Sync Tech LLC (\"Sync Tech\", \"Epoch\", \"we\", \"us\", or \"our\") handles personal information collected through epochprotocol.xyz (the \"Site\").",
+    "This Privacy Policy explains how Async Tech LLC, Singapore (\"Async Tech\", \"Epoch\", \"we\", \"us\", or \"our\") handles personal information collected through epochprotocol.xyz (the \"Site\").",
     "This policy applies to the Site only. It does not replace the privacy terms in any separate agreement governing a product or service relationship with us."
   ]},
   { heading: "2. Information we collect", body: [

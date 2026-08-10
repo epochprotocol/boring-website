@@ -432,7 +432,7 @@ export function FragmentInfographic({ className = "" }: DiagramProps) {
   const leftApp = { cx: lcx, cy: 86, w: 48, h: 26 };
   const scattered: { x: number; y: number; t: string; chain: ChainName }[] = [
     { x: lcx - 40, y: 48, t: "ETH", chain: "Ethereum" },
-    { x: lcx + 40, y: 48, t: "SOL", chain: "Solana" },
+    { x: lcx + 40, y: 48, t: "MIDEN", chain: "Miden" },
     { x: lcx - 40, y: 128, t: "FIAT", chain: "Fiat" },
     { x: lcx + 40, y: 128, t: "L2", chain: "L2" },
   ];
@@ -445,7 +445,7 @@ export function FragmentInfographic({ className = "" }: DiagramProps) {
   const railXs = [rcx - 36, rcx - 12, rcx + 12, rcx + 36];
   const rails: { x: number; t: string; chain: ChainName }[] = [
     { x: railXs[0], t: "ETH", chain: "Ethereum" },
-    { x: railXs[1], t: "SOL", chain: "Solana" },
+    { x: railXs[1], t: "MIDEN", chain: "Miden" },
     { x: railXs[2], t: "L2", chain: "L2" },
     { x: railXs[3], t: "FIAT", chain: "Fiat" },
   ];

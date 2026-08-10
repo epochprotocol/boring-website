@@ -7,9 +7,8 @@ const networks: ChainName[] = [
   "Arbitrum",
   "Optimism",
   "Polygon",
-  "Avalanche",
+  "Miden",
   "BNB Chain",
-  "Solana",
 ];
 
 /**
@@ -30,7 +29,7 @@ export function Networks() {
             index="10"
             eyebrow="Coverage"
             title="Chains supported out of the box"
-            lead="Eight networks live on mainnet. Venue and bridge coverage stays on our side. Same interface on testnets."
+            lead="Seven networks live on mainnet. Venue and bridge coverage stays on our side. Same interface on testnets."
             className="w-full max-w-md"
           />
         </div>

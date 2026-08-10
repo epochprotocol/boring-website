@@ -4,8 +4,8 @@ const sources: { label: string; chain: ChainName; y: number }[] = [
   { label: "ETH", chain: "Ethereum", y: 26 },
   { label: "BASE", chain: "Base", y: 66 },
   { label: "ARB", chain: "Arbitrum", y: 106 },
-  { label: "SOL", chain: "Solana", y: 146 },
-  { label: "AVAX", chain: "Avalanche", y: 186 },
+  { label: "MIDEN", chain: "Miden", y: 146 },
+  { label: "BNB", chain: "BNB Chain", y: 186 },
   { label: "FIAT", chain: "Fiat", y: 226 },
 ];
 
@@ -33,7 +33,7 @@ export function RailsDiagram() {
       fill="none"
       className="h-auto w-full max-w-md"
       role="img"
-      aria-label="Six inbound rails (Ethereum, Base, Arbitrum, Solana, Avalanche and fiat) converging through Epoch into a single settled outcome."
+      aria-label="Six inbound rails (Ethereum, Base, Arbitrum, Miden, BNB Chain and fiat) converging through Epoch into a single settled outcome."
       data-rails
     >
       {sources.map((s) => {

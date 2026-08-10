@@ -20,7 +20,7 @@ const QUESTIONS: { q: string; a: string }[] = [
   },
   {
     q: "Which networks are supported?",
-    a: "Eight networks are live on mainnet today: Ethereum, Base, Arbitrum, Optimism, Polygon, Avalanche, BNB Chain, and Solana. New networks are added on our side, with no integration work on yours.",
+    a: "Seven networks are live on mainnet today: Ethereum, Base, Arbitrum, Optimism, Polygon, Miden, and BNB Chain. New networks are added on our side, with no integration work on yours.",
   },
   {
     q: "How is compliance enforced?",

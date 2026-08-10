@@ -138,8 +138,8 @@ export const LINKEDIN_URL =
  * TODO: fill in. Leave blank to hide the row entirely.
  */
 export const LEGAL_ENTITY = {
-  name: "Sync Tech LLC",
-  jurisdiction: "",
+  name: "Async Tech LLC",
+  jurisdiction: "Singapore",
   registrationNumber: "",
 };
 

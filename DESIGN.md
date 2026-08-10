@@ -324,7 +324,7 @@ institutional:
 - **State the failure path**, not only the happy path. Nobody senior believes
   a distributed system that never fails.
 - **Own your dependencies** rather than claiming you have none.
-- **Prefer a number to an adjective.** "Eight networks in production" beats
+- **Prefer a number to an adjective.** "Seven networks in production" beats
   "every major chain".
 
 ## Adding something new

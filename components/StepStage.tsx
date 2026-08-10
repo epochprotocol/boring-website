@@ -1,7 +1,7 @@
 import { ChainMark, type ChainName } from "./ChainMark";
 import { RecordAmount } from "./RecordAmount";
 
-const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Solana"];
+const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Miden"];
 
 /**
  * The visual that advances as the reader scrolls the three steps — Stripe's

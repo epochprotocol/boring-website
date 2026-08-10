@@ -36,7 +36,7 @@ const rows: { k: string; v: string; mono?: boolean; amount?: boolean }[] = [
   { k: "Destination", v: "USDC on Base" },
 ];
 
-const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Solana"];
+const route: ChainName[] = ["Ethereum", "Base", "Arbitrum", "Miden"];
 
 const EASE = [0.32, 0.72, 0, 1] as const;
 

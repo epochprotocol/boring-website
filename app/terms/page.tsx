@@ -5,15 +5,15 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description: "Terms governing use of the Epoch website.",
-  alternates: { canonical: "/terms" },
-  openGraph: { url: "/terms", title: "Terms & Conditions — Epoch" },
+  alternates: { canonical: "/terms/" },
+  openGraph: { url: "/terms/", title: "Terms & Conditions — Epoch" },
 };
 
 const sections: { heading: string; body: string[] }[] = [
   {
     heading: "1. What these terms cover",
     body: [
-      "These terms govern your use of the Epoch website and the product information published by Sync Tech LLC (\"Sync Tech\", \"Epoch\", \"we\", \"us\", or \"our\"). They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
+      "These terms govern your use of the Epoch website and the product information published by Async Tech LLC, Singapore (\"Async Tech\", \"Epoch\", \"we\", \"us\", or \"our\"). They do not govern any commercial agreement you sign with Epoch for production access. That is covered by a separate services agreement.",
     ],
   },
   {
