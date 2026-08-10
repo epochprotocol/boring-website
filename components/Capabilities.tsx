@@ -142,7 +142,7 @@ export function Capabilities() {
       ref={sectionRef}
       id="capabilities"
       data-composer={touched ? "manual" : "auto"}
-      className="section border-b border-line bg-surface-2"
+      className="section border-b border-line bg-canvas"
     >
       <div className="container-x">
         <SectionHeader

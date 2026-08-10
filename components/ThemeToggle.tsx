@@ -12,7 +12,8 @@ const THEMES: { id: Theme; label: string }[] = [
 
 function applyTheme(t: Theme) {
   const root = document.documentElement;
-  root.classList.remove("dark", "mix");
+  root.classList.remove("dark", "mix", "light");
+  if (t === "light") root.classList.add("light");
   if (t === "dark") root.classList.add("dark");
   if (t === "mix") root.classList.add("mix");
   try {
@@ -70,7 +71,7 @@ function ThemeIcon({ id }: { id: Theme }) {
 }
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

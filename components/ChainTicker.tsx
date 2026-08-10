@@ -34,7 +34,7 @@ export function ChainTicker() {
   return (
     <section
       aria-label="Networks in production"
-      className="ticker border-b border-line bg-surface-2 py-3"
+      className="ticker border-b border-line bg-canvas py-3"
     >
       <div className="ticker-track">
         {[0, 1].map((copy) => (

@@ -39,7 +39,7 @@ export function TaglineReveal() {
 
   return (
     <section
-      className="section border-b border-line bg-surface"
+      className="section border-b border-line bg-canvas"
       aria-label="Epoch in one line"
     >
       <div className="container-x">

@@ -37,7 +37,7 @@ const benefits: RuledRow[] = [
 
 export function WhyEpoch() {
   return (
-    <section className="section border-b border-line bg-surface">
+    <section className="section border-b border-line bg-canvas">
       <div className="container-x">
         <SectionHeader
           index="02"

@@ -13,10 +13,10 @@ export function Product() {
   return (
     <section
       id="product"
-      className="split-section split-grid-right border-b border-line"
+      className="split-section split-left-canvas split-grid-right border-b border-line"
     >
       <div className="split-cols">
-        <div className="split-col bg-surface">
+        <div className="split-col bg-canvas">
           <div className="w-full max-w-md">
             <SectionHeader
               index="03"

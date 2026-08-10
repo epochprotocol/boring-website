@@ -74,7 +74,7 @@ export function Security() {
   return (
     <section
       id="security"
-      className="section border-b border-line bg-surface-2"
+      className="section border-b border-line bg-canvas"
     >
       <div className="container-x">
       <div className="grid items-end gap-8 lg:grid-cols-2 lg:gap-12">

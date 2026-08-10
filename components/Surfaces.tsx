@@ -14,7 +14,7 @@ export function Surfaces() {
   if (SURFACES.length === 0) return null;
 
   return (
-    <section id="build" className="section border-b border-line bg-surface">
+    <section id="build" className="section border-b border-line bg-canvas">
       <div className="container-x">
         <SectionHeader
           index="06"
