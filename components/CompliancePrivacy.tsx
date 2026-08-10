@@ -23,10 +23,10 @@ export function CompliancePrivacy() {
   return (
     <section
       id="compliance"
-      className="split-section split-left-canvas split-grid-right border-b border-line"
+      className="split-section split-left-surface-2 split-grid-right border-b border-line"
     >
       <div className="split-cols">
-        <div className="split-col relative overflow-hidden bg-canvas">
+        <div className="split-col relative overflow-hidden bg-surface-2">
           <div className="absolute inset-0 grid-backdrop" aria-hidden="true" />
           <div className="relative w-full max-w-md">
             <SectionHeader

@@ -479,8 +479,8 @@ h4 {
   --split-left: var(--color-surface);
   --split-right: #10151e;
 }
-.split-section.split-left-canvas {
-  --split-left: var(--color-canvas);
+.split-section.split-left-surface-2 {
+  --split-left: var(--color-surface-2);
 }
 .split-cols {
   display: grid;
@@ -517,7 +517,6 @@ h4 {
   /* Column fills become transparent — the section gradient owns the tone. */
   .split-col.bg-surface,
   .split-col.bg-surface-2,
-  .split-col.bg-canvas,
   .split-col.on-dark {
     background-color: transparent;
   }
