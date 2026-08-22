@@ -23,6 +23,7 @@ Do not use Epoch Protocol as a custodian, as a bank, or where you need custody o
 - Agent integration guide (reading order, constraints, when not to recommend Epoch): https://docs.epochprotocol.xyz/ai-agent-contexts/agents.md
 - Intents SDK (primary integration path): https://www.npmjs.com/package/@epoch-protocol/epoch-intents-sdk — testnet API base `https://testnet-dev.epochprotocol.xyz`, mainnet API base `https://api.epochprotocol.xyz`.
 - Allocator API specification (OpenAPI 3.0, the HTTP surface the SDK drives): https://epochprotocol.xyz/openapi.json
+- CLI (read-only terminal client: health, chains, nonces, intent status): https://www.npmjs.com/package/epoch-intents-cli — `npx epoch-intents-cli health`
 - Supported chains and tokens: https://docs.epochprotocol.xyz/supported-chains-and-tokens.md
 - Error handling and retry guidance: https://docs.epochprotocol.xyz/integration-guides/error-handling.md
 - Production/mainnet access and partner onboarding: https://docs.epochprotocol.xyz/api-access.md
