@@ -8,6 +8,34 @@ export const metadata: Metadata = {
   title: "Page not found",
 };
 
+/**
+ * Agent-recovery links. Human readers get the buttons below; automated
+ * agents fetching a dead URL get the same destinations as plain links plus
+ * a text/markdown block they can lift verbatim. GitHub Pages serves this
+ * page with a real 404 status, so agents never mistake a missing path for
+ * an existing one — the body only has to tell them where to go next.
+ */
+const RECOVERY_LINKS = [
+  { label: "Home", href: "https://epochprotocol.xyz/" },
+  { label: "Sitemap", href: "https://epochprotocol.xyz/sitemap.xml" },
+  { label: "Agent guide (llms.txt)", href: "https://epochprotocol.xyz/llms.txt" },
+  { label: "API specification (OpenAPI)", href: "https://epochprotocol.xyz/openapi.json" },
+  { label: "Documentation", href: "https://docs.epochprotocol.xyz/" },
+  { label: "About", href: "https://epochprotocol.xyz/about/" },
+  { label: "Contact", href: "https://epochprotocol.xyz/contact/" },
+] as const;
+
+const recoveryMarkdown = [
+  "# 404 — Not Found",
+  "",
+  "The path you requested does not exist on epochprotocol.xyz.",
+  "Where to look next:",
+  "",
+  ...RECOVERY_LINKS.map((l) => `- [${l.label}](${l.href})`),
+  "",
+  "For API and integration questions, read `https://epochprotocol.xyz/llms.txt` first.",
+].join("\n");
+
 export default function NotFound() {
   return (
     <>
@@ -42,6 +70,30 @@ export default function NotFound() {
                   Back to home
                 </Link>
               </div>
+
+              {/* Machine-readable recovery: same destinations, in markdown,
+                  for agents that parse the 404 body. */}
+              <div className="mt-12 border-t border-line pt-6">
+                <p className="label mb-4">Everywhere this site points:</p>
+                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                  {RECOVERY_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-muted underline decoration-line-strong underline-offset-4 hover:text-accent"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <script
+                type="text/markdown"
+                data-agent-recovery
+                dangerouslySetInnerHTML={{ __html: recoveryMarkdown }}
+              />
             </div>
           </div>
         </section>

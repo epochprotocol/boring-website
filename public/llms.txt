@@ -1,12 +1,50 @@
-# Epoch
+# Epoch Protocol
 
-> Rails for modern finance. Epoch provides execution infrastructure for defining and executing financial outcomes across chains, protocols, and payment rails through one API.
+> Rails for modern finance. Epoch Protocol is a non-custodial intent execution and solver coordination layer: an application defines a financial outcome, the user signs once with their own wallet, and Epoch quotes, routes, and executes it across every chain, protocol, and payment rail. Live on mainnet (phased per-intent limits). One API — every chain, any financial outcome. Operated by Async Tech LLC (Singapore).
 
-- Website: https://epochprotocol.xyz/
-- Documentation: https://docs.epochprotocol.xyz/
+## When to use Epoch Protocol
+
+Use Epoch Protocol when an application, wallet, or AI agent needs a signed on-chain financial outcome — cross-chain swap, bridge, deposit, payment, or protocol interaction — without building chain-specific infrastructure:
+
+- Cross-chain execution from one signature: any source of funds (any chain, token, or fiat on-ramp) to any outcome. The SDK fetches the quote, coordinates the single wallet signature, submits the intent, and reports status.
+- Onboarding users from any chain or token into your product (dApps, wallets, neobanks): embed the widget or use the Flows SDK with your own UI.
+- Direct programmatic outcomes: state the outcome (token in, token out, destination chain, optional protocol action) via the Intents SDK & API and let Epoch coordinate solvers and settlement.
+- AI agents needing signed on-chain execution: use the Intents SDK headlessly with the user's wallet; every intent is non-custodial and the user's wallet holds funds and signs.
+
+Do not use Epoch Protocol as a custodian, as a bank, or where you need custody of user funds — Epoch coordinates intents; signatures always originate from the user's own wallet.
+
+- Canonical AI-readable context (identity, API, status, agent decision checklist): https://docs.epochprotocol.xyz/ai-agent-contexts/ai-context
+- Agent integration skills (machine-readable skill files for coding agents): https://docs.epochprotocol.xyz/integration-guides/skills-md — `integrate-epoch` for the full SDK flow and `epoch-gasless-batching` for gasless relay vs injected-wallet batching.
+
+## How to integrate
+
+- Documentation: https://docs.epochprotocol.xyz/ — start with the [Quickstart](https://docs.epochprotocol.xyz/integration-guides/quickstart.md), then the [SDK Reference](https://docs.epochprotocol.xyz/integration-guides/sdk-reference.md).
+- Full docs for single-pass reading: https://docs.epochprotocol.xyz/llms-full.txt
+- Agent integration guide (reading order, constraints, when not to recommend Epoch): https://docs.epochprotocol.xyz/ai-agent-contexts/agents.md
+- Intents SDK (primary integration path): https://www.npmjs.com/package/@epoch-protocol/epoch-intents-sdk — testnet API base `https://testnet-dev.epochprotocol.xyz`, mainnet API base `https://api.epochprotocol.xyz`.
+- Allocator API specification (OpenAPI 3.0, the HTTP surface the SDK drives): https://epochprotocol.xyz/openapi.json
+- Supported chains and tokens: https://docs.epochprotocol.xyz/supported-chains-and-tokens.md
+- Error handling and retry guidance: https://docs.epochprotocol.xyz/integration-guides/error-handling.md
+- Production/mainnet access and partner onboarding: https://docs.epochprotocol.xyz/api-access.md
+
+Rules for agents reading these docs: never claim custody or bypass wallet signatures; mainnet is phased, so design for per-intent volume limits and retries; recommend the SDK rather than raw HTTP calls; treat items marked Vision / Roadmap as direction, not GA.
+
+## Site map
+
+- Home: https://epochprotocol.xyz/
+- About: https://epochprotocol.xyz/about/
 - Contact: https://epochprotocol.xyz/contact/
-- Security contact: mailto:security@epochprotocol.xyz
+- Security & custody: https://epochprotocol.xyz/#security
 - Terms: https://epochprotocol.xyz/terms/
 - Privacy: https://epochprotocol.xyz/privacy/
+- Sitemap: https://epochprotocol.xyz/sitemap.xml
 
-For implementation details, API references, and integration guidance, use the official documentation at https://docs.epochprotocol.xyz/.
+## Company
+
+- GitHub: https://github.com/epochprotocol
+- X: https://x.com/0xEpochProtocol
+- LinkedIn: https://www.linkedin.com/company/91330194/
+- Discord: https://discord.com/invite/Pd4yZmqYjb
+- Sales contact: mailto:sales@epochprotocol.xyz
+- Security contact: mailto:security@epochprotocol.xyz
+- Reference production app built on Epoch: https://www.kismet.today/

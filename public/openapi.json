@@ -1,0 +1,698 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Epoch Protocol Allocator API",
+    "description": "HTTP API behind the @epoch-protocol/epoch-intents-sdk. Epoch is a non-custodial intent execution and solver coordination layer: an application expresses a desired financial outcome, the user signs once with their own wallet, and Epoch quotes, routes, and executes the outcome across chains and protocols. Most integrators should use the SDK (https://docs.epochprotocol.xyz) rather than calling this API directly; this specification documents the wire surface the SDK drives so agents and tooling can understand it. All amount fields are raw integer strings in the token's smallest unit. All addresses are EVM addresses (0x-prefixed, 20 bytes) unless stated otherwise.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Epoch Protocol",
+      "email": "sales@epochprotocol.xyz",
+      "url": "https://epochprotocol.xyz/"
+    },
+    "license": {
+      "name": "Proprietary",
+      "url": "https://epochprotocol.xyz/terms/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.epochprotocol.xyz",
+      "description": "Mainnet"
+    },
+    {
+      "url": "https://testnet-dev.epochprotocol.xyz",
+      "description": "Testnet"
+    }
+  ],
+  "tags": [
+    { "name": "Health", "description": "Service discovery and liveness" },
+    { "name": "Intents", "description": "Quote, submit, and track cross-chain intents" },
+    { "name": "Gasless", "description": "EIP-7702 sponsored deposit and execution relay" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "operationId": "getHealth",
+        "summary": "Service health and supported chains",
+        "description": "Liveness probe that also returns allocator discovery data: the allocator contract address per chain id, the intent signing address, and the finalization thresholds for every supported chain. Call this first to discover chain support before quoting.",
+        "responses": {
+          "200": {
+            "description": "Allocator is healthy.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/checkIfDepositNeeded": {
+      "post": {
+        "tags": ["Intents"],
+        "operationId": "quoteIntent",
+        "summary": "Quote an intent and get deposit transactions",
+        "description": "Prices a desired outcome (tokenIn to tokenOut on a destination chain) against live solver liquidity. Returns the execution path, expected input and output tokens, and — when the sponsor must first lock collateral — the unsigned batch transactions the wallet should send. This is the SDK's getIntentQuote / pre-solve step: call it before submitting an allocation so the user can see the expected output. The request carries a placeholder sponsorSignature of 0x for quote-only validation; set isRegisteredOnchain accurately because it controls whether deposit transactions are returned.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AllocationRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote produced. resourceLockRequired indicates whether collateral must be deposited first; transactions then contains the batch calls (approve + deposit) for the wallet to execute.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/IntentQuoteResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/compact": {
+      "post": {
+        "tags": ["Intents"],
+        "operationId": "createAllocation",
+        "summary": "Register a signed resource-lock allocation",
+        "description": "Submits the sponsor's signed Compact allocation (The Compact resource lock) to the allocator. The allocator co-signs the mandate and returns the claim hash, digest, and allocator signature that bind the intent to settlement. Call after the user has deposited collateral (or when isRegisteredOnchain is true). The witnessTypeString must be the exact typestring used to produce sponsorSignature.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AllocationRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Allocation registered and co-signed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AllocationResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/suggested-nonce/{chainId}/{address}": {
+      "get": {
+        "tags": ["Intents"],
+        "operationId": "getSuggestedNonce",
+        "summary": "Get the next unused intent nonce for a sponsor",
+        "description": "Returns the nonce the given sponsor address should use for its next Compact allocation on the given chain, derived from on-chain state. Nonces are monotonic per sponsor; reuse reverts on-chain.",
+        "parameters": [
+          {
+            "name": "chainId",
+            "in": "path",
+            "required": true,
+            "description": "EVM chain id of the collateral chain (e.g. 8453 for Base).",
+            "schema": { "type": "string", "pattern": "^[0-9]+$" }
+          },
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "description": "Sponsor (end-user wallet) address.",
+            "schema": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Suggested nonce.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["nonce"],
+                  "properties": {
+                    "nonce": {
+                      "type": "string",
+                      "description": "Next unused nonce as a decimal string (uint256)."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/intentStatus/{userAddress}/{nonce}": {
+      "get": {
+        "tags": ["Intents"],
+        "operationId": "getIntentStatus",
+        "summary": "Track an intent's execution status",
+        "description": "Polls the lifecycle state of a submitted intent identified by sponsor address and allocation nonce. Poll with backoff until a terminal state; the SDK's getIntentStatus wraps this endpoint.",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "path",
+            "required": true,
+            "description": "Sponsor (end-user wallet) address the intent was submitted for.",
+            "schema": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" }
+          },
+          {
+            "name": "nonce",
+            "in": "path",
+            "required": true,
+            "description": "Allocation nonce returned by getSuggestedNonce / createAllocation.",
+            "schema": { "type": "string", "pattern": "^[0-9]+$" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current intent status.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/IntentStatusResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "No intent found for this address and nonce.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/reportFill": {
+      "post": {
+        "tags": ["Intents"],
+        "operationId": "reportFill",
+        "summary": "Report a client-side fill (solver analytics)",
+        "description": "Fire-and-forget telemetry for external solvers whose intents settle entirely client-side: once all execution transactions confirm on-chain, report the confirmed hashes here. Never affects execution; failures can be safely ignored by the caller.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FillReport" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Report accepted."
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/miden-recipient": {
+      "get": {
+        "tags": ["Intents"],
+        "operationId": "getMidenCollateralConfig",
+        "summary": "Get Miden collateral configuration",
+        "description": "Returns the allocator's Miden account and minimum reclaim window for P2IDE note collateral. Intents funded from Miden must mint a public, reclaimable P2IDE note addressed to recipientAccountId with a reclaim window of at least minReclaimBlocks.",
+        "responses": {
+          "200": {
+            "description": "Miden collateral configuration.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MidenRecipientResponse" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/gasless-status": {
+      "get": {
+        "tags": ["Gasless"],
+        "operationId": "getGaslessStatus",
+        "summary": "Gasless relay availability",
+        "description": "Reports whether the sponsored (gasless) relay is accepting work and which relayer address sponsors execution. A non-200 response means gasless flows are unavailable; fall back to user-paid deposits.",
+        "responses": {
+          "200": {
+            "description": "Relay status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["relayerAddress"],
+                  "properties": {
+                    "relayerAddress": {
+                      "type": "string",
+                      "description": "Address that sponsors gasless execution.",
+                      "pattern": "^0x[0-9a-fA-F]{40}$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Relay temporarily unavailable.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relay-deposit": {
+      "post": {
+        "tags": ["Gasless"],
+        "operationId": "relayDeposit",
+        "summary": "Submit a sponsored (gasless) Compact deposit",
+        "description": "Executes the sponsor's Compact deposit through the relayer under EIP-7702 delegation, so the end user pays no gas. Requires the delegation signature over the deposit batch calls, the sponsor's Compact signature, and — when the wallet is not yet delegated — a signed 7702 authorization. Responds 402 or 503 when the relay declines or is unavailable; callers must fall back to a user-paid deposit.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RelayDepositRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deposit executed or already registered.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RelayResult" }
+              }
+            }
+          },
+          "402": {
+            "description": "Relay declined to sponsor this deposit.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Relay unavailable.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relay-enable-delegation": {
+      "post": {
+        "tags": ["Gasless"],
+        "operationId": "relayEnableDelegation",
+        "summary": "Delegate a wallet to the 7702 implementation (sponsored)",
+        "description": "Submits the EIP-7702 authorization that delegates the user's EOA to the Epoch smart-account implementation, sponsored by the relayer. Required once per wallet before gasless deposits work. Idempotent via idempotencyKey.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["chainId", "userAddress", "authorization", "idempotencyKey"],
+                "properties": {
+                  "chainId": {
+                    "type": "integer",
+                    "description": "EVM chain id to delegate on."
+                  },
+                  "userAddress": {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{40}$",
+                    "description": "Wallet being delegated."
+                  },
+                  "authorization": {
+                    "type": "object",
+                    "description": "Signed EIP-7702 authorization object (address, chainId, nonce, yParity, r, s).",
+                    "additionalProperties": true
+                  },
+                  "idempotencyKey": {
+                    "type": "string",
+                    "description": "Caller-generated key making retries safe."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Delegation enabled.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RelayResult" }
+              }
+            }
+          },
+          "402": { "$ref": "#/components/responses/BadRequest" },
+          "503": {
+            "description": "Relay unavailable.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relay-execute": {
+      "post": {
+        "tags": ["Gasless"],
+        "operationId": "relayExecute",
+        "summary": "Execute a sponsored batch (e.g. gasless withdrawal)",
+        "description": "Executes a signed batch of calls through the relayer under the wallet's existing 7702 delegation — same transport and error mapping as relayDeposit but without Compact collateral fields. Used for gasless withdrawals and other sponsored executions.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RelayExecuteRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch executed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RelayResult" }
+              }
+            }
+          },
+          "402": {
+            "description": "Relay declined to sponsor this execution.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Relay unavailable.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "BadRequest": {
+        "description": "Malformed request or unsupported chain/token parameters.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Unexpected allocator error.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": { "type": "string", "description": "Human-readable error message." },
+          "code": { "type": "string", "description": "Machine-readable error category." },
+          "success": {
+            "type": "boolean",
+            "description": "false on logical failures reported with HTTP 200."
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "allocatorAddresses", "signingAddress", "timestamp"],
+        "properties": {
+          "status": { "type": "string", "example": "healthy" },
+          "allocatorAddresses": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Allocator contract address keyed by decimal chain id."
+          },
+          "signingAddress": {
+            "type": "string",
+            "description": "Allocator's intent co-signing address.",
+            "pattern": "^0x[0-9a-fA-F]{40}$"
+          },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "chainConfig": {
+            "type": "object",
+            "properties": {
+              "defaultFinalizationThresholdSeconds": { "type": "number" },
+              "supportedChains": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["chainId", "finalizationThresholdSeconds"],
+                  "properties": {
+                    "chainId": { "type": "string" },
+                    "finalizationThresholdSeconds": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CompactData": {
+        "type": "object",
+        "description": "The Compact resource lock describing the collateral and its mandate.",
+        "required": ["arbiter", "sponsor", "nonce", "expires", "id", "lockTag", "token", "amount"],
+        "properties": {
+          "arbiter": { "type": "string", "description": "Allocator contract entrusted with the lock.", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "sponsor": { "type": "string", "description": "End-user wallet locking funds.", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "nonce": { "type": "string", "description": "Monotonic uint256 nonce, decimal string." },
+          "expires": { "type": "string", "description": "Expiry as unix seconds, decimal string." },
+          "id": { "type": "string", "description": "Resource lock id, decimal string." },
+          "lockTag": { "type": "string", "description": "0x-prefixed lock tag (12 bytes)." },
+          "token": { "type": "string", "description": "Collateral token contract address.", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "amount": { "type": "string", "description": "Collateral amount, raw units, decimal string." },
+          "mandate": { "$ref": "#/components/schemas/Mandate" }
+        }
+      },
+      "Mandate": {
+        "type": "object",
+        "description": "Outcome constraints the solver must honour.",
+        "required": ["tokenIn", "tokenInAmount", "tokenOut", "minTokenOut", "destinationChainId", "taskType", "recipient"],
+        "properties": {
+          "tokenIn": { "type": "string", "description": "Input token contract address." },
+          "tokenInAmount": { "type": "string", "description": "Input amount, raw units." },
+          "tokenOut": { "type": "string", "description": "Output token contract address." },
+          "minTokenOut": { "type": "string", "description": "Minimum acceptable output, raw units." },
+          "destinationChainId": { "type": "string", "description": "Chain the outcome lands on, decimal string." },
+          "taskType": { "type": "string", "description": "Task type identifier (keccak256-based)." },
+          "recipient": { "type": "string", "description": "Address receiving the outcome." },
+          "protocolHashIdentifier": {
+            "type": "string",
+            "description": "Optional keccak256 protocol/action identifier for protocol-interaction tasks."
+          }
+        }
+      },
+      "AllocationRequest": {
+        "type": "object",
+        "required": ["chainId", "isRegisteredOnchain", "compact", "sponsorSignature", "witnessTypeString"],
+        "properties": {
+          "chainId": { "type": "string", "description": "Collateral chain id, decimal string." },
+          "isRegisteredOnchain": {
+            "type": "boolean",
+            "description": "Whether the resource lock is already registered on-chain. When false, responses include the deposit transactions the wallet must send first; sponsorSignature may be 0x for quote-only validation."
+          },
+          "compact": { "$ref": "#/components/schemas/CompactData" },
+          "sponsorSignature": {
+            "type": "string",
+            "description": "Sponsor's EIP-712 signature over the compact witness; 0x accepted for signature-free quote validation."
+          },
+          "witnessTypeString": {
+            "type": "string",
+            "description": "Exact Solidity typestring used to hash the witness for sponsorSignature."
+          },
+          "routingAndLiquidityOptions": {
+            "oneOf": [
+              { "type": "object", "properties": { "preset": { "type": "string", "enum": ["any"] } }, "additionalProperties": false },
+              { "type": "object", "properties": { "preset": { "type": "string", "enum": ["filler-single-transaction"] } }, "additionalProperties": false },
+              { "type": "object", "properties": { "preset": { "type": "string", "enum": ["external-multi-transactions"] } }, "additionalProperties": false },
+              {
+                "type": "object",
+                "properties": {
+                  "preset": { "type": "string", "enum": ["custom"] },
+                  "solvers": { "type": "array", "items": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" } }
+                },
+                "required": ["preset", "solvers"],
+                "additionalProperties": false
+              }
+            ],
+            "description": "Optional routing preset constraining how the intent may be filled."
+          }
+        }
+      },
+      "ExecutionTransaction": {
+        "type": "object",
+        "description": "One unsigned batch call for the wallet to execute.",
+        "required": ["target", "value", "callData", "chainId"],
+        "properties": {
+          "target": { "type": "string", "description": "Contract to call.", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "value": { "type": "string", "description": "ETH value in wei, decimal string." },
+          "callData": { "type": "string", "description": "Encoded calldata, 0x-prefixed." },
+          "chainId": { "type": "integer", "description": "Chain to execute this call on." }
+        }
+      },
+      "IntentQuoteResponse": {
+        "type": "object",
+        "required": ["resourceLockRequired", "transactions"],
+        "properties": {
+          "resourceLockRequired": {
+            "type": "boolean",
+            "description": "True when the sponsor must deposit collateral before the intent can be registered."
+          },
+          "transactions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ExecutionTransaction" },
+            "description": "Unsigned batch calls (approval and/or deposit) for the wallet when resourceLockRequired is true; empty otherwise."
+          },
+          "path": {
+            "type": "array",
+            "items": {},
+            "description": "Solver path decomposition across chains and protocols (opaque, for display/debugging)."
+          },
+          "tokenIn": { "type": "string", "description": "Resolved input token address." },
+          "tokenOut": { "type": "string", "description": "Resolved output token address." },
+          "tokenInDecimals": { "type": "number", "description": "Decimals of tokenIn." },
+          "tokenInSymbol": { "type": "string", "description": "Symbol of tokenIn." },
+          "success": { "type": "boolean" },
+          "error": { "type": "string" },
+          "code": { "type": "string" }
+        }
+      },
+      "AllocationResponse": {
+        "type": "object",
+        "required": ["hash", "signature", "digest"],
+        "properties": {
+          "hash": { "type": "string", "description": "Claim hash of the registered allocation, 0x-prefixed." },
+          "signature": { "type": "string", "description": "Allocator's co-signature, 0x-prefixed." },
+          "digest": { "type": "string", "description": "Witness digest, 0x-prefixed." },
+          "nonce": { "type": "string", "description": "Echoed allocation nonce if newly assigned." }
+        }
+      },
+      "IntentStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "description": "Lifecycle state of the intent (poll until terminal)." },
+          "transactionHash": { "type": "string", "description": "Settlement transaction hash when available, 0x-prefixed." },
+          "chainId": { "type": "integer", "description": "Chain of the settlement transaction." }
+        }
+      },
+      "FillReport": {
+        "type": "object",
+        "required": ["nonce", "external", "transactionHashes"],
+        "properties": {
+          "nonce": { "type": "string", "description": "Intent (Compact) nonce, decimal string." },
+          "external": { "type": "boolean", "description": "Always true today: marks the external client-submitted fill path." },
+          "routing": { "type": "object", "additionalProperties": true, "description": "Routing preset requested for this intent, if any." },
+          "user": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$", "description": "Sponsor / end-user address." },
+          "tokenInAddress": { "type": "string", "description": "Input token contract address." },
+          "tokenInAmount": { "type": "string", "description": "Raw atomic input amount from the quote path." },
+          "tokenOutAddress": { "type": "string", "description": "Output token contract address." },
+          "tokenOutAmount": { "type": "string", "description": "Raw atomic expected output amount from the quote path." },
+          "minTokenOut": { "type": "string", "description": "Minimum output amount set on the intent." },
+          "transactionHashes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Confirmed transaction hashes of the intent's execution transactions."
+          }
+        }
+      },
+      "MidenRecipientResponse": {
+        "type": "object",
+        "required": ["midenP2IDRecipientAccountId"],
+        "properties": {
+          "midenP2IDRecipientAccountId": {
+            "type": "string",
+            "description": "Miden account id the P2IDE collateral note must be addressed to."
+          },
+          "midenMinReclaimBlocks": {
+            "type": "number",
+            "description": "Minimum reclaim window (Miden blocks) the allocator enforces."
+          }
+        }
+      },
+      "RelayCall": {
+        "type": "object",
+        "required": ["to", "data", "value"],
+        "properties": {
+          "to": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "data": { "type": "string", "description": "Encoded calldata, 0x-prefixed." },
+          "value": { "type": "string", "description": "ETH value in wei, decimal string." }
+        }
+      },
+      "RelayAuthorization": {
+        "type": "object",
+        "description": "Signed EIP-7702 authorization (address, chainId, nonce, yParity, r, s).",
+        "additionalProperties": true
+      },
+      "RelayDepositRequest": {
+        "type": "object",
+        "required": ["idempotencyKey", "chainId", "userAddress", "calls", "executionData", "sponsorSignature", "witnessTypeString", "claimHash", "compact"],
+        "properties": {
+          "idempotencyKey": { "type": "string", "description": "Caller-generated key making retries safe." },
+          "chainId": { "type": "integer", "description": "Chain to execute the deposit on." },
+          "userAddress": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$", "description": "Depositing wallet." },
+          "authorization": { "$ref": "#/components/schemas/RelayAuthorization" },
+          "delegation": { "description": "Signed delegation over the deposit batch calls.", "additionalProperties": true },
+          "calls": { "type": "array", "items": { "$ref": "#/components/schemas/RelayCall" } },
+          "executionData": { "type": "string", "description": "Encoded redeem execution data, 0x-prefixed." },
+          "sponsorSignature": { "type": "string", "description": "Sponsor's Compact EIP-712 signature, 0x-prefixed." },
+          "witnessTypeString": { "type": "string", "description": "Witness typestring used for sponsorSignature." },
+          "claimHash": { "type": "string", "description": "Claim hash of the compact, 0x-prefixed." },
+          "compact": { "type": "object", "additionalProperties": true, "description": "Serialized Compact resource lock (same shape as CompactData)." }
+        }
+      },
+      "RelayExecuteRequest": {
+        "type": "object",
+        "required": ["idempotencyKey", "chainId", "userAddress", "calls", "executionData"],
+        "properties": {
+          "idempotencyKey": { "type": "string" },
+          "chainId": { "type": "integer" },
+          "userAddress": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "authorization": { "$ref": "#/components/schemas/RelayAuthorization" },
+          "calls": { "type": "array", "items": { "$ref": "#/components/schemas/RelayCall" } },
+          "executionData": { "type": "string", "description": "Encoded redeem execution data, 0x-prefixed." }
+        }
+      },
+      "RelayResult": {
+        "type": "object",
+        "required": ["success"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "txHash": { "type": "string", "description": "Relayed transaction hash when executed, 0x-prefixed." },
+          "alreadyRegistered": { "type": "boolean", "description": "True when the operation was already completed by a previous attempt." }
+        }
+      }
+    }
+  }
+}

@@ -25,9 +25,12 @@ export function Footer() {
   const productLinks = [
     ...NAV_LINKS.slice(0, 4),
     { label: "Docs", href: DOCS_URL, external: true as const },
+    { label: "API specification", href: "/openapi.json", external: true as const },
+    { label: "Agent guide (llms.txt)", href: "/llms.txt", external: true as const },
   ];
 
   const companyLinks: { label: string; href: string; external?: boolean }[] = [
+    { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Security & custody", href: "/#security" },
     { label: "Compliance", href: "/#compliance" },

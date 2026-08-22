@@ -5,7 +5,7 @@ import type { MetadataRoute } from "next";
 const siteUrl = "https://epochprotocol.xyz";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/contact", "/privacy", "/terms"].map((path) => ({
+  return ["", "/about", "/contact", "/privacy", "/terms"].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: new Date(),
     changeFrequency: path === "" ? "weekly" : "yearly",

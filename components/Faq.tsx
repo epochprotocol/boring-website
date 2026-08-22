@@ -46,6 +46,30 @@ const QUESTIONS: { q: string; a: string }[] = [
     q: "Is Epoch a bank or a custodian?",
     a: "No. Epoch provides execution infrastructure and is not a bank, broker, money transmitter, or investment adviser. Licensing, customer onboarding and reporting obligations remain with you.",
   },
+  {
+    q: "How does an engineering team integrate with Epoch Protocol?",
+    a: `Install the Intents SDK from npm as @epoch-protocol/epoch-intents-sdk, point it at the testnet API base, and follow the quickstart at ${DOCS_URL}: describe the outcome, fetch a quote, collect one wallet signature, submit, and poll status. The machine-readable API surface is published as OpenAPI at https://epochprotocol.xyz/openapi.json.`,
+  },
+  {
+    q: "Can AI agents use Epoch directly?",
+    a: `Yes — within the same non-custodial rules as any other client. An agent drives the Intents SDK headlessly with the user's wallet, reads https://epochprotocol.xyz/llms.txt for orientation, and checks the docs' agent guide for integration constraints. Every outcome still requires a signature from the user's own wallet; nothing is executed without one.`,
+  },
+  {
+    q: "What does mainnet phased limits mean for planning?",
+    a: "Mainnet is live but volumes are capped per intent while capacity ramps. Design for retries and idempotency, use testnet for heavy experimentation, and contact us for production volume onboarding before you commit launch dates.",
+  },
+  {
+    q: "What happens to my funds while an intent is in flight?",
+    a: "They are locked in your own name, not pooled. Epoch uses resource locks on settlement contracts, so collateral sits in a position controlled by the mandate you signed — claimable back if execution does not complete — rather than in an operator's hot wallet.",
+  },
+  {
+    q: "How do I report a security issue?",
+    a: "Email security@epochprotocol.xyz with details and, where possible, reproduction steps. We ask that researchers give us a reasonable window to fix issues before public disclosure, and we acknowledge every credible report.",
+  },
+  {
+    q: "Do you support fiat on-ramps and off-ramps?",
+    a: "Yes, through partner rails. Because Epoch routes outcomes across payment rails as well as chains, a flow can start from a card or bank transfer and end in a stablecoin position onchain — or the reverse. Availability depends on jurisdiction and the partner involved; talk to us about your specific corridors.",
+  },
 ];
 
 /**
