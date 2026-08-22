@@ -89,11 +89,15 @@ export default function NotFound() {
                 </ul>
               </div>
 
-              <script
-                type="text/markdown"
-                data-agent-recovery
-                dangerouslySetInnerHTML={{ __html: recoveryMarkdown }}
-              />
+              <div className="mt-8">
+                <p className="label mb-3">Agent-readable recovery</p>
+                <pre
+                  data-agent-recovery
+                  className="overflow-x-auto whitespace-pre-wrap border border-line bg-canvas-raised p-4 text-xs leading-relaxed text-muted"
+                >
+                  {recoveryMarkdown}
+                </pre>
+              </div>
             </div>
           </div>
         </section>

@@ -112,7 +112,7 @@ test("root layout carries Organization JSON-LD with contact and address", async 
 
 test("404 page ships an agent-recovery markdown body and links", async () => {
   const source = await read("app/not-found.tsx");
-  assert.match(source, /type="text\/markdown"/);
+  assert.match(source, /<pre[\s\S]*data-agent-recovery/);
   assert.match(source, /# 404 — Not Found/);
   assert.match(source, /sitemap\.xml/);
   assert.match(source, /llms\.txt/);
@@ -141,6 +141,15 @@ test("footer links the machine-readable resources", async () => {
   assert.match(source, /"About", href: "\/about"/);
   assert.match(source, /"API specification", href: "\/openapi\.json"/);
   assert.match(source, /"Agent guide \(llms\.txt\)", href: "\/llms\.txt"/);
+});
+
+test("homepage exposes developer and agent resources as visible content", async () => {
+  const source = await read("components/Surfaces.tsx");
+  assert.match(source, /Epoch Protocol developer resources/);
+  assert.match(source, /@epoch-protocol\/epoch-intents-sdk/);
+  assert.match(source, /epoch-intents-cli/);
+  assert.match(source, /\/openapi\.json/);
+  assert.match(source, /When an agent should call Epoch/);
 });
 
 test("Cloudflare Pages _headers declares Vary: Accept, Accept-Encoding", async () => {
