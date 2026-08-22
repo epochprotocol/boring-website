@@ -138,3 +138,28 @@ test("footer links the machine-readable resources", async () => {
   assert.match(source, /"API specification", href: "\/openapi\.json"/);
   assert.match(source, /"Agent guide \(llms\.txt\)", href: "\/llms\.txt"/);
 });
+
+test("Cloudflare Pages _headers declares Vary: Accept, Accept-Encoding", async () => {
+  const source = await read("public/_headers");
+  // The rule must apply site-wide and name both request headers the
+  // response varies on; a missing Accept lets the cache serve one page
+  // variant to the wrong client.
+  assert.match(source, /^\/\*\n {2}Vary: Accept, Accept-Encoding$/m);
+});
+
+test("markdown mirrors exist for negotiated pages", async () => {
+  for (const path of ["public/index.md", "public/about.md"]) {
+    const md = await read(path);
+    assert.match(md, /^# /m, `${path} lacks an H1`);
+    assert.match(md, /non-custodial/i, `${path} must state the custody model`);
+    assert.match(md, /docs\.epochprotocol\.xyz/, `${path} must point at the docs`);
+  }
+});
+
+test("Pages Functions negotiate markdown with Vary on the response", async () => {
+  for (const fn of ["functions/index.js", "functions/about.js"]) {
+    const source = await read(fn);
+    assert.match(source, /Vary:\s*"Accept, Accept-Encoding"/, `${fn} must set Vary`);
+    assert.match(source, /ASSETS\.fetch\(request\)/, `${fn} must fall through to static assets`);
+  }
+});

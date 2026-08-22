@@ -1,0 +1,10 @@
+# Cloudflare Pages response headers.
+#
+# `Vary: Accept` is required because the Pages Functions in ../functions
+# serve a text/markdown variant of some pages when the client asks for it.
+# Without Vary, Cloudflare's cache could store whichever variant hit it
+# first — an agent asking for markdown could be served cached HTML and
+# vice versa. Accept-Encoding is included because responses vary by the
+# compression negotiated upstream.
+/*
+  Vary: Accept, Accept-Encoding
