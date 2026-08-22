@@ -2,8 +2,14 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Epoch Protocol Allocator API",
-    "description": "HTTP API behind the @epoch-protocol/epoch-intents-sdk. Epoch is a non-custodial intent execution and solver coordination layer: an application expresses a desired financial outcome, the user signs once with their own wallet, and Epoch quotes, routes, and executes the outcome across chains and protocols. Most integrators should use the SDK (https://docs.epochprotocol.xyz) rather than calling this API directly; this specification documents the wire surface the SDK drives so agents and tooling can understand it. All amount fields are raw integer strings in the token's smallest unit. All addresses are EVM addresses (0x-prefixed, 20 bytes) unless stated otherwise.",
+    "description": "HTTP API behind the @epoch-protocol/epoch-intents-sdk. Epoch is a non-custodial intent execution and solver coordination layer: an application expresses a desired financial outcome, the user signs once with their own wallet, and Epoch quotes, routes, and executes it across chains and protocols. Most integrators should use the SDK (https://docs.epochprotocol.xyz) rather than calling this API directly; this specification documents the wire surface the SDK drives so agents and tooling can understand it. All amount fields are raw integer strings in the token's smallest unit. All addresses are EVM addresses (0x-prefixed, 20 bytes) unless stated otherwise.",
     "version": "1.0.0",
+    "x-versioning-policy": {
+      "current": "v1",
+      "scheme": "The current unversioned path surface (e.g. https://api.epochprotocol.xyz/health) constitutes major version 1. This specification's info.version tracks it: 1.x.y, where x increments for breaking changes and y for additive ones.",
+      "compatibility": "Additive changes (new optional request fields, new response fields, new endpoints) do not bump the major version; clients must tolerate unknown response properties. Breaking changes (removing or renaming fields or endpoints, changing semantics) ship under a new URL prefix (/v2/, /v3/, ...), never in place.",
+      "deprecation": "When a new major version is introduced, the superseded version is served under its existing paths with a Sunset header (RFC 8594) carrying the removal date and a Deprecation header naming its successor, announced at https://docs.epochprotocol.xyz and in this file before the new version goes live. Endpoints are removed only after the announced Sunset date."
+    },
     "contact": {
       "name": "Epoch Protocol",
       "email": "sales@epochprotocol.xyz",

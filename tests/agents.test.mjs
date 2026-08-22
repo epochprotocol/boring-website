@@ -27,6 +27,10 @@ test("openapi.json is valid OpenAPI 3 with complete operations", async () => {
   const servers = spec.servers.map((s) => s.url);
   assert.ok(servers.includes("https://api.epochprotocol.xyz"));
   assert.ok(servers.includes("https://testnet-dev.epochprotocol.xyz"));
+  const policy = spec.info["x-versioning-policy"];
+  assert.ok(policy?.deprecation, "versioning/deprecation policy missing");
+  assert.match(policy.current, /^v\d/);
+
 
   const operationIds = new Set();
   for (const [path, item] of Object.entries(spec.paths)) {
